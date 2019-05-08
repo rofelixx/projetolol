@@ -1,46 +1,49 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:b="http://bootsfaces.net/ui">
+
     <h:head>
         <title>Bootstrap Example</title>
         <meta charset="utf-8"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"></link>
     </h:head>
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/ProjetoLol/faces/index.xhtml">Lavanderia LOL</a>
-            </div>
-            <ul class="nav navbar-nav" >
-                <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
-                    <li class="#{view.viewId == '/home.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/home.xhtml">Home</a></li>
-                    <h:panelGroup rendered="#{LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
-                        <li class="#{view.viewId == '/pedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>
-                        <li class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarRoupas.xhtml">Gerenciar Roupas</a></li>
-                        <li class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarClientes.xhtml">Gerenciar Clientes</a></li>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <h:panelGroup rendered="#{!LoginMB.isLogged()}">
-                    <h:form>   
-                        <li><h:commandLink style="margin-top:15px; margin-right: 10px; color: white" value="SignUp" class="glyphicon glyphicon-user" action="#{LoginMB.signUp}" /></li>
-                    </h:form>
+    <b:navBar brand="Lavanderia LOL" brandHref="#{NavMB.index()}" fluid="true">
+        <b:navbarLinks>
+            <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
+                <b:navLink class="#{view.viewId == '/home.xhtml' ? 'active' : ''}" value="Home" href="#{NavMB.home()}"></b:navLink>
+                <h:panelGroup rendered="#{LoginMB.isPerfilCliente()}">
+                    <b:navLink class="#{view.viewId == '/novoPedido.xhtml' ? 'active' : ''}" value="Novo Pedido" href="#{NavMB.novoPedido()}"></b:navLink>
+                    <b:navLink class="#{view.viewId == '/pedidos.xhtml' ? 'active' : ''}" value="Seus Pedidos" href="#{NavMB.pedidos()}"></b:navLink>
                 </h:panelGroup>
-                <h:panelGroup rendered="#{LoginMB.isLogged()}">
-                    <h:form>            
-                        <li><h:commandLink style="margin-top:15px; margin-right: 10px; color: white" value="Logout" class="glyphicon glyphicon-log-out" action="#{LoginMB.logout}" /></li>
-                    </h:form>
+                <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
+                    <b:navLink class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'active' : ''}" value="Gerenciar Pedidos" href="#{NavMB.gerenciarPedidos()}"></b:navLink>
+                    <b:navLink class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'active' : ''}" value="Gerenciar Roupas" href="#{NavMB.gerenciarRoupas()}"></b:navLink>
+                    <b:navLink class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'active' : ''}" value="Gerenciar Clientes" href="#{NavMB.gerenciarClientes()}"></b:navLink>               
                 </h:panelGroup>
-            </ul>
-        </div>
-    </nav>
+            </h:panelGroup>
+        </b:navbarLinks>
+        <h:form styleClass="navbar-form navbar-right">
+            <h:panelGroup rendered="#{!LoginMB.isLogged()}">
+                <h:form>  
+                    <b:commandButton action="#{NavMB.signUp}">
+                        <b:iconAwesome name="sign-in"></b:iconAwesome>
+                        <a>Register</a>
+                    </b:commandButton>
+                    <b:commandButton action="#{NavMB.signUp}">
+                        <b:iconAwesome name="sign-in"></b:iconAwesome>
+                        <a>Login</a>
+                    </b:commandButton>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{LoginMB.isLogged()}">
+                <h:commandLink value="Logout" class="glyphicon glyphicon-log-out" action="#{LoginMB.logout}" />
+            </h:panelGroup>
+        </h:form> 
+    </b:navBar>
+
 </html>
 
