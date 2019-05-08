@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 04/05/2019 19:26:27 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Classe.Endereco" table="endereco" catalog="projetolol" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="Id" />
+            <generator class="identity" />
+        </id>
+        <property name="cep" type="string">
+            <column name="Cep" length="45" />
+        </property>
+        <property name="bairro" type="string">
+            <column name="Bairro" length="45" />
+        </property>
+        <property name="rua" type="string">
+            <column name="Rua" length="45" />
+        </property>
+        <property name="numero" type="string">
+            <column name="Numero" length="45" />
+        </property>
+        <property name="observacao" type="string">
+            <column name="Observacao" length="45" />
+        </property>
+        <set name="clientes" table="cliente" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="EnderecoId" />
+            </key>
+            <one-to-many class="Classe.Cliente" />
+        </set>
+    </class>
+</hibernate-mapping>
