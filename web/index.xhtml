@@ -10,7 +10,64 @@
     <h:body>
         <ui:include src="WEB-INF/Template/Template.xhtml">
         </ui:include>
-        <b:image value="Resources/baner.jpg" />
+        
+        <style>
+            .bg-img {
+                /* The image used */
+                background-image: url("Resources/baner.jpg");
+
+                min-height: 680px;
+
+                /* Center and scale the image nicely */
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+                /* Needed to position the navbar */
+                position: relative;
+            }
+
+            /* Position the navbar container inside the image */
+            .container {
+                position: absolute;
+                margin: 20px;
+                margin-left: 140px;
+            }
+
+            /* The navbar */
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+            }
+
+            /* Navbar links */
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+        </style>
+        
+        <div class="bg-img">
+            <div class="container">
+                <b:navBar brand="Brand" brandHref="#" fluid="true">
+                    <b:navbarLinks>
+                        <b:navLink value="Link" href="#"></b:navLink>
+                        <b:navLink value="Link" href="#"></b:navLink>
+                    </b:navbarLinks>
+                </b:navBar>
+            </div>
+        </div>
+
+
     </h:body>
     <h:form>    
         <b:growl id="growl"
