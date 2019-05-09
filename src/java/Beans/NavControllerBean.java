@@ -24,6 +24,10 @@ public class NavControllerBean {
         return "home.xhtml";
     }
 
+    public String login() {
+        return "login.xhtml";
+    }
+
     public String index() {
         return "index.xhtml";
     }

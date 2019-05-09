@@ -38,50 +38,52 @@
             </div>
         </div>
 
-        <h:form id="loginForm">
-            <b:container>
-                <b:panel title="Login" look="primary" col-md="8" >
-                    <b:row>
-                        <b:column medium-screen="1">
-                            <h:outputLabel value="Email" />
-                        </b:column>
-                        <b:column medium-screen="6">
-                            <b:inputText placeholder="Username" id="username" value="#{LoginMB.cliente.email}">
-                                <f:facet name="prepend">
-                                    <b:icon name="user" />
-                                </f:facet>
-                            </b:inputText>
-                        </b:column>
-                        <b:column medium-screen="6" style-class="message">
-                            <b:message for="username" />
-                        </b:column>
-                    </b:row>
-                    <b:row>
-                        <b:column medium-screen="1">
-                            <h:outputLabel value="Senha" />
-                        </b:column>
-                        <b:column medium-screen="6">
-                            <b:inputSecret placeholder="Password" id="password" value="#{LoginMB.cliente.senha}" autocomplete="false">
-                                <f:facet name="prepend">
-                                    <b:iconAwesome name="key" />
-                                </f:facet>
-                            </b:inputSecret>
-                        </b:column>
-                        <b:column medium-screen="6" styleClass="message">
-                            <b:message for="password" line-break-tag=""/>
-                        </b:column>
-                    </b:row>
-                    <b:row>
-                        <b:column span="2" offset="1">
-                            <b:commandButton value="Login" action="#{LoginMB.autenticar}" look="primary" style="width:100%" />
-                        </b:column>
-                        <b:column span="4">
-                            <b:commandButton value="Esqueceu sua senha?" look="danger" style="width:100%" />
-                        </b:column>
-                    </b:row>
-                </b:panel>
-            </b:container>
-        </h:form>
+        <div class="row" style="margin-top: 10%; margin-left: 20%">
+            <h:form id="loginForm">
+                <b:container>
+                    <b:panel title="Login" look="primary" col-md="8" >
+                        <b:row>
+                            <b:column medium-screen="1">
+                                <h:outputLabel value="Email" />
+                            </b:column>
+                            <b:column medium-screen="6">
+                                <b:inputText placeholder="Username" id="username" value="#{LoginMB.cliente.email}">
+                                    <f:facet name="prepend">
+                                        <b:icon name="user" />
+                                    </f:facet>
+                                </b:inputText>
+                            </b:column>
+                            <b:column medium-screen="6" style-class="message">
+                                <b:message for="username" />
+                            </b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column medium-screen="1">
+                                <h:outputLabel value="Senha" />
+                            </b:column>
+                            <b:column medium-screen="6">
+                                <b:inputSecret placeholder="Password" id="password" value="#{LoginMB.cliente.senha}" autocomplete="false">
+                                    <f:facet name="prepend">
+                                        <b:iconAwesome name="key" />
+                                    </f:facet>
+                                </b:inputSecret>
+                            </b:column>
+                            <b:column medium-screen="6" styleClass="message">
+                                <b:message for="password" line-break-tag=""/>
+                            </b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="2" offset="1">
+                                <b:commandButton value="Login" action="#{LoginMB.autenticar}" look="primary" style="width:100%" />
+                            </b:column>
+                            <b:column span="4">
+                                <b:commandButton value="Esqueceu sua senha?" look="danger" style="width:100%" />
+                            </b:column>
+                        </b:row>
+                    </b:panel>
+                </b:container>
+            </h:form>
+        </div>
     </h:body>
 
     <h:form>   

@@ -36,7 +36,7 @@ public class LoginManagedBean {
             return "home";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Login ou senha incorretos"));
-            return "index";
+            return "login";
         }
     }
 
