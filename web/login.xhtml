@@ -6,7 +6,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core" 
       xmlns:b="http://bootsfaces.net/ui">
-
+    <link href="css/loginCss/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/loginCss/style.css" rel="stylesheet" type="text/css"/>
     <h:head>
         <title>Login</title>
         <script name="jquery/jquery.js" library="primefaces"></script>
@@ -14,31 +15,29 @@
     <h:body>
         <ui:include src="WEB-INF/Template/Template.xhtml">
         </ui:include>
-        <div class="container" style="display:none;">			
-            <div class="row" style="margin-top:25%;">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong class="">Login</strong>
-                        </div>
-                        <div class="panel-body">
-                            <h:form id="frmLogin" >            
-                                <h:panelGrid columns="1">
-                                    <h:outputLabel value="Email" />
-                                    <h:inputText value="#{LoginMB.cliente.email}"/>
-                                    <h:outputLabel value="Senha:" />
-                                    <h:inputSecret value="#{LoginMB.cliente.senha}"/>
-                                    <p:messages for="#{LoginMB.cliente.senha}" />
-                                    <h:commandButton value="Login" action="#{LoginMB.autenticar}"/>
-                                </h:panelGrid>
-                            </h:form>
-                        </div> 
-                    </div>
+        
+        <div class="sub-main-w3">
+            <div class="bg-content-w3pvt">
+                <div class="top-content-style">
+                    <img src="images/user.jpg" alt=""></img>
                 </div>
+                <h:form id="frmLogin" >            
+                    <p class="legend">Login Here<span class="fa fa-hand-o-down"></span></p>
+                    <div class="input">
+                        <b:inputText placeholder="Email" value="#{LoginMB.cliente.email}"/>
+                        <span class="fa fa-envelope"></span>
+                    </div>
+                    <div class="input">
+                        <b:inputSecret  placeholder="Password" value="#{LoginMB.cliente.senha}"/>
+                        <span class="fa fa-unlock"></span>
+                    </div>
+                    <b:commandButton action="#{LoginMB.autenticar()}" iconAwesome="sign-in" look="btn submit" />
+                </h:form>
+                <a href="#" class="bottom-text-w3ls">Forgot Password?</a>
             </div>
         </div>
 
-        <div class="row" style="margin-top: 10%; margin-left: 20%">
+        <div class="row" style="margin-top: 10%; margin-left: 20%; display:none;">
             <h:form id="loginForm">
                 <b:container>
                     <b:panel title="Login" look="primary" col-md="8" >

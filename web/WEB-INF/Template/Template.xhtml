@@ -29,11 +29,11 @@
         <h:form styleClass="navbar-form navbar-right">
             <h:panelGroup rendered="#{!LoginMB.isLogged()}">
                 <h:form>  
-                    <b:commandButton action="#{NavMB.signUp}">
+                    <b:commandButton action="#{NavMB.signUp()}">
                         <b:iconAwesome name="sign-in"></b:iconAwesome>
                         <a>Register</a>
                     </b:commandButton>
-                    <b:commandButton action="#{NavMB.login}">
+                    <b:commandButton action="#{NavMB.login()}">
                         <b:iconAwesome name="sign-in"></b:iconAwesome>
                         <a>Login</a>
                     </b:commandButton>
