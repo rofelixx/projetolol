@@ -4,18 +4,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui">
-    <ui:define name="cabecalho">
-        <h:head>
-            <title>Index</title>
-            <link href="css/loginCss/style.css" rel="stylesheet" type="text/css"/>
-            <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        </h:head>
-    </ui:define>
-
-    <ui:define name="conteudo">
-        <h:head>
-            <title>navbar</title>
-        </h:head>
+    <ui:define name="conteudo">         
         <style>
             .bg-img {
                 /* The image used */
@@ -30,40 +19,12 @@
 
                 /* Needed to position the navbar */
                 position: relative;
-            }
-
-            /* Position the navbar container inside the image */
-            .container {
-                position: absolute;
-                margin: 20px;
-                margin-left: 140px;
-            }
-
-            /* The navbar */
-            .topnav {
-                overflow: hidden;
-                background-color: #333;
-            }
-
-            /* Navbar links */
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
-
-            .topnav a:hover {
-                background-color: #ddd;
-                color: black;
-            }
+            }        
         </style>
         <h:body>
             <div class="bg-img">
-                <div class="container">
-                    <b:navBar id="nb" class="navbar navbar-modified" fluid="true">
+                <div class="navbar transparent">
+                    <b:navBar id="nb" class="my-navbarColor navbar navbar-expand-lg navbar-light bg-transparent" fluid="true">
                         <b:navbarLinks>
                             <b:navLink value="Sobre Nós" href="#section1"></b:navLink>
                             <b:navLink value="Serviços" href="#section2"></b:navLink>
