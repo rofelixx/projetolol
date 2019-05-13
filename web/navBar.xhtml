@@ -11,7 +11,7 @@
     </h:head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Lavanderia LOL</a>
+        <a class="navbar-brand mb-0 h1"  href="/projetolol/faces/index.xhtml">Lavanderia LOL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -19,49 +19,27 @@
         <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
             <ul class="navbar-nav mr-auto">
                 <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
-                    <li class="#{view.viewId == '/home.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/home.xhtml">Home</a></li>
+                    <li class="#{view.viewId == '/home.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/home.xhtml">Home</a></li>
                     <h:panelGroup rendered="#{LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
-                        <li class="#{view.viewId == '/pedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
+                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
+                        <li class="#{view.viewId == '/pedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>
-                        <li class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarRoupas.xhtml">Gerenciar Roupas</a></li>
-                        <li class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarClientes.xhtml">Gerenciar Clientes</a></li>
+                        <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>
+                        <li class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarRoupas.xhtml">Gerenciar Roupas</a></li>
+                        <li class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarClientes.xhtml">Gerenciar Clientes</a></li>
                     </h:panelGroup>
                 </h:panelGroup>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <h:form>
-                    <b:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{NavMB.login()}" value="Logar"/>
-                </h:form>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logar</button>
-            </form>
-        </div>
-    </nav>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/ProjetoLol/faces/index.xhtml">Lavanderia LOL</a>
-            </div>
-            <ul class="nav navbar-nav" >
-                <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
-                    <li class="#{view.viewId == '/home.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/home.xhtml">Home</a></li>
-                    <h:panelGroup rendered="#{LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
-                        <li class="#{view.viewId == '/pedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
+                    <h:panelGroup rendered="#{!LoginMB.isLogged()}">
+                        <b:commandButton class="btn btn-outline-info my-2 my-sm-0" action="#{NavMB.login()}" value="Logar"/>
+                        <b:commandButton class="btn btn-outline-secondary my-2 my-sm-0" action="#{NavMB.signUp()}" value="Register"/>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>
-                        <li class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarRoupas.xhtml">Gerenciar Roupas</a></li>
-                        <li class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarClientes.xhtml">Gerenciar Clientes</a></li>
+                    <h:panelGroup rendered="#{LoginMB.isLogged()}">
+                        <b:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{NavMB.login()}" value="Logout"/>
                     </h:panelGroup>
-                </h:panelGroup>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <h:form>  
                     <h:panelGroup rendered="#{!LoginMB.isLogged()}">
                         <b:commandButton action="#{NavMB.login()}"
                                          style="color: #1cc7d0"
@@ -75,23 +53,14 @@
                             <b:iconAwesome name="plus"></b:iconAwesome>
                         </b:commandButton>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{LoginMB.isLogged()}">
-                        <text style="font-size: 18px; color:white;">  Welcome #{LoginMB.cliente.nome} </text>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                        <span style="font-size: 18px; color:white; margin-top: 40px; margin-right: 50px "> Welcome #{LoginMB.cliente.nome}</span>
-                        <b:commandButton action="#{LoginMB.logout}"
-                                         style="color: #1cc7d0"
-                                         tooltip="Logout">
-                            <b:iconAwesome name="sign-out"></b:iconAwesome> 
-                        </b:commandButton>
-                    </h:panelGroup>
                 </h:form>
-            </ul>
+            </form>
         </div>
     </nav>
 </ui:composition>
 
-<!--<b:navBar class="navbar navbar-expand-lg navbar-light bg-light" brand="Lavanderia LOL" brandHref="#{NavMB.index()}" fluid="true">
+<!-- First NavBar
+<b:navBar class="navbar navbar-expand-lg navbar-light bg-light" brand="Lavanderia LOL" brandHref="#{NavMB.index()}" fluid="true">
     <b:navbarLinks>
         <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
             <b:navLink class="#{view.viewId == '/home.xhtml' ? 'active' : ''}" value="Home" href="#{NavMB.home()}"></b:navLink>
@@ -123,4 +92,54 @@
             <h:commandLink value="Logout" class="glyphicon glyphicon-log-out" action="#{LoginMB.logout}" />
         </h:panelGroup>
     </h:form> 
-</b:navBar>-->
+</b:navBar>
+
+ Second NavBar with Icons
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/ProjetoLol/faces/index.xhtml">Lavanderia LOL</a>
+            </div>
+            <ul class="nav navbar-nav" >
+                <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
+                    <li class="#{view.viewId == '/home.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/home.xhtml">Home</a></li>
+                    <h:panelGroup rendered="#{LoginMB.isPerfilCliente()}">
+                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
+                        <li class="#{view.viewId == '/pedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
+                        <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>
+                        <li class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarRoupas.xhtml">Gerenciar Roupas</a></li>
+                        <li class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'active' : ''}"><a href="/ProjetoLol/faces/gerenciarClientes.xhtml">Gerenciar Clientes</a></li>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <h:form>  
+                    <h:panelGroup rendered="#{!LoginMB.isLogged()}">
+                        <b:commandButton action="#{NavMB.login()}"
+                                         style="color: #1cc7d0"
+                                         tooltip="Login">
+                            <b:iconAwesome name="sign-in"></b:iconAwesome>
+                        </b:commandButton>
+
+                        <b:commandButton action="#{NavMB.signUp()}"
+                                         style="color: #1cc7d0"
+                                         tooltip="Register">
+                            <b:iconAwesome name="plus"></b:iconAwesome>
+                        </b:commandButton>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{LoginMB.isLogged()}">
+                        <text style="font-size: 18px;">  Welcome #{LoginMB.cliente.nome} </text>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                        <span style="font-size: 18px; margin-top: 40px; margin-right: 50px "> Welcome #{LoginMB.cliente.nome}</span>
+                        <b:commandButton action="#{LoginMB.logout}"
+                                         style="color: #1cc7d0"
+                                         tooltip="Logout">
+                            <b:iconAwesome name="sign-out"></b:iconAwesome> 
+                        </b:commandButton>
+                    </h:panelGroup>
+                </h:form>
+            </ul>
+        </div>
+    </nav>-->
