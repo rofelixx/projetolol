@@ -11,7 +11,7 @@
     </h:head>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mb-0 h1"  href="/projetolol/faces/index.xhtml">Lavanderia LOL</a>
+        <a class="navbar-brand"  href="/ProjetoLol/faces/index.xhtml">Lavanderia LOL</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,23 +35,23 @@
                 <h:form>
                     <h:panelGroup rendered="#{!LoginMB.isLogged()}">
                         <b:commandButton class="btn btn-outline-info my-2 my-sm-0" action="#{NavMB.login()}" value="Logar"/>
-                        <b:commandButton class="btn btn-outline-secondary my-2 my-sm-0" action="#{NavMB.signUp()}" value="Register"/>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{LoginMB.isLogged()}">
-                        <b:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{NavMB.login()}" value="Logout"/>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{!LoginMB.isLogged()}">
+                        <b:commandButton class="btn btn-outline-secondary my-2 my-sm-0" action="#{NavMB.signUp()}" value="Registro"/>
                         <b:commandButton action="#{NavMB.login()}"
                                          style="color: #1cc7d0"
                                          tooltip="Login">
                             <b:iconAwesome name="sign-in"></b:iconAwesome>
                         </b:commandButton>
-
                         <b:commandButton action="#{NavMB.signUp()}"
                                          style="color: #1cc7d0"
                                          tooltip="Register">
                             <b:iconAwesome name="plus"></b:iconAwesome>
                         </b:commandButton>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{LoginMB.isLogged()}">
+                        <span class="navbar-text">
+                            Bem Vindo, #{LoginMB.cliente.nome}
+                        </span>
+                        <b:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{LoginMB.logout}" value="Logout"/>
                     </h:panelGroup>
                 </h:form>
             </form>

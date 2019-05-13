@@ -1,6 +1,64 @@
 .my-navbarColor .navbar-nav>li>a
 {
     color: white;
+    font-size: larger;
+}
+/*//Header Sobre*/
+.about h3 {
+    margin-bottom: 25px;
+    margin-left: 470px !important;
+}
+
+.w3_banup {
+    margin-top: 50px;
+}
+.w3_ret {
+    text-align: right;
+    padding: 0;
+}
+
+.w3l_mid {
+    float: left;
+    width: 100%;
+}
+
+/*//tamanho icone*/
+.w3ls_ic i {
+    font-size: 50px;
+}
+/*//Cor icone*/
+.w3ls_ic i {
+    color: #009688;
+}
+
+.w3ls_icr i {
+    font-size: 50px;
+    color: #009688;
+}
+
+.tittle_head_w3layouts p {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 15px;
+    color: #777;
+    letter-spacing: 1px;
+    line-height: 1.8em;
+    text-align: center;
+}
+.tittle_head_w3layouts h4 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #009688;
+    letter-spacing: 2px;
+    margin:0px 0px 10px 0px;;
+}
+
+.tittle_head_w3layouts {
+    text-align: center;
+}
+
+.map iframe {
+    min-height: 230px;
 }
 
 
