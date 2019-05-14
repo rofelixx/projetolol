@@ -5,6 +5,11 @@
  */
 package ws;
 
+import Classe.Cliente;
+import Classe.Endereco;
+import DAO.ClienteDao;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -33,17 +38,24 @@ public class WebServiceResource {
 
     /**
      * Retrieves representation of an instance of ws.WebServiceResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        return "teste";
+    public List<Cliente> getJson() throws Exception {
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        Cliente cliente = new Cliente();
+        ClienteDao dao = new ClienteDao();
+        for (Cliente clienteEntity : dao.getAll()) {
+            clientes.add(new Cliente(clienteEntity.getNome(), clienteEntity.getEmail(), clienteEntity.getCpf(), clienteEntity.getSexo(), clienteEntity.getSenha()));
+        }
+        return clientes;
     }
 
     /**
      * PUT method for updating or creating an instance of WebServiceResource
+     *
      * @param content representation for the resource
      */
     @PUT
