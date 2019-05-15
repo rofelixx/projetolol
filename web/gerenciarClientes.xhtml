@@ -3,27 +3,121 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="conteudo">
-    <h:body>
-        <div class="container">			
-            <div class="row" style="margin-top:25%;">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong class="">Todos os Clientes</strong>
-                        </div>
-                        <div class="panel-body">
-                            <h:form>
-                                <h:messages id="messages" />
-                               
-                            </h:form>
-                        </div> 
-                    </div>
-                </div>
+        <h:body>          
+            <div class="container">
+                <input class="form-control" id="myInput" type="text" placeholder="Search.."/>
+                <br></br>
+                <h:form>
+                    <h:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
+                                 styleClass="table table-light">
+                        <h:column>
+                            <f:facet name="header">Nome</f:facet>
+                                #{cliente.nome}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Email</f:facet>
+                                #{cliente.email}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">CPF</f:facet>
+                                #{cliente.cpf}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Sexo</f:facet>
+                                #{cliente.sexo}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ações</f:facet>
+                            <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
+                            <b:commandButton class="btn btn-outline-info" action="#{NavMB.login()}" value="Editar"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </div>
-        </div>
-    </h:body>
+
+            <!--            <div class="container">
+                            <p:dataTable class="table table-bordered" value="#{ClienteMB.allClientes}" var="cliente">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{cliente.nome}" />
+                                </p:column>
+            
+                                <p:column headerText="Year">
+                                    <h:outputText value="#{cliente.email}" />
+                                </p:column>
+            
+                                <p:column headerText="Brand">
+                                    <h:outputText value="#{cliente.cpf}" />
+                                </p:column>
+            
+                                <p:column headerText="Color">
+                                    <h:outputText value="#{cliente.sexo}" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+            
+                        <div class="container">
+                            <h:form>
+                                <p:dataTable tableStyle="font-family: sans-serif; border:none;font-size:  small;padding:1px; background-color: #EAF7FC; background:#EAF7FC"
+             value="#{ClienteMB.allClientes}" var="cliente" widgetVar="clienteTable"
+                                             emptyMessage="No cars found with given criteria" filteredValue="#{dtFilterView.filteredCars}">
+            
+                                    <f:facet name="header">
+                                        <p:outputPanel>
+                                            <h:outputText value="Search all fields:" />
+                                            <p:inputText id="globalFilter" onkeyup="PF('clienteTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                        </p:outputPanel>
+                                    </f:facet>
+            
+                                    <p:column filterBy="#{cliente.nome}" headerText="Id" footerText="contains" filterMatchMode="contains">
+                                        <h:outputText value="#{cliente.nome}" />
+                                    </p:column>
+            
+                                    <p:column filterBy="#{cliente.email}" headerText="Year" footerText="lte" filterMatchMode="contains">
+                                        <f:facet name="filter">
+                                            <p:spinner onchange="PF('clienteTable').filter()" styleClass="year-spinner custom-filter">
+                                                <f:converter converterId="javax.faces.Integer" />
+                                            </p:spinner>
+                                        </f:facet>
+                                        <h:outputText value="#{cliente.email}" />
+                                    </p:column>
+                                    
+                                    <p:column filterBy="#{cliente.sexo}" headerText="Color" footerText="in" filterMatchMode="in">
+                                        <f:facet name="filter">
+                                            <p:selectCheckboxMenu label="Colors" onchange="PF('clienteTable').filter()" scrollHeight="150" styleClass="custom-filter">
+                                                <f:selectItems value="#{dtFilterView.colors}" />
+                                            </p:selectCheckboxMenu>
+                                        </f:facet>
+                                        <h:outputText value="#{cliente.sexo}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </div>
+            
+                        <style>
+                            table.dataTable {
+                                clear: both;
+                                margin-top: 200px !important;
+                                margin-bottom: 50px !important;
+                                max-width: none !important;
+                                border-collapse: separate !important;
+                            }
+            
+                        </style>
+                        <div class="container">
+                            <h:form>
+                                <b:dataTable class="" id="example" value="#{ClienteMB.allClientes}" var="cliente">
+                                    <b:dataTableColumn value="#{cliente.nome}" />
+                                    <b:dataTableColumn value="#{cliente.email}" />
+                                    <b:dataTableColumn value="#{cliente.cpf}" />
+                                    <b:dataTableColumn value="#{car.sexo}" label="Engine Power (hp)" />
+                                </b:dataTable>
+                            </h:form>
+                        </div>-->
+
+        </h:body>
     </ui:define>    
 </ui:composition>
 
