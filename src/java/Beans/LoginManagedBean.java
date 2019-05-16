@@ -8,14 +8,17 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.StateManager;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean(name = "LoginMB")
 @SessionScoped
-
+@ViewScoped
 public class LoginManagedBean {
 
     public Cliente cliente = new Cliente();
@@ -33,10 +36,10 @@ public class LoginManagedBean {
             isLogged = true;
             isCliente = retorno.getPerfil() != 1;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Logado com sucesso"));
-            return "home";
+            return "home.xhtml";
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Login ou senha incorretos"));
-            return "login";
+            FacesMessages.error("Erro!", "Email ou senha incorretos");
+            return "/login.xhtml";
         }
     }
 
