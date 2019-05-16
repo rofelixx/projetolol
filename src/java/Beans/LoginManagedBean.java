@@ -18,7 +18,6 @@ import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean(name = "LoginMB")
 @SessionScoped
-@ViewScoped
 public class LoginManagedBean {
 
     public Cliente cliente = new Cliente();
@@ -35,11 +34,11 @@ public class LoginManagedBean {
             cliente = retorno;
             isLogged = true;
             isCliente = retorno.getPerfil() != 1;
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Logado com sucesso"));
-            return "home.xhtml";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Logado com sucesso"));
+            return "home";
         } else {
             FacesMessages.error("Erro!", "Email ou senha incorretos");
-            return "/login.xhtml";
+            return "login";
         }
     }
 

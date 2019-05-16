@@ -15,16 +15,20 @@
                     <h:form id="frmLogin">            
                         <p class="legend">Login Here<span class="fa fa-hand-o-down"></span></p>
                         <div class="input">
-                            <b:inputText id="email" placeholder="Email" value="#{LoginMB.cliente.email}" required='true'/>
+                            <b:inputText id="email" placeholder="Email" value="#{LoginMB.cliente.email}" required='true' required-message="Campo email é requerido"/>
                             <span class="fa fa-envelope"></span>
                         </div>
                         <div class="input">
-                            <b:inputSecret  placeholder="Password" value="#{LoginMB.cliente.senha}" required='true'/>
+                            <b:inputSecret id="password" placeholder="Password" value="#{LoginMB.cliente.senha}" required='true' required-message="Campo senha é requerido"/>
                             <span class="fa fa-unlock"></span>
                         </div>
                         <b:commandButton action="#{LoginMB.autenticar()}" tooltip="Logar" iconAwesome="sign-in" look="btn btn-outline-info" />
-                        <b:growl for="email" auto-update="true" />
-
+                        <b:growl for="email" auto-update="true" 
+                                 allow-dismiss="true"
+                                 animation-exit="animated flipOutX"/>
+                        <b:growl for="password" auto-update="true" 
+                                 allow-dismiss="true"
+                                 animation-exit="animated flipOutX"/>
                     </h:form>
                     <a href="#" class="bottom-text-w3ls">Forgot Password?</a>
                 </div>
