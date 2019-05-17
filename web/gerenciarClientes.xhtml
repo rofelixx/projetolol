@@ -31,12 +31,65 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Ações</f:facet>
+                            <b:button onclick="$('.modalPseudoClass').modal('show')" class="btn btn-outline-info" value="Editar"/>
                             <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
-                            <b:commandButton class="btn btn-outline-info" action="#{NavMB.login()}" value="Editar"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>
             </div>
+
+            <b:modal id="responsiveModal" styleClass="modalPseudoClass modal" size="modal-lg">
+                <h:form id="frmCadastro" >            
+                    <h:panelGrid>
+                        <h:form id="frmCadastro" >   
+                            <div class="cotainer">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">Register</div>
+                                            <div class="card-body">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputEmail4">Email</label>
+                                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email"/>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputPassword4">Senha</label>
+                                                        <input type="password" class="form-control" id="inputPassword4" placeholder="Senha"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputAddress">Endereco</label>
+                                                    <input type="text" class="form-control" id="inputAddress" placeholder="Rua .."/>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputCity">Cidade</label>
+                                                        <input type="text" class="form-control" id="inputCity"/>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="inputState">Estado</label>
+                                                        <select id="inputState" class="form-control"/>
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="inputZip">Cep</label>
+                                                        <input type="text" class="form-control" id="inputZip"/>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </h:panelGrid>
+                </h:form>
+                <f:facet name="footer">
+                    <b:button value="Close" dismiss="modal" />
+                    <b:button value="Ok" look="primary" dismiss="modal" />
+                </f:facet>
+            </b:modal>
 
             <!--            <div class="container">
                             <p:dataTable class="table table-bordered" value="#{ClienteMB.allClientes}" var="cliente">
