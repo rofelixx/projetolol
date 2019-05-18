@@ -26,6 +26,9 @@
         <property name="senha" type="string">
             <column name="Senha" length="45" not-null="true" />
         </property>
+        <property name="dtNascimento" type="date">
+            <column name="DtNascimento" not-null="true" />
+        </property>
         <property name="perfil" type="java.lang.Integer">
             <column name="Perfil" length="1" not-null="true" />
         </property>

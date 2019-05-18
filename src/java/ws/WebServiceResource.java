@@ -48,7 +48,7 @@ public class WebServiceResource {
         Cliente cliente = new Cliente();
         ClienteDao dao = new ClienteDao();
         for (Cliente clienteEntity : dao.getAll()) {
-            clientes.add(new Cliente(clienteEntity.getNome(), clienteEntity.getEmail(), clienteEntity.getCpf(), clienteEntity.getSexo(), clienteEntity.getSenha()));
+            clientes.add(new Cliente(clienteEntity.getNome(), clienteEntity.getEmail(), clienteEntity.getCpf(), clienteEntity.getSexo(), clienteEntity.getSenha(), clienteEntity.getDtNascimento()));
         }
         return clientes;
     }

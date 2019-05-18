@@ -3,7 +3,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="conteudo">
         <h:body>
@@ -15,71 +16,67 @@
                             <div class="card-body">
                                 <h:form>
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
+                                        <div class="form-group col-md-6">
                                             <label for="inputNome">Nome completo</label>
-                                            <b:inputText id="Nome" placeholder="Nome" value="#{LoginMB.cliente.nome}" required='true' required-message="Campo nome é requerido"/>
+                                            <b:inputText id="Nome" placeholder="Nome" value="#{CadastroMB.cliente.nome}" required='true' required-message="Campo nome é requerido"/>
                                         </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="cpf">CPF</label>
+                                            <b:inputText id="cpf" placeholder="Nome" value="#{CadastroMB.cliente.cpf}" required='true' required-message="Campo cpf é requerido"/>
+                                        </div>
+                                    </div>  
+                                    <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="inputDtNasc">Data de Nascimento</label>
-                                            <input type="datepicker" class="form-control" id="inputPassword4" placeholder="dd/mm/yyyy"/>
+                                            <b:datepicker placeholder="dd/mm/yyyy" value="#{CadastroMB.cliente.dtNascimento}" mode="toggle-icon" showWeek="true"
+                                                          firstDay="1" required="true"/>                                     
                                         </div>
-                                        <div class="form-group">
-                                            <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4" style="margin-left:50px" >
+                                            <label for="inputNome">Sexo</label>
+                                            <h:panelGrid columns="2" style="margin-bottom:20px;" cellpadding="2">
+                                                <p:selectOneRadio id="city" value="#{CadastroMB.cliente.sexo}" layout="grid" columns="2" required='true'>
+                                                    <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                                    <f:selectItem itemLabel="Feminino" itemValue="F" />
+                                                </p:selectOneRadio>
+                                            </h:panelGrid>
+                                        </div>
+                                    </div>
 
-                                                <label for="inputNome">Sexo</label>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked="true"/>
-                                                    <label class="custom-control-label" for="customRadioInline1">Masculino</label>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"/>
-                                                    <label class="custom-control-label" for="customRadioInline2">Femenino</label>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <label for="inputEmail4">Email</label>
-                                            <b:inputText id="email" placeholder="Email" value="#{LoginMB.cliente.nome}" required='true' required-message="Campo email é requerido"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="inputPassword4">Senha</label>
-                                            <input type="password" class="form-control" id="inputPassword4" placeholder="Senha"/>
-                                            <small id="passwordHelpBlock" class="form-text text-muted">
-                                                Your password must be 8-20 characters long, contain letters and numbers.
-                                            </small>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="inputPassword4">Confirmar Senha</label>
-                                            <input type="password" class="form-control" id="inputPassword4" placeholder="Senha"/>
-                                            <small id="passwordHelpBlock" class="form-text text-muted">
-                                                Your confirm password equal to password.
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputAddress">Endereco</label>
-                                        <input type="text" class="form-control" id="inputAddress" placeholder="Rua .."/>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="inputState">Estado</label>
-                                            <select id="inputState" class="form-control"/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="inputCity">Cidade</label>
-                                            <input type="text" class="form-control" id="inputCity"/>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-2">
                                             <label for="inputZip">Cep</label>
-                                            <input type="text" class="form-control" id="inputZip"/>
+                                            <b:inputText value="#{CadastroMB.endereco.cep}" required='true'/>
+                                        </div>                                    
+                                        <div class="form-group col-md-8">
+                                            <label for="rua">Endereco</label>
+                                            <b:inputText value="#{CadastroMB.endereco.rua}" id="inputAddress" placeholder="Rua .." required='true'/>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="numero">Número</label>
+                                            <b:inputText value="#{CadastroMB.endereco.numero}" id="inputNumero" placeholder="500" required='true'/>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Email</label>
+                                            <b:inputText id="email" placeholder="Email" value="#{CadastroMB.cliente.email}" required='true' required-message="Campo email é requerido"/>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputPassword4">Senha</label>
+                                            <p:password class="form-control"  feedback="true" id="pwd1" value="#{CadastroMB.cliente.senha}" match="pwd2" label="Senha" required="true"/>
+                                            <small id="passwordHelpBlock" class="form-text text-muted">
+                                                Sua senha deve ter entre 8-20 letras, contendo maiúsculas e números.
+                                            </small>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="inputPassword4">Confirmar Senha</label>
+                                            <p:password class="form-control" id="pwd2" value="#{CadastroMB.cliente.senha}" label="Password 2" required="true" />
+                                            <small id="passwordHelpBlock" class="form-text text-muted">
+                                                Deve ser igual a senha digitada.
+                                            </small>
+                                        </div>
+                                    </div>    
+                                    <h:commandButton class="btn btn-primary" value="Cadastrar" action="#{CadastroMB.cadastrar}"/>
                                 </h:form>
                             </div>
                         </div>

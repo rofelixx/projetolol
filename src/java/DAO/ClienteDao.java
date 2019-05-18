@@ -43,6 +43,7 @@ public class ClienteDao {
         String strSql = "from Cliente";
         Query query = session.createQuery(strSql);
         lista = query.list();
+        session.close();
         return query.list();
     }
 

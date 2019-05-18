@@ -49,7 +49,7 @@ Contributor(s):
     <mapping resource="Classe/Pedido.hbm.xml"/>
     <mapping resource="Classe/Endereco.hbm.xml"/>
     <mapping resource="Classe/Itempedido.hbm.xml"/>
-    <mapping resource="Classe/Cliente.hbm.xml"/>
     <mapping resource="Classe/Roupa.hbm.xml"/>
+    <mapping resource="Classe/Cliente.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
