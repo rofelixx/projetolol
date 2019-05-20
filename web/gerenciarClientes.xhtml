@@ -31,63 +31,102 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Ações</f:facet>
-                            <b:button onclick="$('.modalPseudoClass').modal('show')" class="btn btn-outline-info" value="Editar"/>
+                            <p:commandButton value="Teste" onclick="mensagemPrivada.show()"  update="mpid"/>
+
+                            <b:commandButton  action="#{ClienteMB.setCliente(cliente)}" 
+                                              update="responsiveModal" oncomplete="$('.modalPseudoClass').modal('show')"  class="btn btn-outline-info" value="Editar"/>
                             <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>
             </div>
 
-            <b:modal id="responsiveModal" styleClass="modalPseudoClass modal" size="modal-lg">
-                <h:form id="frmCadastro" >            
-                    <h:panelGrid>
-                        <h:form id="frmCadastro" >   
-                            <div class="cotainer">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-header">Register</div>
-                                            <div class="card-body">
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="inputEmail4">Email</label>
-                                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email"/>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="inputPassword4">Senha</label>
-                                                        <input type="password" class="form-control" id="inputPassword4" placeholder="Senha"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="inputAddress">Endereco</label>
-                                                    <input type="text" class="form-control" id="inputAddress" placeholder="Rua .."/>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="inputCity">Cidade</label>
-                                                        <input type="text" class="form-control" id="inputCity"/>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="inputState">Estado</label>
-                                                        <select id="inputState" class="form-control"/>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label for="inputZip">Cep</label>
-                                                        <input type="text" class="form-control" id="inputZip"/>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <p:dialog widgetVar="mensagemPrivada" id="mpid" header="Mensagem privada"
+				modal="true" resizable="false" draggable="false">
+                <h:form>
+                    <h:outputText value="Nome: " />
+                </h:form>
+            </p:dialog>
+
+            <b:modal styleClass="modalPseudoClass modal" size="modal-lg">
+                <div class="cotainer">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">Editar</div>
+                                <div class="card-body">
+                                    <h:form id="responsiveModal">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputNome">Nome completo</label>
+                                                <b:inputText id="Nome" placeholder="Nome" value="#{ClienteMB.cliente.nome}" required='true' required-message="Campo nome é requerido"/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="cpf">CPF</label>
+                                                <b:inputText id="cpf" placeholder="Nome" value="#{ClienteMB.cliente.cpf}" required='true' required-message="Campo cpf é requerido"/>
+                                            </div>
+                                        </div>  
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputDtNasc">Data de Nascimento</label>
+                                                <b:datepicker placeholder="dd/mm/yyyy" value="#{ClienteMB.cliente.dtNascimento}" mode="toggle-icon" showWeek="true"
+                                                              firstDay="1" required="true"/>                                     
+                                            </div>
+                                            <div class="form-group col-md-4" style="margin-left:50px" >
+                                                <label for="inputNome">Sexo</label>
+                                                <h:panelGrid columns="2" style="margin-bottom:20px;" cellpadding="2">
+                                                    <p:selectOneRadio id="city" value="#{ClienteMB.cliente.sexo}" layout="grid" columns="2" required='true'>
+                                                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                                        <f:selectItem itemLabel="Feminino" itemValue="F" />
+                                                    </p:selectOneRadio>
+                                                </h:panelGrid>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-2">
+                                                <label for="inputZip">Cep</label>
+                                                <b:inputText value="#{ClienteMB.cliente.endereco.cep}" required='true'/>
+                                            </div>                                    
+                                            <div class="form-group col-md-8">
+                                                <label for="rua">Endereco</label>
+                                                <b:inputText value="#{ClienteMB.cliente.endereco.rua}" id="inputAddress" placeholder="Rua .." required='true'/>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="numero">Número</label>
+                                                <b:inputText value="#{ClienteMB.cliente.endereco.numero}" id="inputNumero" placeholder="500" required='true'/>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Email</label>
+                                                <b:inputText id="email" placeholder="Email" value="#{ClienteMB.cliente.email}" required='true' required-message="Campo email é requerido"/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPassword4">Senha</label>
+                                                <p:password class="form-control"  feedback="true" id="pwd1" value="#{ClienteMB.cliente.senha}" match="pwd2" label="Senha" required="true"/>
+                                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                                    Sua senha deve ter entre 8-20 letras, contendo maiúsculas e números.
+                                                </small>
+                                            </div>
+                                        </div>    
+                                        <b:growl for="email" auto-update="true" 
+                                                 allow-dismiss="true"
+                                                 animation-exit="animated flipOutX"/>
+                                        <b:growl for="pwd1" auto-update="true" 
+                                                 allow-dismiss="true"
+                                                 animation-exit="animated flipOutX"/>
+                                    </h:form>
                                 </div>
                             </div>
-                        </h:form>
-                    </h:panelGrid>
-                </h:form>
+                        </div>
+                    </div>
+                </div>
                 <f:facet name="footer">
-                    <b:button value="Close" dismiss="modal" />
-                    <b:button value="Ok" look="primary" dismiss="modal" />
+                    <b:button value="Fechar" dismiss="modal" />
+                    <h:form>
+                        <b:commandButton class="btn btn-primary" value="Salvar" action="#{ClienteMB.salvarEdicao}"/>
+                    </h:form>
                 </f:facet>
             </b:modal>
 

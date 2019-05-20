@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean(name = "CadastroMB")
 @SessionScoped
@@ -24,9 +25,10 @@ public class CadastroManagedBean {
     public ClienteDao dao = new ClienteDao();
     public boolean isLogged = false;
     public String confirmarSenha = "";
+    public NavControllerBean nav = new NavControllerBean();
+    public String url = "";
 
-        public String cadastrar() {
-        String url = "";
+    public String cadastrar() {
         retorno = dao.getClienteByEmail(cliente.getEmail());
         if (retorno != null) {
             FacesContext.getCurrentInstance().addMessage(
@@ -54,10 +56,6 @@ public class CadastroManagedBean {
         return confirmarSenha;
     }
 
-    public void setEndereco(String confirmarSenha) {
-        this.confirmarSenha = confirmarSenha;
-    }
-
     public Endereco getEndereco() {
         return endereco;
     }
@@ -70,7 +68,7 @@ public class CadastroManagedBean {
         return cliente;
     }
 
-    public void setUsuario(Cliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 }

@@ -37,14 +37,12 @@ public class ClienteDao {
 
     public List<Cliente> getAll() throws Exception {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
         Session session = sessionFactory.openSession();
-
-        String strSql = "from Cliente";
+        String strSql = "SELECT c FROM Cliente c JOIN FETCH c.endereco endereco";
         Query query = session.createQuery(strSql);
         lista = query.list();
         session.close();
-        return query.list();
+        return lista;
     }
 
     public boolean addNewCliente(Cliente cliente, Endereco endereco) {
@@ -52,11 +50,23 @@ public class ClienteDao {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         cliente.setSenha(Criptografia.md5(cliente.getSenha()));
+        cliente.setPerfil(2);
         cliente.setEndereco(endereco);
         session.save(cliente);
         session.getTransaction().commit();
         FacesMessage fm = new FacesMessage("Cliente salvo com sucesso.");
         FacesContext.getCurrentInstance().addMessage(null, fm);
+        session.close();
+        return true;
+    }
+
+    public boolean editCliente(Cliente cliente) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        cliente.setSenha(Criptografia.md5(cliente.getSenha()));
+        session.saveOrUpdate(cliente);
+        session.getTransaction().commit();
         session.close();
         return true;
     }

@@ -77,6 +77,12 @@
                                         </div>
                                     </div>    
                                     <h:commandButton class="btn btn-primary" value="Cadastrar" action="#{CadastroMB.cadastrar}"/>
+                                    <b:growl for="email; pwd1" auto-update="true" 
+                                             allow-dismiss="true"
+                                             animation-exit="animated flipOutX"/>
+                                    <b:growl for="pwd1" auto-update="true" 
+                                             allow-dismiss="true"
+                                             animation-exit="animated flipOutX"/>
                                 </h:form>
                             </div>
                         </div>
