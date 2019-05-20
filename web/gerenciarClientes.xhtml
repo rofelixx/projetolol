@@ -10,7 +10,7 @@
             <div class="container">
                 <input class="form-control" id="myInput" type="text" placeholder="Search.."/>
                 <br></br>
-                <h:form>
+                <h:form id="master">
                     <h:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
                                  styleClass="table table-light">
                         <h:column>
@@ -31,31 +31,23 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Ações</f:facet>
-                            <p:commandButton value="Teste" onclick="mensagemPrivada.show()"  update="mpid"/>
-
                             <b:commandButton  action="#{ClienteMB.setCliente(cliente)}" 
-                                              update="responsiveModal" oncomplete="$('.modalPseudoClass').modal('show')"  class="btn btn-outline-info" value="Editar"/>
+                                              update=":responsiveModal" oncomplete="$('.modalPseudoClass').modal('show')"  
+                                              class="btn btn-outline-info" value="Editar"/>
                             <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>
             </div>
 
-            <p:dialog widgetVar="mensagemPrivada" id="mpid" header="Mensagem privada"
-				modal="true" resizable="false" draggable="false">
-                <h:form>
-                    <h:outputText value="Nome: " />
-                </h:form>
-            </p:dialog>
-
-            <b:modal styleClass="modalPseudoClass modal" size="modal-lg">
-                <div class="cotainer">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">Editar</div>
-                                <div class="card-body">
-                                    <h:form id="responsiveModal">
+            <h:form id="responsiveModal">
+                <b:modal styleClass="modalPseudoClass modal" size="modal-lg">
+                    <div class="cotainer">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">Editar</div>
+                                    <div class="card-body">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="inputNome">Nome completo</label>
@@ -104,7 +96,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="inputPassword4">Senha</label>
-                                                <p:password class="form-control"  feedback="true" id="pwd1" value="#{ClienteMB.cliente.senha}" match="pwd2" label="Senha" required="true"/>
+                                                <p:password class="form-control"  feedback="true" id="pwd1" value="#{ClienteMB.cliente.senha}" label="Senha" required="true"/>
                                                 <small id="passwordHelpBlock" class="form-text text-muted">
                                                     Sua senha deve ter entre 8-20 letras, contendo maiúsculas e números.
                                                 </small>
@@ -116,99 +108,18 @@
                                         <b:growl for="pwd1" auto-update="true" 
                                                  allow-dismiss="true"
                                                  animation-exit="animated flipOutX"/>
-                                    </h:form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <f:facet name="footer">
-                    <b:button value="Fechar" dismiss="modal" />
-                    <h:form>
+                    <f:facet name="footer">
+                        <b:button value="Fechar" dismiss="modal" />
                         <b:commandButton class="btn btn-primary" value="Salvar" action="#{ClienteMB.salvarEdicao}"/>
-                    </h:form>
-                </f:facet>
-            </b:modal>
-
-            <!--            <div class="container">
-                            <p:dataTable class="table table-bordered" value="#{ClienteMB.allClientes}" var="cliente">
-                                <p:column headerText="Id">
-                                    <h:outputText value="#{cliente.nome}" />
-                                </p:column>
+                    </f:facet>
+                </b:modal>
+            </h:form>
             
-                                <p:column headerText="Year">
-                                    <h:outputText value="#{cliente.email}" />
-                                </p:column>
-            
-                                <p:column headerText="Brand">
-                                    <h:outputText value="#{cliente.cpf}" />
-                                </p:column>
-            
-                                <p:column headerText="Color">
-                                    <h:outputText value="#{cliente.sexo}" />
-                                </p:column>
-                            </p:dataTable>
-                        </div>
-            
-                        <div class="container">
-                            <h:form>
-                                <p:dataTable tableStyle="font-family: sans-serif; border:none;font-size:  small;padding:1px; background-color: #EAF7FC; background:#EAF7FC"
-             value="#{ClienteMB.allClientes}" var="cliente" widgetVar="clienteTable"
-                                             emptyMessage="No cars found with given criteria" filteredValue="#{dtFilterView.filteredCars}">
-            
-                                    <f:facet name="header">
-                                        <p:outputPanel>
-                                            <h:outputText value="Search all fields:" />
-                                            <p:inputText id="globalFilter" onkeyup="PF('clienteTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-                                        </p:outputPanel>
-                                    </f:facet>
-            
-                                    <p:column filterBy="#{cliente.nome}" headerText="Id" footerText="contains" filterMatchMode="contains">
-                                        <h:outputText value="#{cliente.nome}" />
-                                    </p:column>
-            
-                                    <p:column filterBy="#{cliente.email}" headerText="Year" footerText="lte" filterMatchMode="contains">
-                                        <f:facet name="filter">
-                                            <p:spinner onchange="PF('clienteTable').filter()" styleClass="year-spinner custom-filter">
-                                                <f:converter converterId="javax.faces.Integer" />
-                                            </p:spinner>
-                                        </f:facet>
-                                        <h:outputText value="#{cliente.email}" />
-                                    </p:column>
-                                    
-                                    <p:column filterBy="#{cliente.sexo}" headerText="Color" footerText="in" filterMatchMode="in">
-                                        <f:facet name="filter">
-                                            <p:selectCheckboxMenu label="Colors" onchange="PF('clienteTable').filter()" scrollHeight="150" styleClass="custom-filter">
-                                                <f:selectItems value="#{dtFilterView.colors}" />
-                                            </p:selectCheckboxMenu>
-                                        </f:facet>
-                                        <h:outputText value="#{cliente.sexo}" />
-                                    </p:column>
-                                </p:dataTable>
-                            </h:form>
-                        </div>
-            
-                        <style>
-                            table.dataTable {
-                                clear: both;
-                                margin-top: 200px !important;
-                                margin-bottom: 50px !important;
-                                max-width: none !important;
-                                border-collapse: separate !important;
-                            }
-            
-                        </style>
-                        <div class="container">
-                            <h:form>
-                                <b:dataTable class="" id="example" value="#{ClienteMB.allClientes}" var="cliente">
-                                    <b:dataTableColumn value="#{cliente.nome}" />
-                                    <b:dataTableColumn value="#{cliente.email}" />
-                                    <b:dataTableColumn value="#{cliente.cpf}" />
-                                    <b:dataTableColumn value="#{car.sexo}" label="Engine Power (hp)" />
-                                </b:dataTable>
-                            </h:form>
-                        </div>-->
-
         </h:body>
     </ui:define>    
 </ui:composition>

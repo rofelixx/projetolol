@@ -1,11 +1,9 @@
 package Beans;
 
 import Classe.Cliente;
-import Classe.Endereco;
 import DAO.ClienteDao;
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import net.bootsfaces.utils.FacesMessages;
@@ -18,14 +16,14 @@ public class ClienteManagedBean implements Serializable {
     private ClienteDao dao = new ClienteDao();
     private String url = "";
     private NavControllerBean nav = new NavControllerBean();
-
+    
     public List<Cliente> getAllClientes() throws Exception {
         List<Cliente> retorno = dao.getAll();
         return retorno;
     }
 
-    public String salvarEdicao() {
-        boolean saved = dao.editCliente(getCliente());
+    public String salvarEdicao() {        
+        boolean saved = dao.editCliente(cliente);
         if (saved) {
             url = nav.gerenciarClientes();
             FacesMessages.info("Cliente editado com sucesso");
