@@ -7,67 +7,68 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="conteudo">
         <h:body>   
-            <div class="container">
-                <br></br>
-                <h:form id="master">
-                    <style>
-                        div.dataTables_wrapper div.dataTables_paginate ul.pagination 
-                        {
-                            margin-left: 465px;
-                        }
-                        div.dataTables_wrapper div.dataTables_filter {
-                            margin-right: 1550px;
-                        }
-                        div.dataTables_wrapper div.dataTables_length select {
-                            width: 75px;
-                            display: inline-block;
-                            height: 40px;
-                        }
-                    </style>
-                    <b:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
-                                 select="true"
-                                 selectionMode="single"
-                                 selectedItems="cell"
-                                 styleClass="table table-light" colXs="12" 
-                                 multi-column-search='true' 
-                                 border="false" 
-                                 striped="false" 
-                                 scroll-size="400px"
-                                 scroll-x="false"
-                                 responsive="true"
-                                 paginated="true">
-                        <b:dataTableColumn width="15rem">
-                            <f:facet name="header">Nome</f:facet>
-                                #{cliente.nome}
-                        </b:dataTableColumn>
-                        <b:dataTableColumn width="15rem">
-                            <f:facet name="header">Email</f:facet>
-                                #{cliente.email}
-                        </b:dataTableColumn>
-                        <b:dataTableColumn width="10rem">
-                            <f:facet name="header">CPF</f:facet>
-                                #{cliente.cpf}
-                        </b:dataTableColumn>
-                        <b:dataTableColumn width="10rem">
-                            <f:facet name="header">Sexo</f:facet>
-                                #{cliente.sexo}
-                        </b:dataTableColumn>
-                        <b:dataTableColumn width="15rem">
-                            <f:facet name="header">Ações</f:facet>
-                            <b:commandButton  action="#{ClienteMB.setCliente(cliente)}" 
-                                              update=":responsiveModal" oncomplete="$('.modalPseudoClass').modal('show')"  
-                                              class="btn btn-outline-info" value="Editar"/>
-                            <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                </h:form>
-            </div>
+            <br></br>
+            <h:form id="master">
+                <style>
+                    div.dataTables_wrapper div.dataTables_filter {
+                        margin-left: 550px;
+                    }
+                    div.dataTables_wrapper div.dataTables_paginate ul.pagination 
+                    {
+                        margin-left: 560px;
+                    }
+                    div.dataTables_wrapper div.dataTables_length select {
+                        width: 75px;
+                        display: inline-block;
+                        height: 40px;
+                    }
+                    table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+                        background-color: #f0f0f0;
+                    }
+                    table.dataTable tbody tr.selected, table.dataTable tbody th.selected, table.dataTable tbody td.selected {
+                        color: #030303;
+                    }
+                    .dataTables_length
+                    {
+                        width: 170px;
+                    }
+                </style>
+                <div class="cotainer col-md-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">Gerenciar Clientes</div>
+                                <div class="card-body">
+                                    <b:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
+                                                 paginated='true'
+                                                 striped="false"
+                                                 lang="en">
+                                        <b:dataTableColumn width="15rem" value="#{cliente.nome}"/>
+                                        <b:dataTableColumn width="15rem" value="#{cliente.email}"/>
+                                        <b:dataTableColumn width="10rem" value="#{cliente.cpf}"/>
+                                        <b:dataTableColumn width="10rem" value="#{cliente.sexo}"/>
+                                        <b:dataTableColumn width="15rem">
+                                            <f:facet name="header">Ações</f:facet>
+                                            <b:commandButton  action="#{ClienteMB.setCliente(cliente)}" 
+                                                              update=":responsiveModal" oncomplete="$('.clienteModal').modal('show')"  
+                                                              class="btn btn-outline-info" value="Editar"
+                                                              style='margin-left:20px'/>
+                                            <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
+                                            <b:commandButton id="successClick" class="btn btn-outline-success" action="#{ClienteMB.confirmDelete()}">Teste</b:commandButton>
+                                        </b:dataTableColumn>
+                                    </b:dataTable>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
 
             <h:form id="responsiveModal">
-                <b:modal styleClass="modalPseudoClass modal" size="modal-lg">
+                <b:modal styleClass="clienteModal modal" size="modal-lg">
                     <div class="cotainer">
                         <div class="row justify-content-center">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">Editar</div>
                                     <div class="card-body">
@@ -120,9 +121,9 @@
                                             <div class="form-group col-md-6">
                                                 <label for="inputPassword4">Senha</label>
                                                 <p:password class="form-control"  feedback="true" id="pwd1" value="#{ClienteMB.cliente.senha}" 
-                                                            label="Senha" required="true" redisplay="true" maxlength="20"/>
+                                                            label="Senha" required="true" redisplay="true" maxlength="12"/>
                                                 <small id="passwordHelpBlock" class="form-text text-muted">
-                                                    Sua senha deve ter entre 8-20 letras, contendo maiúsculas e números.
+                                                    Sua senha deve ter entre 8-12 letras, contendo maiúsculas e números.
                                                 </small>
                                             </div>
                                         </div>    
@@ -143,7 +144,6 @@
                     </f:facet>
                 </b:modal>
             </h:form>
-
         </h:body>
     </ui:define>    
 </ui:composition>
