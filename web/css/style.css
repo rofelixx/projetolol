@@ -1,3 +1,7 @@
+.input-group-addon:last-child {
+    padding-left: 13px;
+    width: 40px;
+}
 .btn {
     margin-right: 5px !important;
 }

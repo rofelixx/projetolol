@@ -6,37 +6,60 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="conteudo">
-        <h:body>          
+        <h:body>   
             <div class="container">
-                <input class="form-control" id="myInput" type="text" placeholder="Search.."/>
                 <br></br>
                 <h:form id="master">
-                    <h:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
-                                 styleClass="table table-light">
-                        <h:column>
+                    <style>
+                        div.dataTables_wrapper div.dataTables_paginate ul.pagination 
+                        {
+                            margin-left: 465px;
+                        }
+                        div.dataTables_wrapper div.dataTables_filter {
+                            margin-right: 1550px;
+                        }
+                        div.dataTables_wrapper div.dataTables_length select {
+                            width: 75px;
+                            display: inline-block;
+                            height: 40px;
+                        }
+                    </style>
+                    <b:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
+                                 select="true"
+                                 selectionMode="single"
+                                 selectedItems="cell"
+                                 styleClass="table table-light" colXs="12" 
+                                 multi-column-search='true' 
+                                 border="false" 
+                                 striped="false" 
+                                 scroll-size="400px"
+                                 scroll-x="false"
+                                 responsive="true"
+                                 paginated="true">
+                        <b:dataTableColumn width="15rem">
                             <f:facet name="header">Nome</f:facet>
                                 #{cliente.nome}
-                        </h:column>
-                        <h:column>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn width="15rem">
                             <f:facet name="header">Email</f:facet>
                                 #{cliente.email}
-                        </h:column>
-                        <h:column>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn width="10rem">
                             <f:facet name="header">CPF</f:facet>
                                 #{cliente.cpf}
-                        </h:column>
-                        <h:column>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn width="10rem">
                             <f:facet name="header">Sexo</f:facet>
                                 #{cliente.sexo}
-                        </h:column>
-                        <h:column>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn width="15rem">
                             <f:facet name="header">Ações</f:facet>
                             <b:commandButton  action="#{ClienteMB.setCliente(cliente)}" 
                                               update=":responsiveModal" oncomplete="$('.modalPseudoClass').modal('show')"  
                                               class="btn btn-outline-info" value="Editar"/>
                             <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
-                        </h:column>
-                    </h:dataTable>
+                        </b:dataTableColumn>
+                    </b:dataTable>
                 </h:form>
             </div>
 
@@ -60,7 +83,7 @@
                                         </div>  
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="inputDtNasc">Data de Nascimento</label>
+                                                <label for="dtNascimento">Data de Nascimento</label>
                                                 <b:datepicker placeholder="dd/mm/yyyy" value="#{ClienteMB.cliente.dtNascimento}" mode="toggle-icon" showWeek="true"
                                                               firstDay="1" required="true"/>                                     
                                             </div>
@@ -96,7 +119,8 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="inputPassword4">Senha</label>
-                                                <p:password class="form-control"  feedback="true" id="pwd1" value="#{ClienteMB.cliente.senha}" label="Senha" required="true"/>
+                                                <p:password class="form-control"  feedback="true" id="pwd1" value="#{ClienteMB.cliente.senha}" 
+                                                            label="Senha" required="true" redisplay="true" maxlength="20"/>
                                                 <small id="passwordHelpBlock" class="form-text text-muted">
                                                     Sua senha deve ter entre 8-20 letras, contendo maiúsculas e números.
                                                 </small>
@@ -119,7 +143,7 @@
                     </f:facet>
                 </b:modal>
             </h:form>
-            
+
         </h:body>
     </ui:define>    
 </ui:composition>
