@@ -37,7 +37,11 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                                <div class="card-header">Gerenciar Clientes</div>
+                                <div class="card-header">
+                                    <span>Gerenciar Clientes</span>
+                                    <b:commandButton id="newCliente" class="btn btn-outline-success" 
+                                                     action="#{NavMB.signUp()}" style="margin-left: 900px">Adicionar</b:commandButton>
+                                </div>
                                 <div class="card-body">
                                     <b:dataTable id="myTable" value="#{ClienteMB.allClientes}" var="cliente"
                                                  paginated='true'
@@ -54,7 +58,7 @@
                                                               class="btn btn-outline-info" value="Editar"
                                                               style='margin-left:20px'/>
                                             <b:commandButton class="btn btn-outline-danger" action="#{NavMB.login()}" value="Excluir"/>
-                                            <b:commandButton id="successClick" class="btn btn-outline-success" action="#{ClienteMB.deleteCliente()}">Teste</b:commandButton>
+                                            <b:commandButton id="successClick" class="btn btn-outline-primary" action="#{ClienteMB.deleteCliente()}">Tornar Adm</b:commandButton>
                                         </b:dataTableColumn>
                                     </b:dataTable>
                                 </div>                                
