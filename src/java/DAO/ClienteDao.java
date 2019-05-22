@@ -65,9 +65,20 @@ public class ClienteDao {
         Session session = sessionFactory.openSession();
         Cliente validation = getClienteByEmail(cliente.getEmail());
         session.beginTransaction();
-        if (!validation.getSenha().equals(cliente.getSenha()))
+        if (!validation.getSenha().equals(cliente.getSenha())) {
             cliente.setSenha(Criptografia.md5(cliente.getSenha()));
+        }
         session.saveOrUpdate(cliente);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    public boolean deleteCliente(Cliente cliente) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(cliente);
         session.getTransaction().commit();
         session.close();
         return true;

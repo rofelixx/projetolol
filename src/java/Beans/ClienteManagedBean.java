@@ -43,24 +43,18 @@ public class ClienteManagedBean implements Serializable {
         this.cliente = cliente;
     }
 
-    public void confirmDelete() {
-        PrimeFaces.current().executeScript("Swal.fire({  "
-                + "title: \"Voce tem certeza?\",\n"
-                + "  text: \"Voce irá exluir um registro.\",\n"
-                + "  type: \"warning\",\n"
-                + "  showCancelButton: true,\n"
-                + "  confirmButtonColor: \"#DD6B55\",\n"
-                + "  confirmButtonText: \"Deletar\",\n"
-                + "  cancelButtonText: \"Cancelar\",\n"
-                + "  closeOnConfirm: false,\n"
-                + "  closeOnCancel: false\n"
-                + "},\n"
-                + "function(isConfirm){\n"
-                + "  if (isConfirm) {\n"
-                + "    form.submit();          // submitting the form when user press yes\n"
-                + "  } else {\n"
-                + "    swal(\"Cancelled\", \"Your imaginary file is safe :)\", \"error\");\n"
-                + "  }\n"
-                + "})");
+    public void confirmDelete(Cliente cliente) {
+        setCliente(cliente);
+    }
+
+    public String deleteCliente() {
+        boolean deleted = dao.deleteCliente(cliente);
+        if (deleted) {
+            url = nav.gerenciarClientes();
+            FacesMessages.info("Cliente deletado com sucesso");
+        } else {
+            FacesMessages.error("Erro!", "Problema ao excluir registro.");
+        }
+        return url;
     }
 }
