@@ -54,8 +54,6 @@ public class ClienteDao {
         cliente.setEndereco(endereco);
         session.save(cliente);
         session.getTransaction().commit();
-        FacesMessage fm = new FacesMessage("Cliente salvo com sucesso.");
-        FacesContext.getCurrentInstance().addMessage(null, fm);
         session.close();
         return true;
     }
@@ -79,6 +77,18 @@ public class ClienteDao {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(cliente);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    public boolean setAdmCliente(Cliente cliente, int perfil) {
+        Cliente clieteToUpdate = getClienteByEmail(cliente.getEmail());
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        clieteToUpdate.setPerfil(perfil);
+        session.saveOrUpdate(clieteToUpdate);
         session.getTransaction().commit();
         session.close();
         return true;

@@ -62,21 +62,6 @@ public class LoginManagedBean {
         return "index";
     }
 
-    public String cadastrar() {
-        retorno = dao.getClienteByEmail(cliente.getEmail());
-        if (retorno.getEmail() != null) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage("Email já cadastrado!"));
-
-            FacesContext.getCurrentInstance()
-                    .getExternalContext()
-                    .getFlash().setKeepMessages(true);
-        } else {
-            return "login";
-        }
-        return "";
-    }
-
     public String signUp() {
         return "cadastro";
     }
@@ -107,5 +92,9 @@ public class LoginManagedBean {
 
     public void setUsuario(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public int getPerfil() {
+        return this.cliente.getPerfil();
     }
 }

@@ -47,13 +47,32 @@ public class ClienteManagedBean implements Serializable {
         setCliente(cliente);
     }
 
-    public String deleteCliente() {
+    public void showConfirmDelete() {
+        PrimeFaces.current().executeScript("PF('groupDeleteConfirm').show()");
+    }
+
+    public String deleteCliente(Cliente cliente) {
         boolean deleted = dao.deleteCliente(cliente);
         if (deleted) {
             url = nav.gerenciarClientes();
             FacesMessages.info("Cliente deletado com sucesso");
         } else {
             FacesMessages.error("Erro!", "Problema ao excluir registro.");
+        }
+        return url;
+    }
+
+    public String setAdmCliente(Cliente cliente, int perfil) {
+        boolean updatePerfil = dao.setAdmCliente(cliente, perfil);
+        if (updatePerfil) {
+            url = nav.gerenciarClientes();
+            if (perfil == 1) {
+                FacesMessages.info("Usuário agora é um Administrador.");
+            } else {
+                FacesMessages.info("Usuário agora é normal.");
+            }
+        } else {
+            FacesMessages.error("Erro!", "Problema ao atualizar o registro.");
         }
         return url;
     }

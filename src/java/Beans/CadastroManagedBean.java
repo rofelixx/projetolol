@@ -31,15 +31,15 @@ public class CadastroManagedBean {
     public String cadastrar() {
         retorno = dao.getClienteByEmail(cliente.getEmail());
         if (retorno != null) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage("Email já cadastrado!"));
-
-            FacesContext.getCurrentInstance()
-                    .getExternalContext()
-                    .getFlash().setKeepMessages(true);
+            FacesMessages.error("Email já cadastrado!");
         } else {
-            dao.addNewCliente(cliente, endereco);
-            url = "login";
+            boolean success = dao.addNewCliente(cliente, endereco);
+            if (success) {
+                FacesMessages.info("Cliente salvo com sucesso.");
+                url = getPerfil() == 1 && isLogged ? nav.gerenciarClientes() : "login";
+            } else {
+                FacesMessages.error("Erro ao salvar novo usuário.");
+            }
         }
         return url;
     }
@@ -70,5 +70,9 @@ public class CadastroManagedBean {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public int getPerfil() {
+        return cliente.getPerfil();
     }
 }

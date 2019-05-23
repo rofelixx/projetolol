@@ -13,7 +13,6 @@
             <link href="css/style.css" rel="stylesheet" type="text/css"/>
             <script src="js/popper.min.js" type="text/javascript"></script>
             <script src="js/functions.js" type="text/javascript"></script>
-            <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"></link>          
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -22,7 +21,7 @@
     <h:body>
         <ui:include src="navBar.xhtml" />
         <ui:insert name="conteudo"/>
-        <h:form>                                
+        <h:form id="templateForm">                                
             <b:growl id="growl"
                      globalOnly="true"
                      show-detail="true"
