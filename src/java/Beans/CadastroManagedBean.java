@@ -23,10 +23,9 @@ public class CadastroManagedBean {
     public Cliente retorno = new Cliente();
     public Endereco endereco = new Endereco();
     public ClienteDao dao = new ClienteDao();
-    public boolean isLogged = false;
-    public String confirmarSenha = "";
     public NavControllerBean nav = new NavControllerBean();
     public String url = "";
+    public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 
     public String cadastrar() {
         retorno = dao.getClienteByEmail(cliente.getEmail());
@@ -36,7 +35,7 @@ public class CadastroManagedBean {
             boolean success = dao.addNewCliente(cliente, endereco);
             if (success) {
                 FacesMessages.info("Cliente salvo com sucesso.");
-                url = getPerfil() == 1 && isLogged ? nav.gerenciarClientes() : "login";
+                url = usuarioLogado != null && usuarioLogado.getPerfil() == 1 ? nav.gerenciarClientes() : "login";
             } else {
                 FacesMessages.error("Erro ao salvar novo usuário.");
             }
@@ -46,14 +45,6 @@ public class CadastroManagedBean {
 
     public String signUp() {
         return "cadastro";
-    }
-
-    public boolean isLogged() {
-        return isLogged;
-    }
-
-    public String getconfirmarSenha() {
-        return confirmarSenha;
     }
 
     public Endereco getEndereco() {
@@ -70,9 +61,5 @@ public class CadastroManagedBean {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public int getPerfil() {
-        return cliente.getPerfil();
     }
 }

@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import net.bootsfaces.utils.FacesMessages;
 
@@ -35,6 +36,7 @@ public class LoginManagedBean {
             isLogged = true;
             isCliente = retorno.getPerfil() != 1;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Logado com sucesso"));
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", cliente);
             return "home";
         } else {
             FacesMessages.error("Erro!", "Email ou senha incorretos");

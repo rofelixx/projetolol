@@ -3,27 +3,58 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="conteudo">
-    <h:body>
-        <div class="container">			
-            <div class="row" style="margin-top:25%;">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong class="">Todos os Roupas</strong>
+        <h:body>
+            <div class="container">			
+                <h:form id="master">
+                    <div class="cotainer col-md-12">
+                        <div class="row justify-content-center">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2>Gerenciar Roupas</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <label for="inputNome">Escolha o tipo</label>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <b:commandButton tooltip="Camiseta" style='background-color: white'>
+                                                    <img src="images/gerenciarRoupas/camiseta.png" alt="" width="60%"/>
+                                                </b:commandButton>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <b:commandButton tooltip="Camisa" style='background-color: white'>
+                                                    <img src="images/gerenciarRoupas/camisa.png" alt="" width="60%"/>
+                                                </b:commandButton>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <b:commandButton tooltip="Jaquetas/Casacos" style='background-color: white'>
+                                                    <img src="images/gerenciarRoupas/jaqueta.png" alt="" width="60%"/>
+                                                </b:commandButton>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <b:commandButton tooltip="Calça" style='background-color: white'>
+                                                    <img src="images/gerenciarRoupas/calca.png" alt="" width="60%"/>
+                                                </b:commandButton>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <b:commandButton tooltip="Vestidos" style='background-color: white'>
+                                                    <img src="images/gerenciarRoupas/vestido.png" alt="" width="60%"/>
+                                                </b:commandButton>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <h:form>
-                                <h:messages id="messages" />
-                               
-                            </h:form>
-                        </div> 
                     </div>
-                </div>
+                </h:form>
             </div>
-        </div>
-    </h:body>
+        </h:body>
     </ui:define>    
 </ui:composition>
 
