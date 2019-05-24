@@ -8,7 +8,7 @@
     <ui:define name="conteudo">
         <h:body>
             <div class="container">			
-                <h:form id="master">
+                <h:form id="master" enctype="multipart/form-data">
                     <div class="cotainer col-md-12">
                         <div class="row justify-content-center">
                             <div class="card">
@@ -16,37 +16,67 @@
                                     <h2>Gerenciar Roupas</h2>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-row">
-                                        <label for="inputNome">Escolha o tipo</label>
-                                    </div>
                                     <div class="form-group col-md-12">
+                                        <label for="inputNome">Escolha o tipo de Roupa</label>
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <b:commandButton tooltip="Camiseta" style='background-color: white'>
+                                                <b:commandButton tooltip="Camiseta" style='background-color: white' action="#{RoupaMB.setTipoRoupa(1)}">
                                                     <img src="images/gerenciarRoupas/camiseta.png" alt="" width="60%"/>
                                                 </b:commandButton>
                                             </li>
                                             <li class="list-inline-item">
-                                                <b:commandButton tooltip="Camisa" style='background-color: white'>
+                                                <b:commandButton tooltip="Camisa" style='background-color: white' action="#{RoupaMB.setTipoRoupa(2)}">
                                                     <img src="images/gerenciarRoupas/camisa.png" alt="" width="60%"/>
                                                 </b:commandButton>
                                             </li>
                                             <li class="list-inline-item">
-                                                <b:commandButton tooltip="Jaquetas/Casacos" style='background-color: white'>
+                                                <b:commandButton tooltip="Jaquetas/Casacos" style='background-color: white' action="#{RoupaMB.setTipoRoupa(3)}">
                                                     <img src="images/gerenciarRoupas/jaqueta.png" alt="" width="60%"/>
                                                 </b:commandButton>
                                             </li>
                                             <li class="list-inline-item">
-                                                <b:commandButton tooltip="Calça" style='background-color: white'>
+                                                <b:commandButton tooltip="Calça" style='background-color: white' action="#{RoupaMB.setTipoRoupa(4)}">
                                                     <img src="images/gerenciarRoupas/calca.png" alt="" width="60%"/>
                                                 </b:commandButton>
                                             </li>
                                             <li class="list-inline-item">
-                                                <b:commandButton tooltip="Vestidos" style='background-color: white'>
+                                                <b:commandButton tooltip="Vestidos" style='background-color: white' action="#{RoupaMB.setTipoRoupa(5)}">
                                                     <img src="images/gerenciarRoupas/vestido.png" alt="" width="60%"/>
                                                 </b:commandButton>
                                             </li>
                                         </ul>
+                                    </div>
+                                    <div class="form-row col-md-12">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputNome">Descricao</label>
+                                            <b:inputText id="Nome" placeholder="Nome" value="#{RoupaMB.roupa.observacao}" required='true' required-message="Campo nome é requerido"/>
+                                        </div>
+                                    </div> 
+                                    <div class="form-row col-md-12">
+                                        <div class="form-group col-md-4">
+                                            <label for="cpf">Valor</label>
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">R$</span>
+                                                </div>
+                                                <b:inputText id="cpf" placeholder="3" value="#{RoupaMB.roupa.preco}" required='true' required-message="Campo cpf é requerido"/>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">,00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="prazo">Prazo de Lavagem</label>
+                                            <b:inputText value="#{RoupaMB.roupa.prazo}" id="inputNumero" placeholder="1 dia" required='true'/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row col-md-12">
+                                        <p:fileUpload value="#{RoupaMB.uploadedFile}" mode="simple" skinSimple="true" 
+                                                      update="myImage" label="Escolher foto da roupa"/>
+                                        <p:graphicImage id="myImage" value="#{RoupaMB.chart}" />
+                                    </div>
+                                    <div class="form-row col-md-2" style="margin-top:30px">
+                                        <h:commandButton class="btn btn-outline-success" value="Cadastrar" action="#{RoupaMB.upload()}"/>
                                     </div>
                                 </div>
                             </div>

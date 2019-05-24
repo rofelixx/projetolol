@@ -1,3 +1,12 @@
+.input-group-prepend {
+    margin-right: -1px;
+    height: 38px;
+}
+
+.input-group-append {
+    margin-left: -1px;
+    height: 38px;
+}
 .input-group-addon:last-child {
     padding-left: 13px;
     width: 40px;

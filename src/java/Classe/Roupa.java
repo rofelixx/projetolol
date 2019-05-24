@@ -12,22 +12,39 @@ public class Roupa  implements java.io.Serializable {
 
 
      private Integer id;
-     private String tipo;
+     private Integer tipo;
      private String observacao;
      private String preco;
      private int prazo;
+     private String image;
+
+    public Integer getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
      private Set itempedidos = new HashSet(0);
 
     public Roupa() {
     }
 
 	
-    public Roupa(String tipo, String preco, int prazo) {
+    public Roupa(Integer tipo, String preco, int prazo) {
         this.tipo = tipo;
         this.preco = preco;
         this.prazo = prazo;
     }
-    public Roupa(String tipo, String observacao, String preco, int prazo, Set itempedidos) {
+    public Roupa(Integer tipo, String observacao, String preco, int prazo, Set itempedidos) {
        this.tipo = tipo;
        this.observacao = observacao;
        this.preco = preco;
@@ -41,13 +58,6 @@ public class Roupa  implements java.io.Serializable {
     
     public void setId(Integer id) {
         this.id = id;
-    }
-    public String getTipo() {
-        return this.tipo;
-    }
-    
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
     public String getObservacao() {
         return this.observacao;
@@ -77,10 +87,6 @@ public class Roupa  implements java.io.Serializable {
     public void setItempedidos(Set itempedidos) {
         this.itempedidos = itempedidos;
     }
-
-
-
-
 }
 
 
