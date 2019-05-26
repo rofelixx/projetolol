@@ -69,7 +69,7 @@ public class RoupaManagedBean {
     public String upload() throws FileNotFoundException, IOException {
         File file = criarFile();
         roupa.setImage(file.getName());
-        roupa.setTipo(tipoRoupa);
+        roupa.setTipo(roupa.getTipo() == 0 ? tipoRoupa : roupa.getTipo());
         boolean success = dao.addNewRoupa(roupa);
         if (success) {
             url = nav.gerenciarRoupas();
@@ -98,7 +98,7 @@ public class RoupaManagedBean {
     }
 
     public String salvarEdicao() {
-        if (uploadedFile.getFileName() != roupa.getImage()) {
+        if (uploadedFile.getFileName() != roupa.getImage() && !isUploadedFileEmpty()) {
             File file = criarFile();
             roupa.setImage(file.getName());
         }
@@ -110,6 +110,10 @@ public class RoupaManagedBean {
             FacesMessages.error("Erro!", "Problema ao salvar a edição");
         }
         return url;
+    }
+
+    public boolean isUploadedFileEmpty() {
+        return uploadedFile == null || uploadedFile.getSize() == 0;
     }
 
     public void showConfirmDelete() {
@@ -125,5 +129,10 @@ public class RoupaManagedBean {
             FacesMessages.error("Erro!", "Problema ao excluir registro.");
         }
         return url;
+    }
+
+    public List<Roupa> getAllByTipo(){
+        List<Roupa> retorno = dao.getAllByTipo(tipoRoupa);
+        return retorno;
     }
 }

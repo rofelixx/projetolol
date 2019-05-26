@@ -65,4 +65,14 @@ public class RoupaDao {
         session.close();
         return true;
     }
+
+    public List<Roupa> getAllByTipo(int tipoRoupa) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Roupa WHERE tipo = :tipo");
+        query.setInteger("tipo", tipoRoupa);
+        lista = query.list();
+        session.close();
+        return lista;
+    }
 }
