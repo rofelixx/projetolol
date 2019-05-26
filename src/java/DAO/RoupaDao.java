@@ -35,4 +35,34 @@ public class RoupaDao {
         session.close();
         return true;
     }
+
+    public List<Roupa> getAll() throws Exception {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String strSql = "FROM Roupa";
+        Query query = session.createQuery(strSql);
+        lista = query.list();
+        session.close();
+        return lista;
+    }
+
+    public boolean editRoupa(Roupa roupa) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.saveOrUpdate(roupa);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    public boolean deleteRoupa(Roupa roupa) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(roupa);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
 }

@@ -11,11 +11,14 @@
         <property name="tipo" type="int">
             <column name="Tipo" not-null="true" />
         </property>
+        <property name="descricao" type="string">
+            <column name="Descricao" length="500" />
+        </property>
         <property name="observacao" type="string">
             <column name="Observacao" length="45" />
         </property>
-        <property name="preco" type="string">
-            <column name="Preco" length="45" not-null="true" />
+        <property name="preco" type="double">
+            <column name="Preco" not-null="true" />
         </property>
         <property name="prazo" type="int">
             <column name="Prazo" not-null="true" />

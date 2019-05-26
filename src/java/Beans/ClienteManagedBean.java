@@ -30,7 +30,7 @@ public class ClienteManagedBean implements Serializable {
             url = nav.gerenciarClientes();
             FacesMessages.info("Cliente editado com sucesso");
         } else {
-            FacesMessages.error("Erro!", "Email ou senha incorretos");
+            FacesMessages.error("Erro!", "Problema ao salvar a edição");
         }
         return url;
     }

@@ -55,6 +55,10 @@ public class NavControllerBean {
     public String gerenciarRoupas() {
         return "gerenciarRoupas.xhtml";
     }
+    
+    public String cadatroRoupas(){
+        return "cadastroRoupas.xhtml";
+    }
 
     public boolean isLogged() {
         return isLogged;
