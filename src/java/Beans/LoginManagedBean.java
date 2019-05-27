@@ -37,6 +37,7 @@ public class LoginManagedBean {
             isCliente = retorno.getPerfil() != 1;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Logado com sucesso"));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", cliente);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", 0);
             return "home";
         } else {
             FacesMessages.error("Erro!", "Email ou senha incorretos");
