@@ -12,8 +12,34 @@ public class Itempedido  implements java.io.Serializable {
      private Integer id;
      private Pedido pedido;
      private Roupa roupa;
-
+     private int quantidade;
+     private double valorUnitario;
+     
     public Itempedido() {
+    }
+
+    public Itempedido(Integer id, Pedido pedido, Roupa roupa, int quantidade, double valorUnitario) {
+        this.id = id;
+        this.pedido = pedido;
+        this.roupa = roupa;
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
     }
 
     public Itempedido(Pedido pedido, Roupa roupa) {

@@ -2,6 +2,7 @@ package Classe;
 // Generated 04/05/2019 19:26:27 by Hibernate Tools 4.3.1
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,18 +14,57 @@ public class Pedido  implements java.io.Serializable {
 
      private Integer id;
      private Cliente cliente;
-     private String status;
+     private int status;
+     private Date dataPedido;
+     private double valorTotal;
+     private int prazo;
+
+    public Pedido(Integer id, Cliente cliente, int status, Date dataPedido, double valorTotal, int prazo) {
+        this.id = id;
+        this.cliente = cliente;
+        this.status = status;
+        this.dataPedido = dataPedido;
+        this.valorTotal = valorTotal;
+        this.prazo = prazo;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public int getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(int prazo) {
+        this.prazo = prazo;
+    }
      private Set itempedidos = new HashSet(0);
 
     public Pedido() {
     }
 
-	
-    public Pedido(Cliente cliente, String status) {
-        this.cliente = cliente;
-        this.status = status;
-    }
-    public Pedido(Cliente cliente, String status, Set itempedidos) {
+    public Pedido(Cliente cliente, int status, Set itempedidos) {
        this.cliente = cliente;
        this.status = status;
        this.itempedidos = itempedidos;
@@ -44,13 +84,7 @@ public class Pedido  implements java.io.Serializable {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    public String getStatus() {
-        return this.status;
-    }
     
-    public void setStatus(String status) {
-        this.status = status;
-    }
     public Set getItempedidos() {
         return this.itempedidos;
     }
@@ -58,10 +92,6 @@ public class Pedido  implements java.io.Serializable {
     public void setItempedidos(Set itempedidos) {
         this.itempedidos = itempedidos;
     }
-
-
-
-
 }
 
 

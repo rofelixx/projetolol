@@ -48,7 +48,7 @@
                         </b:commandButton>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{LoginMB.isLogged()}">
-                        <b:commandButton action="#{NavMB.signUp()}"
+                        <b:commandButton action="#{NavMB.carrinhoDeCompra()}"
                                          tooltip="Carrinho de compra">
                             <b:iconAwesome name="shopping-cart">
                                 <span class="badge badge-danger" style="margin-top:-15px; background-color: red">#{sessionScope.ItemsCarrinho}</span>

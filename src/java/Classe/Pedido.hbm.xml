@@ -11,8 +11,17 @@
         <many-to-one name="cliente" class="Classe.Cliente" fetch="select">
             <column name="ClienteId" not-null="true" />
         </many-to-one>
-        <property name="status" type="string">
-            <column name="Status" length="45" not-null="true" />
+        <property name="status" type="java.lang.Integer">
+            <column name="Status" not-null="true" />
+        </property>
+        <property name="dataPedido" type="date">
+            <column name="DataPedido" not-null="true" />
+        </property>        
+        <property name="valorTotal" type="double">
+            <column name="ValorTotal" not-null="true" />
+        </property>
+        <property name="prazo" type="java.lang.Integer">
+            <column name="Prazo" not-null="true" />
         </property>
         <set name="itempedidos" table="itempedido" inverse="true" lazy="true" fetch="select">
             <key>

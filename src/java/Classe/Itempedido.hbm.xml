@@ -8,6 +8,12 @@
             <column name="Id" />
             <generator class="identity" />
         </id>
+        <property name="quantidade" type="java.lang.Integer">
+            <column name="Quantidade" not-null="true" />
+        </property>
+        <property name="valorUnitario" type="double">
+            <column name="ValorUnitario" not-null="true" />
+        </property>        
         <many-to-one name="pedido" class="Classe.Pedido" fetch="select">
             <column name="PedidoId" not-null="true" />
         </many-to-one>

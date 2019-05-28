@@ -1,0 +1,71 @@
+<ui:composition template="Template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="conteudo">
+        <script src="js/fontAwesome 5.8.2.js" type="text/javascript"></script>
+        <h:body>
+            <h:form id="master" enctype="multipart/form-data">
+                <div class="container">
+                    <table id="cart" class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th style="width:50%">Produtos</th>
+                                <th style="width:10%">Prazo</th>
+                                <th style="width:10%">Preco</th>
+                                <th style="width:8%">Quantidade</th>
+                                <th style="width:22%" class="text-center">Subtotal</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat var="item" value="#{PedidoMB.itens}" varStatus="status">
+                                <tr>
+                                    <td data-th="Product">
+                                        <div class="row">
+                                            <div class="col-sm-2 hidden-xs">
+                                                <p:graphicImage value="images/roupasUpload/#{item.roupa.image}" />
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <h4 class="nomargin">#{item.roupa.descricao}</h4>
+                                                <p>#{item.roupa.observacao}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-th="Prazo">#{item.roupa.prazo}dia(s)</td>
+                                    <td data-th="Price">R$#{item.roupa.preco}</td>
+                                    <td data-th="Quantity">
+                                        <input type="number" class="form-control text-center" value="1"/>
+                                    </td>
+                                    <td data-th="Subtotal" class="text-center">#{item.roupa.preco}</td>
+                                    <td class="actions" data-th="">
+                                        <b:commandButton iconAwesome="fa refresh" 
+                                                         class="btn btn-info btn-sm" action="#{NavMB.novoPedido()}"></b:commandButton>  
+                                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                        <tfoot>
+                            <tr class="visible-xs">
+                                <td class="text-center"><strong>Total 1.99</strong></td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b:commandButton iconAwesome="fa fa-angle-left" value="Continue comprando" 
+                                                     class="btn btn-warning" action="#{NavMB.novoPedido()}"></b:commandButton>  
+                                </td>
+                                <td colspan="2" class="hidden-xs"></td>
+                                <td class="hidden-xs text-center"><strong>Total $150.00</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
