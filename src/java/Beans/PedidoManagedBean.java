@@ -62,7 +62,6 @@ public class PedidoManagedBean {
         itemPedido.setValorUnitario(roupa.getPreco());
         pedido.setCliente(usuarioLogado);
         pedido.setDataPedido(new Date());
-        pedido.setPrazo(pedido.getPrazo() + roupa.getPrazo());
         itens.add(itemPedido);
         ItemsCarrinho++;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);

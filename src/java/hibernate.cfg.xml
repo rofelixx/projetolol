@@ -46,10 +46,10 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/projetolol?autoReconnect=true&amp;useSSL=false</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">admin</property>
-    <mapping resource="Classe/Pedido.hbm.xml"/>
-    <mapping resource="Classe/Endereco.hbm.xml"/>
-    <mapping resource="Classe/Itempedido.hbm.xml"/>
-    <mapping resource="Classe/Roupa.hbm.xml"/>
-    <mapping resource="Classe/Cliente.hbm.xml"/>
+    <mapping class="Classe.Cliente"/>
+    <mapping class="Classe.Pedido"/>
+    <mapping class="Classe.Endereco"/>
+    <mapping class="Classe.Itempedido"/>
+    <mapping class="Classe.Roupa"/>
   </session-factory>
 </hibernate-configuration>
