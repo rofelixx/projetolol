@@ -2,8 +2,10 @@ package Classe;
 // Generated May 30, 2019 4:07:37 PM by Hibernate Tools 4.3.1
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +32,7 @@ public class Pedido  implements java.io.Serializable {
      private int status;
      private Date dataPedido;
      private double valorTotal;
-     private Set<Itempedido> itempedidos = new HashSet<Itempedido>(0);
+     private List<Itempedido> itempedidos = new ArrayList<Itempedido>();
 
     public Pedido() {
     }
@@ -42,7 +44,7 @@ public class Pedido  implements java.io.Serializable {
         this.dataPedido = dataPedido;
         this.valorTotal = valorTotal;
     }
-    public Pedido(Cliente cliente, int status, Date dataPedido, double valorTotal, Set<Itempedido> itempedidos) {
+    public Pedido(Cliente cliente, int status, Date dataPedido, double valorTotal, List<Itempedido> itempedidos) {
        this.cliente = cliente;
        this.status = status;
        this.dataPedido = dataPedido;
@@ -103,11 +105,11 @@ public class Pedido  implements java.io.Serializable {
     }
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy="pedido")
-    public Set<Itempedido> getItempedidos() {
+    public List<Itempedido> getItempedidos() {
         return this.itempedidos;
     }
     
-    public void setItempedidos(Set<Itempedido> itempedidos) {
+    public void setItempedidos(List<Itempedido> itempedidos) {
         this.itempedidos = itempedidos;
     }
 }

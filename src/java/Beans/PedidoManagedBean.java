@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -30,6 +31,24 @@ public class PedidoManagedBean {
 
     public Roupa roupa = new Roupa();
     public List<Itempedido> itens = new ArrayList<Itempedido>();
+    double valorTotal = 0;
+    Pedido pedido = new Pedido();
+    Itempedido itemToDelete = new Itempedido();
+
+    public Itempedido getItemToDelete() {
+        return itemToDelete;
+    }
+
+    public void setItemToDelete(Itempedido itemToDelete) {
+        this.itemToDelete = itemToDelete;
+    }
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 
     public List<Itempedido> getItens() {
         return itens;
@@ -51,11 +70,9 @@ public class PedidoManagedBean {
     public void setRoupa(Roupa roupa) {
         this.roupa = roupa;
     }
-    
-    public String adicionarCarrinho(Roupa roupa)
-    {
+
+    public String adicionarCarrinho(Roupa roupa) {
         Itempedido itemPedido = new Itempedido();
-        Pedido pedido = new Pedido();
         itemPedido.setPedido(pedido);
         itemPedido.setRoupa(roupa);
         itemPedido.setQuantidade(1);
@@ -63,8 +80,43 @@ public class PedidoManagedBean {
         pedido.setCliente(usuarioLogado);
         pedido.setDataPedido(new Date());
         itens.add(itemPedido);
+        valorTotal = valorTotal + (roupa.getPreco() * 1);
+        pedido.setValorTotal(valorTotal);
+        pedido.setItempedidos(itens);
         ItemsCarrinho++;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
         return nav.novoPedido();
+    }
+
+    public void atualizarQuantidade(Itempedido item) {
+        if (item.getQuantidade() < 0) {
+            showConfirmDelete(item);
+        } else {
+            int index = pedido.getItempedidos().indexOf(item);
+            pedido.getItempedidos().get(index).setQuantidade(item.getQuantidade());
+            ItemsCarrinho = pedido.getItempedidos().stream().mapToInt(o -> o.getQuantidade()).sum();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
+            calcularValorTotal();
+        }
+    }
+
+    public void calcularValorTotal() {
+        valorTotal = 0;
+        pedido.getItempedidos().forEach((_item) -> {
+            valorTotal = valorTotal + (_item.getRoupa().getPreco() * _item.getQuantidade());
+        });
+        pedido.setValorTotal(valorTotal);
+    }
+
+    public void excluirItem() {
+        pedido.getItempedidos().remove(itemToDelete);
+        calcularValorTotal();
+        ItemsCarrinho = pedido.getItempedidos().stream().mapToInt(o -> o.getQuantidade()).sum();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
+    }
+
+    public void showConfirmDelete(Itempedido item) {
+        setItemToDelete(item);
+        PrimeFaces.current().executeScript("PF('groupDeleteConfirm').show()");
     }
 }

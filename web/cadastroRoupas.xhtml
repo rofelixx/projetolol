@@ -85,7 +85,9 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">R$</span>
                                                 </div>
-                                                <b:inputText id="cpf" placeholder="3" value="#{RoupaMB.roupa.preco}" required='true' required-message="Campo cpf é requerido"/>
+                                                <p:inputNumber value="#{RoupaMB.roupa.preco}" symbolPosition="s" 
+                                                               decimalSeparator="," thousandSeparator="." emptyValue="">  
+                                                </p:inputNumber>  
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">,00</span>
                                                 </div>

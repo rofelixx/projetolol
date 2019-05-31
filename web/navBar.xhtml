@@ -32,7 +32,7 @@
                 </h:panelGroup>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <h:form>
+                <h:form id="navBar">
                     <h:panelGroup rendered="#{!LoginMB.isLogged()}">
                         <b:commandButton class="btn btn-outline-info my-2 my-sm-0" action="#{NavMB.login()}" value="Logar"/>
                         <b:commandButton class="btn btn-outline-secondary my-2 my-sm-0" action="#{NavMB.signUp()}" value="Registro"/>
@@ -48,7 +48,7 @@
                         </b:commandButton>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{LoginMB.isLogged()}">
-                        <b:commandButton action="#{NavMB.carrinhoDeCompra()}"
+                        <b:commandButton id="carrinhoDeCompra" action="#{NavMB.carrinhoDeCompra()}"
                                          tooltip="Carrinho de compra">
                             <b:iconAwesome name="shopping-cart">
                                 <span class="badge badge-danger" style="margin-top:-15px; background-color: red">#{sessionScope.ItemsCarrinho}</span>
