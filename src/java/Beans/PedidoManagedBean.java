@@ -42,6 +42,7 @@ public class PedidoManagedBean {
     public void setItemToDelete(Itempedido itemToDelete) {
         this.itemToDelete = itemToDelete;
     }
+
     public Pedido getPedido() {
         return pedido;
     }
@@ -85,6 +86,7 @@ public class PedidoManagedBean {
         pedido.setItempedidos(itens);
         ItemsCarrinho++;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
+        FacesMessages.info("Item adicionado com sucesso");
         return nav.novoPedido();
     }
 
