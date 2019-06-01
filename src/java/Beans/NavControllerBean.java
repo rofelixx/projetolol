@@ -64,6 +64,10 @@ public class NavControllerBean {
         return "carrinhoDeCompra.xhtml";
     }
 
+    public String finalizarPedido() {
+        return "finalizarPedido.xhtml";
+    }
+
     public boolean isLogged() {
         return isLogged;
     }

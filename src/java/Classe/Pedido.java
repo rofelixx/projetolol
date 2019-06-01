@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -104,7 +105,7 @@ public class Pedido  implements java.io.Serializable {
         this.valorTotal = valorTotal;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="pedido")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="pedido", cascade = CascadeType.ALL)
     public List<Itempedido> getItempedidos() {
         return this.itempedidos;
     }

@@ -2,6 +2,7 @@ package Classe;
 // Generated May 30, 2019 4:07:37 PM by Hibernate Tools 4.3.1
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class Itempedido  implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PedidoId", nullable=false)
     public Pedido getPedido() {
         return this.pedido;

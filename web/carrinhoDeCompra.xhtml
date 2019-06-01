@@ -19,9 +19,9 @@
                             <table id="cart" class="table table-hover table-condensed">
                                 <thead>
                                     <tr>
-                                        <th style="width:40%">Produtos</th>
-                                        <th style="width:10%">Prazo</th>
-                                        <th style="width:10%">Preco</th>
+                                        <th style="width:30%">Produtos</th>
+                                        <th style="width:15%" class="text-center">Prazo</th>
+                                        <th style="width:15%" class="text-center">Preco</th>
                                         <th style="width:8%">Quantidade</th>
                                         <th style="width:22%" class="text-center">Subtotal</th>
                                         <th style="width:10%"></th>
@@ -43,19 +43,19 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td data-th="Prazo">#{item.roupa.prazo}dia(s)</td>
-                                            <td data-th="Price">R$
+                                            <td data-th="Prazo" class="text-center">#{item.roupa.prazo}dia(s)</td>
+                                            <td data-th="Price" class="text-center">
                                                 <h:outputText value="#{item.roupa.preco}" >
-                                                    <f:convertNumber pattern="#0.00" />
+                                                    <f:convertNumber locale="pt_BR" type="currency"  />
                                                 </h:outputText></td>
-                                            <td data-th="Quantity">
+                                            <td data-th="Quantity" class="text-center">
                                                 <b:inputText id="quantidade" type="number" value="#{item.quantidade}">
                                                     <f:ajax listener="#{PedidoMB.atualizarQuantidade(item)}" render="master:valorTotal Subtotal navBar:carrinhoDeCompra" />
                                                 </b:inputText>
                                             </td>
-                                            <td data-th="Subtotal" class="text-center">R$
+                                            <td data-th="Subtotal" class="text-center">
                                                 <h:outputText id="Subtotal" value="#{item.roupa.preco * item.quantidade}">
-                                                    <f:convertNumber pattern="#0.00" />
+                                                    <f:convertNumber locale="pt_BR" type="currency"  />
                                                 </h:outputText></td>
                                             <td data-th="actions" class="actions">
                                                 <center><b:commandButton tooltip="Remover item" class="btn btn-danger btn-sm fa fa-trash-o center" action="#{PedidoMB.showConfirmDelete(item)}" /></center>
@@ -82,18 +82,31 @@
                                             <b:commandButton class="btn btn-outline-info fa fa-backward" value=" Continue comprando" 
                                                              action="#{NavMB.novoPedido()}"></b:commandButton>  
                                         </td>
-                                        <td class="hidden-xs text-center"><strong></strong></td>
+                                        <td class="hidden-xs text-center"><strong>Total #{PedidoMB.maiorPrazoTotal()} dia(s)</strong></td>
                                         <td class="hidden-xs text-center"><strong></strong></td>
                                         <td class="hidden-xs text-center"><strong></strong></td>
                                         <td class="hidden-xs text-center">
-                                            <strong>Total R$
+                                            <strong>Total 
                                                 <h:outputText id="valorTotal" value="#{PedidoMB.pedido.valorTotal}">
-                                                    <f:convertNumber pattern="#0.00" />
+                                                    <f:convertNumber locale="pt_BR" type="currency"  />
                                                 </h:outputText>                              
                                             </strong> 
                                         </td>
                                         <td class="hidden-xs text-center">
-                                            <b:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{LoginMB.logout}" value="Continuar"/>
+                                            <b:commandButton class="btn btn-outline-success fa fa-forward" action="#{PedidoMB.showConfirmConclude()}" value="Finalizar"/>
+                                            <p:confirmDialog message="Voce quer realmente concluir este pedido?" 
+                                                             showEffect="fade"
+                                                             hideEffect="explode" 
+                                                             widgetVar="groupConcluirConfirm">
+                                                <p:commandButton class="btn btn-outline-danger" 
+                                                                 value="Finalizar" 
+                                                                 action="#{PedidoMB.confirmarPedido()}"
+                                                                 update="templateForm:growl master navBar:carrinhoDeCompra"
+                                                                 oncomplete="PF('groupConcluirConfirm').hide()"/>
+                                                <p:commandButton class="btn btn-outline-primary" 
+                                                                 value="Cancelar" 
+                                                                 oncomplete="PF('groupConcluirConfirm').hide()"/>
+                                            </p:confirmDialog>
                                         </td>
                                     </tr>
                                 </tfoot>
