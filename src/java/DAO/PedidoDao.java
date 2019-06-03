@@ -7,6 +7,8 @@ package DAO;
 
 import Classe.Pedido;
 import Hibernate.HibernateUtil;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -15,7 +17,7 @@ import org.hibernate.SessionFactory;
  * @author Guigo
  */
 public class PedidoDao {
-        
+
     public boolean addNewPedido(Pedido newPedido) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
@@ -25,5 +27,15 @@ public class PedidoDao {
         session.getTransaction().commit();
         session.close();
         return true;
+    }
+
+    public List<Pedido> getAllPedidosByUser(Integer id) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Pedido WHERE ClienteId = :id");
+        query.setInteger("id", id);
+        List<Pedido> lista = query.list();
+        session.close();
+        return lista;       
     }
 }

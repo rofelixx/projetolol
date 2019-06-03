@@ -142,10 +142,19 @@ public class PedidoManagedBean {
     public String confirmarPedido() {
         boolean success = dao.addNewPedido(pedido);
         if (success) {
+            pedido = new Pedido();
+            itemToDelete = new Itempedido();
+            PrazoTotal = 0;
             url = nav.pedidos();
             FacesMessages.info("Pedido realizado com com sucesso");
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", 0);
         }
         return url;
+    }
+    
+    public List<Pedido> getAllPedidos()
+    {
+        List<Pedido> listPedidos = dao.getAllPedidosByUser(usuarioLogado.getId());
+        return listPedidos;
     }
 }

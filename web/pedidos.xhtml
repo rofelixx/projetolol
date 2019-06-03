@@ -1,33 +1,123 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:f="http://java.sun.com/jsf/core"
-     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
-    <h:head>
-        <title>Novo Pedido</title>
-    </h:head>
-    <h:body>
-        <ui:include src="Template.xhtml">
-        </ui:include>
-        <div class="container">			
-            <div class="row" style="margin-top:25%;">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong class="">Todos os Pedidos</strong>
+<ui:composition template="Template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <script src="js/fontAwesome 5.8.2.js" type="text/javascript"></script>
+
+    <ui:define name="conteudo">
+        <script src="js/fontAwesome 5.8.2.js" type="text/javascript"></script>
+        <h:body>   
+            <br></br>
+            <h:form id="master">
+                <style>
+                    div.dataTables_wrapper div.dataTables_filter {
+                        margin-left: 550px;
+                    }
+                    div.dataTables_wrapper div.dataTables_paginate ul.pagination 
+                    {
+                        margin-left: 560px;
+                    }
+                    div.dataTables_wrapper div.dataTables_length select {
+                        width: 75px;
+                        display: inline-block;
+                        height: 40px;
+                    }
+                    table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+                        background-color: #f0f0f0;
+                    }
+                    table.dataTable tbody tr.selected, table.dataTable tbody th.selected, table.dataTable tbody td.selected {
+                        color: #030303;
+                    }
+                    .dataTables_length
+                    {
+                        width: 170px;
+                    }
+
+                    .modal-content {
+                        width: 1080px;
+                        margin-left: -140px;
+                    }
+                </style>
+                <div class="cotainer col-md-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>Pedidos</span>
+                                    <b:commandButton id="newCliente" class="btn btn-outline-success" 
+                                                     action="#{NavMB.novoPedido()}" style="margin-left: 900px">Novo Pedido</b:commandButton>
+                                </div>
+                                <div class="card-body">
+                                    <b:dataTable id="myTable" value="#{PedidoMB.getAllPedidos()}" var="pedido"
+                                                 paginated='true'
+                                                 striped="false"
+                                                 lang="en">
+                                        <b:dataTableColumn width="15rem" value="#{pedido.valorTotal}"/>
+                                        <b:dataTableColumn width="15rem" value="#{pedido.dataPedido}"/>
+                                        <b:dataTableColumn width="10rem" value="#{pedido.valorTotal}"/>
+                                        <b:dataTableColumn width="10rem" value="#{pedido.status}"/>
+                                        <b:dataTableColumn width="15rem">
+                                            <f:facet name="header">Ações</f:facet>
+                                            <b:commandButton action="#{PedidoMB.setPedido(pedido)}" 
+                                                             style="color: #000"
+                                                             tooltip="Editar"
+                                                             update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
+                                                <b:iconAwesome name="edit fa-1x"></b:iconAwesome>
+                                            </b:commandButton>
+                                            <b:commandButton id="deletetool" action="#{PedidoMB.setPedido(pedido)}"
+                                                             style="color: #ff0033"
+                                                             tooltip="Excluir">
+                                                <b:iconAwesome name="trash"></b:iconAwesome>
+                                            </b:commandButton>
+                                            <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                                             showEffect="fade"
+                                                             hideEffect="explode" 
+                                                             widgetVar="groupDeleteConfirm">
+                                                <p:commandButton class="btn btn-outline-danger" 
+                                                                 value="Deletar" 
+                                                                 action="#{PedidoMB.setPedido(pedido)}"
+                                                                 update="templateForm:growl master"
+                                                                 oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                <p:commandButton class="btn btn-outline-primary" 
+                                                                 value="Cancelar" 
+                                                                 oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                            </p:confirmDialog>
+                                        </b:dataTableColumn>
+                                    </b:dataTable>
+                                </div>                                
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <h:form>
-                                <h:messages id="messages" />
-                               
-                            </h:form>
-                        </div> 
                     </div>
                 </div>
-            </div>
-        </div>
-    </h:body>
-</html>
+            </h:form>
+
+            <h:form id="responsiveModal" enctype="multipart/form-data">
+                <b:modal styleClass="roupaModal modal" size="modal-lg">
+                    <div class="cotainer">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">Editar</div>
+                                    <div class="card-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <f:facet name="footer">
+                        <b:button value="Fechar" dismiss="modal" />
+                        <b:commandButton class="btn btn-primary" value="Salvar" action="#{RoupaMB.salvarEdicao}"/>
+                    </f:facet>
+                </b:modal>
+            </h:form>
+        </h:body>
+    </ui:define>   
+    <h:form id="teste">
+        <b:growl id="growl1" severity="info"></b:growl>
+    </h:form>
+
+</ui:composition>
 
