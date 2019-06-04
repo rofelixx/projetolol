@@ -140,6 +140,7 @@ public class PedidoManagedBean {
     }
 
     public String confirmarPedido() {
+        pedido.setPrazo(PrazoTotal);
         boolean success = dao.addNewPedido(pedido);
         if (success) {
             pedido = new Pedido();

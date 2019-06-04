@@ -20,9 +20,6 @@
         <property name="valorTotal" type="double">
             <column name="ValorTotal" not-null="true" />
         </property>
-        <property name="prazo" type="java.lang.Integer">
-            <column name="Prazo" not-null="true" />
-        </property>
         <set name="itempedidos" table="itempedido" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="PedidoId" not-null="true" />
