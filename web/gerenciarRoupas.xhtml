@@ -13,12 +13,13 @@
             <br></br>
             <h:form id="master">
                 <style>
-                    div.dataTables_wrapper div.dataTables_filter {
-                        margin-left: 550px;
-                    }
+
                     div.dataTables_wrapper div.dataTables_paginate ul.pagination 
                     {
-                        margin-left: 560px;
+                        border-radius: 5px;
+                        width: 40%;
+                        margin: 0px auto;
+                        float: none;
                     }
                     div.dataTables_wrapper div.dataTables_length select {
                         width: 75px;
@@ -31,62 +32,55 @@
                     table.dataTable tbody tr.selected, table.dataTable tbody th.selected, table.dataTable tbody td.selected {
                         color: #030303;
                     }
-                    .dataTables_length
-                    {
-                        width: 170px;
-                    }
-
-                    .modal-content {
-                        width: 1080px;
-                        margin-left: -140px;
-                    }
                 </style>
                 <div class="cotainer col-md-12">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="card">
                                 <div class="card-header">
                                     <span>Gerenciar Roupas</span>
                                     <b:commandButton id="newCliente" class="btn btn-outline-success" 
-                                                     action="#{NavMB.cadatroRoupas()}" style="margin-left: 900px">Adicionar</b:commandButton>
+                                                     action="#{NavMB.cadatroRoupas()}" style="margin-left: 90%">Adicionar</b:commandButton>
                                 </div>
                                 <div class="card-body">
-                                    <b:dataTable id="myTable" value="#{RoupaMB.allRoupas}" var="roupa"
-                                                 paginated='true'
-                                                 striped="false"
-                                                 lang="en">
-                                        <b:dataTableColumn width="15rem" value="#{roupa.descricao}"/>
-                                        <b:dataTableColumn width="15rem" value="#{roupa.tipo}"/>
-                                        <b:dataTableColumn width="10rem" value="#{roupa.preco}"/>
-                                        <b:dataTableColumn width="10rem" value="#{roupa.prazo}"/>
-                                        <b:dataTableColumn width="15rem">
-                                            <f:facet name="header">Ações</f:facet>
-                                            <b:commandButton action="#{RoupaMB.setRoupa(roupa)}" 
-                                                             style="color: #000"
-                                                             tooltip="Editar"
-                                                             update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
-                                                <b:iconAwesome name="edit fa-1x"></b:iconAwesome>
-                                            </b:commandButton>
-                                            <b:commandButton id="deletetool" action="#{RoupaMB.showConfirmDelete()}"
-                                                             style="color: #ff0033"
-                                                             tooltip="Excluir">
-                                                <b:iconAwesome name="trash"></b:iconAwesome>
-                                            </b:commandButton>
-                                            <p:confirmDialog message="Voce quer realmente deletar este registro?" 
-                                                             showEffect="fade"
-                                                             hideEffect="explode" 
-                                                             widgetVar="groupDeleteConfirm">
-                                                <p:commandButton class="btn btn-outline-danger" 
-                                                                 value="Deletar" 
-                                                                 action="#{RoupaMB.deleteRoupa(roupa)}"
-                                                                 update="templateForm:growl master"
-                                                                 oncomplete="PF('groupDeleteConfirm').hide()"/>
-                                                <p:commandButton class="btn btn-outline-primary" 
-                                                                 value="Cancelar" 
-                                                                 oncomplete="PF('groupDeleteConfirm').hide()"/>
-                                            </p:confirmDialog>
-                                        </b:dataTableColumn>
-                                    </b:dataTable>
+                                    <div class="justify-content-center">
+                                        <b:dataTable id="myTable" value="#{RoupaMB.allRoupas}" var="roupa"
+                                                     paginated='true'
+                                                     striped="false"
+                                                     lang="pt">
+                                            <b:dataTableColumn width="15rem" value="#{roupa.descricao}"/>
+                                            <b:dataTableColumn width="15rem" value="#{roupa.tipo}"/>
+                                            <b:dataTableColumn width="10rem" value="#{roupa.preco}"/>
+                                            <b:dataTableColumn width="10rem" value="#{roupa.prazo}"/>
+                                            <b:dataTableColumn width="15rem">
+                                                <f:facet name="header">Ações</f:facet>
+                                                <b:commandButton action="#{RoupaMB.setRoupa(roupa)}" 
+                                                                 style="color: #000"
+                                                                 tooltip="Editar"
+                                                                 update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
+                                                    <b:iconAwesome name="edit fa-1x"></b:iconAwesome>
+                                                </b:commandButton>
+                                                <b:commandButton id="deletetool" action="#{RoupaMB.showConfirmDelete()}"
+                                                                 style="color: #ff0033"
+                                                                 tooltip="Excluir">
+                                                    <b:iconAwesome name="trash"></b:iconAwesome>
+                                                </b:commandButton>
+                                                <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                                                 showEffect="fade"
+                                                                 hideEffect="explode" 
+                                                                 widgetVar="groupDeleteConfirm">
+                                                    <p:commandButton class="btn btn-outline-danger" 
+                                                                     value="Deletar" 
+                                                                     action="#{RoupaMB.deleteRoupa(roupa)}"
+                                                                     update="templateForm:growl master"
+                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                    <p:commandButton class="btn btn-outline-primary" 
+                                                                     value="Cancelar" 
+                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                </p:confirmDialog>
+                                            </b:dataTableColumn>
+                                        </b:dataTable>
+                                    </div>
                                 </div>                                
                             </div>
                         </div>
