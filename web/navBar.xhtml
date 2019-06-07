@@ -55,7 +55,7 @@
                             </b:iconAwesome>
                         </b:commandButton>
                         <span class="navbar-text">
-                            Bem Vindo, #{LoginMB.cliente.nome}
+                            Bem Vindo, #{sessionScope.usuarioLogado.getNome()}
                         </span>
                         <b:commandButton class="btn btn-outline-success my-2 my-sm-0" action="#{LoginMB.logout}" value="Logout"/>
                     </h:panelGroup>

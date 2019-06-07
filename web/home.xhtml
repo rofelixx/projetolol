@@ -7,7 +7,7 @@
 
     <ui:define name="conteudo">
         <h:body>
-            <h2>Welcome #{LoginMB.cliente.nome}</h2>
+            <h2>Welcome #{sessionScope.usuarioLogado.getNome()}</h2>
         </h:body>
         <h:form>
             <form class="form-inline my-2 my-lg-0">

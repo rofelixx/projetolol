@@ -2,61 +2,27 @@ package Beans;
 
 import Classe.Cliente;
 import Classe.Endereco;
-import DAO.ClienteDao;
-import DAO.Criptografia;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.StateManager;
+import Facade.FacadeLogin;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean(name = "LoginMB")
 @SessionScoped
 public class LoginManagedBean {
 
     public Cliente cliente = new Cliente();
-    public Cliente retorno = new Cliente();
     public Endereco endereco = new Endereco();
-    public ClienteDao dao = new ClienteDao();
-    public boolean isLogged = false;
     public String confirmarSenha = "";
-    public boolean isCliente = false;
+    public FacadeLogin facade = new FacadeLogin();
 
     public String autenticar() throws Exception {
-        retorno = dao.getClienteByEmail(cliente.getEmail());
-        if (retorno != null && cliente.getEmail().equals(retorno.getEmail()) && comparaSenha()) {
-            cliente = retorno;
-            isLogged = true;
-            isCliente = retorno.getPerfil() != 1;
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Logado com sucesso"));
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", cliente);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", 0);
-            return "home";
-        } else {
-            FacesMessages.error("Erro!", "Email ou senha incorretos");
-            return "login";
-        }
+        return facade.autenticar(cliente);
     }
 
     public boolean isPerfilCliente() {
-        return this.isCliente;
-    }
-
-    public boolean comparaSenha() {
-        String senhaNew = Criptografia.md5(cliente.getSenha());
-        String senha = retorno.getSenha();
-        if (senha.equals(senhaNew)) {
-            return true;
-        } else {
-            return false;
-        }
+        return facade.isPerfilCliente();
     }
 
     public String logout() {
@@ -70,7 +36,7 @@ public class LoginManagedBean {
     }
 
     public boolean isLogged() {
-        return isLogged;
+        return facade.isLogged();
     }
 
     public String getconfirmarSenha() {

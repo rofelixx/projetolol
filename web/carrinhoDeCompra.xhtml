@@ -16,101 +16,105 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="card-body">
-                            <table id="cart" class="table table-hover table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th style="width:30%">Produtos</th>
-                                        <th style="width:15%" class="text-center">Prazo</th>
-                                        <th style="width:15%" class="text-center">Preco</th>
-                                        <th style="width:8%">Quantidade</th>
-                                        <th style="width:22%" class="text-center">Subtotal</th>
-                                        <th style="width:10%"></th>
-                                        <th style="width:10%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <ui:repeat var="item" value="#{PedidoMB.itens}" varStatus="status">
+                            <h:panelGroup rendered="#{not empty PedidoMB.pedido.itempedidos}">
+                                <table id="cart" class="table table-hover table-condensed">
+                                    <thead>
                                         <tr>
-                                            <td data-th="Product">
-                                                <div class="row">
-                                                    <div class="col-sm-2 hidden-xs">
-                                                        <p:graphicImage value="images/roupasUpload/#{item.roupa.image}" />
+                                            <th style="width:30%">Produtos</th>
+                                            <th style="width:15%" class="text-center">Prazo</th>
+                                            <th style="width:15%" class="text-center">Preco</th>
+                                            <th style="width:8%">Quantidade</th>
+                                            <th style="width:22%" class="text-center">Subtotal</th>
+                                            <th style="width:10%"></th>
+                                            <th style="width:10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat var="item" value="#{PedidoMB.pedido.itempedidos}" varStatus="status" >
+                                            <tr>
+                                                <td data-th="Product">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 hidden-xs">
+                                                            <p:graphicImage value="images/roupasUpload/#{item.roupa.image}" />
+                                                        </div>
+                                                        <div class="col-sm-10">
+                                                            <h4 class="nomargin">#{item.roupa.descricao}</h4>
+                                                            <p>#{item.roupa.observacao}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-10">
-                                                        <h4 class="nomargin">#{item.roupa.descricao}</h4>
-                                                        <p>#{item.roupa.observacao}</p>
-                                                    </div>
-                                                </div>
+                                                </td>
+                                                <td data-th="Prazo" class="text-center">#{item.roupa.prazo}dia(s)</td>
+                                                <td data-th="Price" class="text-center">
+                                                    <h:outputText value="#{item.roupa.preco}" >
+                                                        <f:convertNumber locale="pt_BR" type="currency"  />
+                                                    </h:outputText></td>
+                                                <td data-th="Quantity" class="text-center">
+                                                    <b:inputText id="quantidade" type="number" value="#{item.quantidade}">
+                                                        <f:ajax listener="#{PedidoMB.atualizarQuantidade(item)}" render="master:valorTotal Subtotal navBar:carrinhoDeCompra" />
+                                                    </b:inputText>
+                                                </td>
+                                                <td data-th="Subtotal" class="text-center">
+                                                    <h:outputText id="Subtotal" value="#{item.roupa.preco * item.quantidade}">
+                                                        <f:convertNumber locale="pt_BR" type="currency"  />
+                                                    </h:outputText></td>
+                                                <td data-th="actions" class="actions">
+                                                    <center><b:commandButton tooltip="Remover item" class="btn btn-danger btn-sm fa fa-trash-o center" action="#{PedidoMB.showConfirmDelete(item)}" /></center>
+                                                    <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                                                     showEffect="fade"
+                                                                     hideEffect="explode" 
+                                                                     widgetVar="groupDeleteConfirm">
+                                                        <p:commandButton class="btn btn-outline-danger" 
+                                                                         value="Deletar" 
+                                                                         action="#{PedidoMB.excluirItem()}"
+                                                                         update="templateForm:growl master navBar:carrinhoDeCompra"
+                                                                         oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                        <p:commandButton class="btn btn-outline-primary" 
+                                                                         value="Cancelar" 
+                                                                         oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                    </p:confirmDialog>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                <b:commandButton class="btn btn-outline-info fa fa-backward" value=" Continue comprando" 
+                                                                 action="#{NavMB.novoPedido()}"></b:commandButton>  
                                             </td>
-                                            <td data-th="Prazo" class="text-center">#{item.roupa.prazo}dia(s)</td>
-                                            <td data-th="Price" class="text-center">
-                                                <h:outputText value="#{item.roupa.preco}" >
-                                                    <f:convertNumber locale="pt_BR" type="currency"  />
-                                                </h:outputText></td>
-                                            <td data-th="Quantity" class="text-center">
-                                                <b:inputText id="quantidade" type="number" value="#{item.quantidade}">
-                                                    <f:ajax listener="#{PedidoMB.atualizarQuantidade(item)}" render="master:valorTotal Subtotal navBar:carrinhoDeCompra" />
-                                                </b:inputText>
+                                            <td class="hidden-xs text-center"><strong>Total #{PedidoMB.maiorPrazoTotal()} dia(s)</strong></td>
+                                            <td class="hidden-xs text-center"><strong></strong></td>
+                                            <td class="hidden-xs text-center"><strong></strong></td>
+                                            <td class="hidden-xs text-center">
+                                                <strong>Total 
+                                                    <h:outputText id="valorTotal" value="#{PedidoMB.pedido.valorTotal}">
+                                                        <f:convertNumber locale="pt_BR" type="currency"  />
+                                                    </h:outputText>                              
+                                                </strong> 
                                             </td>
-                                            <td data-th="Subtotal" class="text-center">
-                                                <h:outputText id="Subtotal" value="#{item.roupa.preco * item.quantidade}">
-                                                    <f:convertNumber locale="pt_BR" type="currency"  />
-                                                </h:outputText></td>
-                                            <td data-th="actions" class="actions">
-                                                <center><b:commandButton tooltip="Remover item" class="btn btn-danger btn-sm fa fa-trash-o center" action="#{PedidoMB.showConfirmDelete(item)}" /></center>
-                                                <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                            <td class="hidden-xs text-center">
+                                                <b:commandButton class="btn btn-outline-success fa fa-forward" action="#{PedidoMB.showConfirmConclude()}" value="Finalizar"/>
+                                                <p:confirmDialog message="Voce quer realmente concluir este pedido?" 
                                                                  showEffect="fade"
                                                                  hideEffect="explode" 
-                                                                 widgetVar="groupDeleteConfirm">
+                                                                 widgetVar="groupConcluirConfirm">
                                                     <p:commandButton class="btn btn-outline-danger" 
-                                                                     value="Deletar" 
-                                                                     action="#{PedidoMB.excluirItem()}"
+                                                                     value="Finalizar" 
+                                                                     action="#{PedidoMB.confirmarPedido()}"
                                                                      update="templateForm:growl master navBar:carrinhoDeCompra"
-                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                                     oncomplete="PF('groupConcluirConfirm').hide()"/>
                                                     <p:commandButton class="btn btn-outline-primary" 
                                                                      value="Cancelar" 
-                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                                     oncomplete="PF('groupConcluirConfirm').hide()"/>
                                                 </p:confirmDialog>
                                             </td>
                                         </tr>
-                                    </ui:repeat>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td>
-                                            <b:commandButton class="btn btn-outline-info fa fa-backward" value=" Continue comprando" 
-                                                             action="#{NavMB.novoPedido()}"></b:commandButton>  
-                                        </td>
-                                        <td class="hidden-xs text-center"><strong>Total #{PedidoMB.maiorPrazoTotal()} dia(s)</strong></td>
-                                        <td class="hidden-xs text-center"><strong></strong></td>
-                                        <td class="hidden-xs text-center"><strong></strong></td>
-                                        <td class="hidden-xs text-center">
-                                            <strong>Total 
-                                                <h:outputText id="valorTotal" value="#{PedidoMB.pedido.valorTotal}">
-                                                    <f:convertNumber locale="pt_BR" type="currency"  />
-                                                </h:outputText>                              
-                                            </strong> 
-                                        </td>
-                                        <td class="hidden-xs text-center">
-                                            <b:commandButton class="btn btn-outline-success fa fa-forward" action="#{PedidoMB.showConfirmConclude()}" value="Finalizar"/>
-                                            <p:confirmDialog message="Voce quer realmente concluir este pedido?" 
-                                                             showEffect="fade"
-                                                             hideEffect="explode" 
-                                                             widgetVar="groupConcluirConfirm">
-                                                <p:commandButton class="btn btn-outline-danger" 
-                                                                 value="Finalizar" 
-                                                                 action="#{PedidoMB.confirmarPedido()}"
-                                                                 update="templateForm:growl master navBar:carrinhoDeCompra"
-                                                                 oncomplete="PF('groupConcluirConfirm').hide()"/>
-                                                <p:commandButton class="btn btn-outline-primary" 
-                                                                 value="Cancelar" 
-                                                                 oncomplete="PF('groupConcluirConfirm').hide()"/>
-                                            </p:confirmDialog>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tfoot>
+                                </table>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{empty PedidoMB.pedido.itempedidos}">
+                                Nenhum registro encontrado.
+                            </h:panelGroup>
                         </div>
                     </div>
                 </div>
@@ -118,3 +122,141 @@
         </h:body>
     </ui:define>
 </ui:composition>
+
+
+
+<!--<h:dataTable binding="#{table}" id="cart" class="table table-striped table-hover table-bordered" rendered="#{not empty PedidoMB.pedido.itempedidos}"
+             var="item" value="#{PedidoMB.pedido.itempedidos}">
+    <thead>
+        <h:column>  
+            <f:facet name="header">Produto</f:facet>  
+            <h:outputText value="#{item.roupa.descricao}"/>  
+        </h:column>  
+        <h:column>
+            <f:facet name="header">Prazo</f:facet>
+            <h:outputText value="#{item.prazo}"/>  
+        </h:column>
+        <h:column>
+            <f:facet name="header">Preco</f:facet>
+            <h:outputText value="#{item.valorUnitario}"/>  
+        </h:column>
+        <h:column>
+            <f:facet name="header">Quantidade</f:facet>
+            <h:outputText value="#{item.quantidade}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Subtotal</f:facet>
+            <h:outputText value="#{item.valorUnitario * item.quantidade}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header"></f:facet>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Ações</f:facet>
+            <center><b:commandButton tooltip="Remover item" class="btn btn-danger btn-sm fa fa-trash-o center" action="#{PedidoMB.showConfirmDelete(item)}" /></center>
+            <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                             showEffect="fade"
+                             hideEffect="explode" 
+                             widgetVar="groupDeleteConfirm">
+                <p:commandButton class="btn btn-outline-danger" 
+                                 value="Deletar" 
+                                 action="#{PedidoMB.excluirItem()}"
+                                 update="templateForm:growl master navBar:carrinhoDeCompra"
+                                 oncomplete="PF('groupDeleteConfirm').hide()"/>
+                <p:commandButton class="btn btn-outline-primary" 
+                                 value="Cancelar" 
+                                 oncomplete="PF('groupDeleteConfirm').hide()"/>
+            </p:confirmDialog>
+        </h:column>
+        <tr>
+            <th style="width:30%">Produtos</th>
+            <th style="width:15%" class="text-center">Prazo</th>
+            <th style="width:15%" class="text-center">Preco</th>
+            <th style="width:8%">Quantidade</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:10%"></th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <ui:repeat var="item" value="#{PedidoMB.pedido.itempedidos}" varStatus="status" >
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-2 hidden-xs">
+                            <p:graphicImage value="images/roupasUpload/#{item.roupa.image}" />
+                        </div>
+                        <div class="col-sm-10">
+                            <h4 class="nomargin">#{item.roupa.descricao}</h4>
+                            <p>#{item.roupa.observacao}</p>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Prazo" class="text-center">#{item.roupa.prazo}dia(s)</td>
+                <td data-th="Price" class="text-center">
+                    <h:outputText value="#{item.roupa.preco}" >
+                        <f:convertNumber locale="pt_BR" type="currency"  />
+                    </h:outputText></td>
+                <td data-th="Quantity" class="text-center">
+                    <b:inputText id="quantidade" type="number" value="#{item.quantidade}">
+                        <f:ajax listener="#{PedidoMB.atualizarQuantidade(item)}" render="master:valorTotal Subtotal navBar:carrinhoDeCompra" />
+                    </b:inputText>
+                </td>
+                <td data-th="Subtotal" class="text-center">
+                    <h:outputText id="Subtotal" value="#{item.roupa.preco * item.quantidade}">
+                        <f:convertNumber locale="pt_BR" type="currency"  />
+                    </h:outputText></td>
+                <td data-th="actions" class="actions">
+                    <center><b:commandButton tooltip="Remover item" class="btn btn-danger btn-sm fa fa-trash-o center" action="#{PedidoMB.showConfirmDelete(item)}" /></center>
+                    <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                     showEffect="fade"
+                                     hideEffect="explode" 
+                                     widgetVar="groupDeleteConfirm">
+                        <p:commandButton class="btn btn-outline-danger" 
+                                         value="Deletar" 
+                                         action="#{PedidoMB.excluirItem()}"
+                                         update="templateForm:growl master navBar:carrinhoDeCompra"
+                                         oncomplete="PF('groupDeleteConfirm').hide()"/>
+                        <p:commandButton class="btn btn-outline-primary" 
+                                         value="Cancelar" 
+                                         oncomplete="PF('groupDeleteConfirm').hide()"/>
+                    </p:confirmDialog>
+                </td>
+            </tr>
+        </ui:repeat>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <b:commandButton class="btn btn-outline-info fa fa-backward" value=" Continue comprando" 
+                                 action="#{NavMB.novoPedido()}"></b:commandButton>  
+            </td>
+            <td class="hidden-xs text-center"><strong>Total #{PedidoMB.maiorPrazoTotal()} dia(s)</strong></td>
+            <td class="hidden-xs text-center"><strong></strong></td>
+            <td class="hidden-xs text-center"><strong></strong></td>
+            <td class="hidden-xs text-center">
+                <strong>Total 
+                    <h:outputText id="valorTotal" value="#{PedidoMB.pedido.valorTotal}">
+                        <f:convertNumber locale="pt_BR" type="currency"  />
+                    </h:outputText>                              
+                </strong> 
+            </td>
+            <td class="hidden-xs text-center">
+                <b:commandButton class="btn btn-outline-success fa fa-forward" action="#{PedidoMB.showConfirmConclude()}" value="Finalizar"/>
+                <p:confirmDialog message="Voce quer realmente concluir este pedido?" 
+                                 showEffect="fade"
+                                 hideEffect="explode" 
+                                 widgetVar="groupConcluirConfirm">
+                    <p:commandButton class="btn btn-outline-danger" 
+                                     value="Finalizar" 
+                                     action="#{PedidoMB.confirmarPedido()}"
+                                     update="templateForm:growl master navBar:carrinhoDeCompra"
+                                     oncomplete="PF('groupConcluirConfirm').hide()"/>
+                    <p:commandButton class="btn btn-outline-primary" 
+                                     value="Cancelar" 
+                                     oncomplete="PF('groupConcluirConfirm').hide()"/>
+                </p:confirmDialog>
+            </td>
+        </tr>
+    </tfoot>
+</h:dataTable>-->

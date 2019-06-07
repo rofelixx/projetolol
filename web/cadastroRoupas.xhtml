@@ -18,45 +18,10 @@
                                 <div class="card-body">
                                     <div class="form-group col-md-12">
                                         <label for="inputNome">Tipo de Roupa</label>
-<!--                                        <p:selectOneRadio id="course1" value="#{RoupaMB.roupa.tipo}">
-                                            <f:selectItem itemValue="1" itemLabel="Camiseta" />
-                                            <f:selectItem itemValue="2" itemLabel="Camisa" />
-                                            <f:selectItem itemValue="3" itemLabel="Jaqueta" />
-                                            <f:selectItem itemValue="4" itemLabel="Calça" />
-                                            <f:selectItem itemValue="5" itemLabel="Vestido" />
-                                        </p:selectOneRadio>-->
-
-                                        <!--                                        <ul class="list-inline">
-                                                                                    <li class="list-inline-item">
-                                                                                        <b:commandButton tooltip="Camiseta" style='background-color: white' action="#{RoupaMB.setTipoRoupa(1)}" immediate="true">
-                                                                                            <img src="images/gerenciarRoupas/camiseta.png" alt="" width="60%"/>
-                                                                                        </b:commandButton>
-                                                                                    </li>
-                                                                                    <li class="list-inline-item">
-                                                                                        <b:commandButton tooltip="Camisa" style='background-color: white' action="#{RoupaMB.setTipoRoupa(2)}" immediate="true">
-                                                                                            <img src="images/gerenciarRoupas/camisa.png" alt="" width="60%"/>
-                                                                                        </b:commandButton>
-                                                                                    </li>
-                                                                                    <li class="list-inline-item">
-                                                                                        <b:commandButton tooltip="Jaquetas/Casacos" style='background-color: white' action="#{RoupaMB.setTipoRoupa(3)}" immediate="true">
-                                                                                            <img src="images/gerenciarRoupas/jaqueta.png" alt="" width="60%"/>
-                                                                                        </b:commandButton>
-                                                                                    </li>
-                                                                                    <li class="list-inline-item">
-                                                                                        <b:commandButton tooltip="Calça" style='background-color: white' action="#{RoupaMB.setTipoRoupa(4)}" immediate="true">
-                                                                                            <img src="images/gerenciarRoupas/calca.png" alt="" width="60%"/>
-                                                                                        </b:commandButton>
-                                                                                    </li>
-                                                                                    <li class="list-inline-item">
-                                                                                        <b:commandButton tooltip="Vestidos" style='background-color: white' action="#{RoupaMB.setTipoRoupa(5)}" immediate="true">
-                                                                                            <img src="images/gerenciarRoupas/vestido.png" alt="" width="60%"/>
-                                                                                        </b:commandButton>
-                                                                                    </li>
-                                                                                </ul>-->
                                     </div>
                                     <div class="form-row col-md-12">
                                         <div class="form-group">
-                                            <p:selectOneRadio id="course1" value="#{RoupaMB.roupa.tipo}">
+                                            <p:selectOneRadio id="roupasRadio" value="#{RoupaMB.roupa.tipo}">
                                                 <f:selectItem itemValue="1" itemLabel="Camiseta" />
                                                 <f:selectItem itemValue="2" itemLabel="Camisa" />
                                                 <f:selectItem itemValue="3" itemLabel="Jaqueta" />
@@ -101,7 +66,6 @@
                                     <div class="form-row col-md-12">
                                         <p:fileUpload value="#{RoupaMB.uploadedFile}" mode="simple" skinSimple="true" 
                                                       update="myImage" label="Escolher foto da roupa"/>
-                                        <p:graphicImage id="myImage" value="#{RoupaMB.chart}" />
                                     </div>
                                     <div class="form-row col-md-2" style="margin-top:30px">
                                         <h:commandButton class="btn btn-outline-success" value="Cadastrar" action="#{RoupaMB.upload()}"/>

@@ -5,28 +5,17 @@ import Classe.Itempedido;
 import Classe.Pedido;
 import Classe.Roupa;
 import DAO.PedidoDao;
-import DAO.RoupaDao;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import Facade.FacadePedido;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import net.bootsfaces.utils.FacesMessages;
 import org.primefaces.PrimeFaces;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "PedidoMB")
 @SessionScoped
@@ -36,7 +25,7 @@ public class PedidoManagedBean {
     public Roupa roupa = new Roupa();
     public NavControllerBean nav = new NavControllerBean();
     public String url = "";
-    public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+    public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     public int ItemsCarrinho = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ItemsCarrinho");
     public PedidoDao dao = new PedidoDao();
     public List<Itempedido> itens = new ArrayList<Itempedido>();
@@ -44,9 +33,12 @@ public class PedidoManagedBean {
     Pedido pedido = new Pedido();
     Itempedido itemToDelete = new Itempedido();
     Integer PrazoTotal;
+    FacadePedido facade = new FacadePedido();
 
     public Integer maiorPrazoTotal() {
-        PrazoTotal = Collections.max(pedido.getItempedidos(), Comparator.comparing(s -> s.getPrazo())).getPrazo();
+        if (!pedido.getItempedidos().isEmpty()) {
+            PrazoTotal = Collections.max(pedido.getItempedidos(), Comparator.comparing(s -> s.getPrazo())).getPrazo();
+        }
         return PrazoTotal;
     }
 
@@ -140,11 +132,11 @@ public class PedidoManagedBean {
     }
 
     public String confirmarPedido() {
-        pedido.setPrazo(PrazoTotal);
-        boolean success = dao.addNewPedido(pedido);
+        boolean success = facade.confirmarPedido(pedido, PrazoTotal);
         if (success) {
             pedido = new Pedido();
             itemToDelete = new Itempedido();
+            itens = new ArrayList<Itempedido>();
             PrazoTotal = 0;
             url = nav.pedidos();
             FacesMessages.info("Pedido realizado com com sucesso");
@@ -152,10 +144,8 @@ public class PedidoManagedBean {
         }
         return url;
     }
-    
-    public List<Pedido> getAllPedidos()
-    {
-        List<Pedido> listPedidos = dao.getAllPedidosByUser(usuarioLogado.getId());
-        return listPedidos;
+
+    public List<Pedido> getAllPedidos() {
+        return facade.getAllPedidos();
     }
 }
