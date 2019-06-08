@@ -12,6 +12,10 @@
         <param-name>primefaces.UPLOADER</param-name>
         <param-value>auto</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name >
+        <param-value>/Resources</param-value >
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

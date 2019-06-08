@@ -74,7 +74,7 @@ public class Pedido implements java.io.Serializable {
         this.prazo = prazo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ClienteId", nullable = false)
     public Cliente getCliente() {
         return this.cliente;

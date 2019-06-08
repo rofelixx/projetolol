@@ -32,10 +32,19 @@ public class PedidoDao {
     public List<Pedido> getAllPedidosByUser(Integer id) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("FROM Pedido WHERE ClienteId = :id");
+        Query query = session.createQuery("FROM Pedido p JOIN FETCH p.cliente cliente WHERE cliente.id = :id");
         query.setInteger("id", id);
         List<Pedido> lista = query.list();
         session.close();
-        return lista;       
+        return lista;
+    }
+
+    public List<Pedido> getAllPedidos() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Pedido p JOIN FETCH p.cliente cliente");
+        List<Pedido> lista = query.list();
+        session.close();
+        return lista;
     }
 }

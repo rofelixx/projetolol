@@ -145,6 +145,10 @@ public class PedidoManagedBean {
         return url;
     }
 
+    public List<Pedido> getAllPedidosByUser() {
+        return facade.getAllPedidosByUser();
+    }
+
     public List<Pedido> getAllPedidos() {
         return facade.getAllPedidos();
     }

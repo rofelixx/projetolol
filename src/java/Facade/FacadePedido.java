@@ -33,7 +33,7 @@ public class FacadePedido {
     Itempedido itemToDelete = new Itempedido();
     Integer PrazoTotal;
 
-    public List<Pedido> getAllPedidos() {
+    public List<Pedido> getAllPedidosByUser() {
         List<Pedido> listPedidos = dao.getAllPedidosByUser(usuarioLogado.getId());
         return listPedidos;
     }
@@ -41,5 +41,10 @@ public class FacadePedido {
     public boolean confirmarPedido(Pedido pedido, int PrazoTotal) {
         pedido.setPrazo(PrazoTotal);
         return dao.addNewPedido(pedido);
+    }
+
+    public List<Pedido> getAllPedidos() {
+        List<Pedido> listPedidos = dao.getAllPedidos();       
+        return listPedidos;
     }
 }

@@ -1,0 +1,18 @@
+div.dataTables_wrapper div.dataTables_paginate ul.pagination 
+{
+    border-radius: 5px;
+    width: 40%;
+    margin: 0px auto;
+    float: none;
+}
+div.dataTables_wrapper div.dataTables_length select {
+    width: 75px;
+    display: inline-block;
+    height: 40px;
+}
+table.dataTable tbody>tr.selected, table.dataTable tbody>tr>.selected {
+    background-color: #f0f0f0;
+}
+table.dataTable tbody tr.selected, table.dataTable tbody th.selected, table.dataTable tbody td.selected {
+    color: #030303;
+}
