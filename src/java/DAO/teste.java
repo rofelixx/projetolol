@@ -7,6 +7,7 @@ package DAO;
 
 import Classe.Cliente;
 import Classe.Endereco;
+import Enum.EnumStatus;
 import Hibernate.HibernateUtil;
 import java.util.List;
 import java.util.Set;
@@ -43,11 +44,7 @@ public class teste {
     }
 **/
     public static void main(String[] args) {
-
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.getTransaction().commit();
-        session.close();
+        System.out.println("Enum is: " + (6 == EnumStatus.Cancelado.getCode()));
+        
     }
 }

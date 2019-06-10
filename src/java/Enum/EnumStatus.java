@@ -12,28 +12,17 @@ package Enum;
 public enum EnumStatus {
     AguardandoPagamento(1),
     PagamentoConfirmado(2),
-    EmLavagem(4),
-    LavagemConcluida(5),
-    Concluido(6), 
-    Cancelado(7);
+    EmLavagem(3),
+    LavagemConcluida(4),
+    Concluido(5),
+    Cancelado(6);
 
-    private final int codigo;
-
-    EnumStatus(int codigo) {
-        this.codigo = codigo;
+    private final int code;
+    
+    EnumStatus(int code){
+        this.code = code;
     }
-
-    int codigo() {
-        return codigo;
+    public int getCode(){
+        return this.code;
     }
-
-    public static EnumStatus porCodigo(int codigo) {
-        for (EnumStatus status : EnumStatus.values()) {
-            if (codigo == status.codigo()) {
-                return status;
-            }
-        }
-        throw new IllegalArgumentException("codigo invalido");
-    }
-
 }

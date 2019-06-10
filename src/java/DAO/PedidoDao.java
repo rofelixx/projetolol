@@ -5,7 +5,9 @@
  */
 package DAO;
 
+import Classe.Itempedido;
 import Classe.Pedido;
+import Enum.EnumStatus;
 import Hibernate.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
@@ -32,7 +34,7 @@ public class PedidoDao {
     public List<Pedido> getAllPedidosByUser(Integer id) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Query query = session.createQuery("FROM Pedido p JOIN FETCH p.cliente cliente WHERE cliente.id = :id");
+        Query query = session.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente cliente WHERE cliente.id = :id");
         query.setInteger("id", id);
         List<Pedido> lista = query.list();
         session.close();
@@ -44,6 +46,27 @@ public class PedidoDao {
         Session session = sessionFactory.openSession();
         Query query = session.createQuery("FROM Pedido p JOIN FETCH p.cliente cliente");
         List<Pedido> lista = query.list();
+        session.close();
+        return lista;
+    }
+
+    public boolean cancelarPedido(Pedido pedido) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        pedido.setStatus(EnumStatus.Cancelado.getCode());
+        session.saveOrUpdate(pedido);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    public List<Itempedido> getItemPedidoById(Integer id) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Itempedido p JOIN FETCH p.roupa roupa WHERE p.pedido.id = :Id");
+        query.setInteger("Id", id);
+        List<Itempedido> lista = query.list();
         session.close();
         return lista;
     }

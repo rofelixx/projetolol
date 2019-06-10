@@ -44,7 +44,15 @@ public class FacadePedido {
     }
 
     public List<Pedido> getAllPedidos() {
-        List<Pedido> listPedidos = dao.getAllPedidos();       
+        List<Pedido> listPedidos = dao.getAllPedidos();
         return listPedidos;
+    }
+
+    public boolean cancelarPedido(Pedido pedido) {
+        return dao.cancelarPedido(pedido);
+    }
+
+    public List<Itempedido> getItemPedidoById(Integer id) {
+        return dao.getItemPedidoById(id);
     }
 }

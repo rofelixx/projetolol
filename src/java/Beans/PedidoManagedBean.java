@@ -5,6 +5,7 @@ import Classe.Itempedido;
 import Classe.Pedido;
 import Classe.Roupa;
 import DAO.PedidoDao;
+import Enum.EnumStatus;
 import Facade.FacadePedido;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -131,6 +132,21 @@ public class PedidoManagedBean {
         PrimeFaces.current().executeScript("PF('groupConcluirConfirm').show()");
     }
 
+    public void showConfirmCancel() {
+        PrimeFaces.current().executeScript("PF('groupDeleteConfirm').show()");
+    }
+
+    public void CancelPedido(Pedido pedido) {
+        if (pedido.getStatus() == EnumStatus.AguardandoPagamento.getCode()) {
+            boolean success = facade.cancelarPedido(pedido);
+            if (success) {
+                FacesMessages.info("Pedido cancelado com sucesso");
+            }
+        } else {
+            FacesMessages.warning("O pedido não pode ser cancelado.");
+        }
+    }
+
     public String confirmarPedido() {
         boolean success = facade.confirmarPedido(pedido, PrazoTotal);
         if (success) {
@@ -151,5 +167,38 @@ public class PedidoManagedBean {
 
     public List<Pedido> getAllPedidos() {
         return facade.getAllPedidos();
+    }
+
+    public String getStatus(int status) {
+        String retorno = "";
+        switch (status) {
+            case 1:
+                retorno = "Aguardando Pagamento";
+                break;
+            case 2:
+                retorno = "Pagamento Confirmado";
+                break;
+            case 3:
+                retorno = "Em Lavagem";
+                break;
+            case 4:
+                retorno = "Lavagem Concluida";
+                break;
+            case 5:
+                retorno = "Concluido";
+                break;
+            case 6:
+                retorno = "Cancelado";
+                break;
+        }
+        return retorno;
+    }
+
+    public List<Itempedido> getItemPedidoById() {
+        if (pedido.getId() != null) {
+            return facade.getItemPedidoById(pedido.getId());
+        } else {
+            return new ArrayList<Itempedido>();
+        }
     }
 }

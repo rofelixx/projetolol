@@ -23,37 +23,38 @@
                                     <b:dataTable id="myTable" value="#{PedidoMB.getAllPedidosByUser()}" var="pedido"
                                                  paginated='true'
                                                  striped="false"
-                                                 customLangUrl="#{resource['lang/Portuguese-Brasil.json']}">                                    
-                                        <b:dataTableColumn width="15%" value="#{pedido.id}" label="N. Pedido"/>
+                                                 customLangUrl="#{resource['lang/Portuguese-Brasil.json']}"
+                                                 searching="true">                                    
+                                        <b:dataTableColumn width="15%" value="#{pedido.id}" label="N. Pedido" searchable="true"/>
                                         <b:dataTableColumn width="15%" value="#{pedido.cliente.nome}"/>
                                         <b:dataTableColumn width="15rem" value="#{pedido.dataPedido}"/>
                                         <b:dataTableColumn width="10rem" value="#{pedido.prazo}"/>
                                         <b:dataTableColumn width="10rem" value="#{pedido.valorTotal}"/>
-                                        <b:dataTableColumn width="10rem" value="#{pedido.status}"/>
+                                        <b:dataTableColumn width="10rem" value="#{PedidoMB.getStatus(pedido.status)}" label="Status" />
                                         <b:dataTableColumn width="15rem">
                                             <f:facet name="header">Ações</f:facet>
                                             <b:commandButton action="#{PedidoMB.setPedido(pedido)}" 
                                                              style="color: #000"
-                                                             tooltip="Editar"
+                                                             tooltip="Visualizar"
                                                              update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
-                                                <b:iconAwesome name="edit fa-1x"></b:iconAwesome>
+                                                <b:iconAwesome name="fas fa-eye"></b:iconAwesome>
                                             </b:commandButton>
-                                            <b:commandButton id="deletetool" action="#{PedidoMB.setPedido(pedido)}"
+                                            <b:commandButton id="deletetool" action="#{PedidoMB.showConfirmCancel()}"
                                                              style="color: #ff0033"
-                                                             tooltip="Excluir">
-                                                <b:iconAwesome name="trash"></b:iconAwesome>
+                                                             tooltip="Cancelar">
+                                                <b:iconAwesome name="fas fa-ban"></b:iconAwesome>
                                             </b:commandButton>
-                                            <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                            <p:confirmDialog message="Voce quer realmente cancelar este pedido?" 
                                                              showEffect="fade"
                                                              hideEffect="explode" 
                                                              widgetVar="groupDeleteConfirm">
                                                 <p:commandButton class="btn btn-outline-danger" 
-                                                                 value="Deletar" 
-                                                                 action="#{PedidoMB.setPedido(pedido)}"
+                                                                 value="Cancelar" 
+                                                                 action="#{PedidoMB.CancelPedido(pedido)}"
                                                                  update="templateForm:growl master"
                                                                  oncomplete="PF('groupDeleteConfirm').hide()"/>
                                                 <p:commandButton class="btn btn-outline-primary" 
-                                                                 value="Cancelar" 
+                                                                 value="Fechar" 
                                                                  oncomplete="PF('groupDeleteConfirm').hide()"/>
                                             </p:confirmDialog>
                                         </b:dataTableColumn>
@@ -71,7 +72,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <div class="card-header">Editar</div>
+                                    <div class="card-header">Informaçoes</div>
                                     <div class="card-body">
                                     </div>
                                 </div>
@@ -80,7 +81,6 @@
                     </div>
                     <f:facet name="footer">
                         <b:button value="Fechar" dismiss="modal" />
-                        <b:commandButton class="btn btn-primary" value="Salvar" action="#{RoupaMB.salvarEdicao}"/>
                     </f:facet>
                 </b:modal>
             </h:form>
