@@ -5,6 +5,7 @@
  */
 package Facade;
 
+import Beans.NavControllerBean;
 import Classe.Cliente;
 import Classe.Endereco;
 import DAO.ClienteDao;
@@ -24,7 +25,8 @@ public class FacadeLogin {
     public String confirmarSenha = "";
     public boolean isCliente = false;
     public boolean isLogged = false;
-
+    NavControllerBean nav = new NavControllerBean();
+    
     public String autenticar(Cliente cliente) throws Exception {
         retorno = dao.getClienteByEmail(cliente.getEmail());
         if (retorno != null && cliente.getEmail().equals(retorno.getEmail()) && comparaSenha(cliente)) {
@@ -34,7 +36,7 @@ public class FacadeLogin {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Logado com sucesso"));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", cliente);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", 0);
-            return "home";
+            return isCliente ? nav.pedidos() : nav.gerenciarPedidos();
         } else {
             FacesMessages.error("Erro!", "Email ou senha incorretos");
             return "login";

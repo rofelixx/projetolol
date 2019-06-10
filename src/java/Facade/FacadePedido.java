@@ -63,4 +63,8 @@ public class FacadePedido {
     public boolean ConfirmWashing(Pedido pedido) {
         return dao.ConfirmWashing(pedido);
     }
+
+    public boolean ConfirmWashingDone(Pedido pedido) {
+        return dao.ConfirmWashingDone(pedido);
+    }
 }

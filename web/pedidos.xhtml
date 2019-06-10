@@ -47,7 +47,7 @@
                                                              update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
                                                 <b:iconAwesome name="fas fa-eye"></b:iconAwesome>
                                             </b:commandButton>
-                                            <b:commandButton id="deletetool" action="#{PedidoMB.showConfirmCancel()}"
+                                            <b:commandButton id="deletetool" action="#{PedidoMB.showConfirmCancel(pedido)}"
                                                              style="color: #ff0033"
                                                              tooltip="Cancelar">
                                                 <b:iconAwesome name="fas fa-ban"></b:iconAwesome>
@@ -58,7 +58,7 @@
                                                              widgetVar="groupDeleteConfirm">
                                                 <p:commandButton class="btn btn-outline-danger" 
                                                                  value="Cancelar" 
-                                                                 action="#{PedidoMB.CancelPedido(pedido)}"
+                                                                 action="#{PedidoMB.CancelPedido()}"
                                                                  update="templateForm:growl master"
                                                                  oncomplete="PF('groupDeleteConfirm').hide()"/>
                                                 <p:commandButton class="btn btn-outline-primary" 

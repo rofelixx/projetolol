@@ -19,10 +19,9 @@
         <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
             <ul class="navbar-nav mr-auto">
                 <h:panelGroup rendered="#{LoginMB.isLogged() == true}">
-                    <li class="#{view.viewId == '/home.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/home.xhtml">Home</a></li>
                     <h:panelGroup rendered="#{LoginMB.isPerfilCliente()}">
-                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
                         <li class="#{view.viewId == '/pedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
+                        <li class="#{view.viewId == '/novoPedido.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
                         <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>

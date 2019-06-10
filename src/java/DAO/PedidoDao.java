@@ -88,6 +88,17 @@ public class PedidoDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        pedido.setStatus(EnumStatus.EmLavagem.getCode());
+        session.saveOrUpdate(pedido);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    public boolean ConfirmWashingDone(Pedido pedido) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
         pedido.setStatus(EnumStatus.LavagemConcluida.getCode());
         session.saveOrUpdate(pedido);
         session.getTransaction().commit();

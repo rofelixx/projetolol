@@ -133,11 +133,12 @@ public class PedidoManagedBean {
         PrimeFaces.current().executeScript("PF('groupConcluirConfirm').show()");
     }
 
-    public void showConfirmCancel() {
+    public void showConfirmCancel(Pedido pedido) {
+        setPedido(pedido);
         PrimeFaces.current().executeScript("PF('groupDeleteConfirm').show()");
     }
 
-    public void CancelPedido(Pedido pedido) {
+    public void CancelPedido() {
         if (pedido.getStatus() == EnumStatus.AguardandoPagamento.getCode()) {
             boolean success = facade.cancelarPedido(pedido);
             if (success) {
@@ -222,10 +223,28 @@ public class PedidoManagedBean {
         if (pedido.getStatus() == EnumStatus.PagamentoConfirmado.getCode()) {
             boolean success = facade.ConfirmWashing(pedido);
             if (success) {
-                FacesMessages.info("Lavagem confirmada com sucesso");
+                FacesMessages.info("O pedido em lavagem foi confirmado com sucesso");
             }
         } else if (pedido.getStatus() == EnumStatus.LavagemConcluida.getCode()) {
-            FacesMessages.warning("A lavagem já foi confirmada");
+            FacesMessages.warning("O pedido já está em lavagem");
+        } else {
+            FacesMessages.warning("A lavagem não pode ser confirmada nesse status");
+        }
+    }
+
+    public void showConfirmWashingDone(Pedido pedido) {
+        setPedido(pedido);
+        PrimeFaces.current().executeScript("PF('confirmWashingDone').show()");
+    }
+
+    public void ConfirmWashingDone() {
+        if (pedido.getStatus() == EnumStatus.EmLavagem.getCode()) {
+            boolean success = facade.ConfirmWashingDone(pedido);
+            if (success) {
+                FacesMessages.info("A lavagem foi concluida com sucesso");
+            }
+        } else if (pedido.getStatus() == EnumStatus.LavagemConcluida.getCode()) {
+            FacesMessages.warning("A lavagem já foi concluida");
         } else {
             FacesMessages.warning("A lavagem não pode ser confirmada nesse status");
         }
