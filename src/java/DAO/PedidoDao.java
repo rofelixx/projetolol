@@ -10,6 +10,7 @@ import Classe.Pedido;
 import Enum.EnumStatus;
 import Hibernate.HibernateUtil;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -67,6 +68,7 @@ public class PedidoDao {
         Query query = session.createQuery("FROM Itempedido p JOIN FETCH p.roupa roupa WHERE p.pedido.id = :Id");
         query.setInteger("Id", id);
         List<Itempedido> lista = query.list();
+        Hibernate.initialize(lista.get(0).getRoupa().getItempedidos());
         session.close();
         return lista;
     }

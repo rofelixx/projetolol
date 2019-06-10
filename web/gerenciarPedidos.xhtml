@@ -24,12 +24,20 @@
                                              striped="false"
                                              responsive="true"
                                              customLangUrl="#{resource['lang/Portuguese-Brasil.json']}">                                    
-                                    <b:dataTableColumn width="15%" value="#{pedido.id}" label="N. Pedido"/>
+                                    <b:dataTableColumn width="15%" value="#{pedido.id}" label="N. Pedido" searchable="true"/>
                                     <b:dataTableColumn width="15%" value="#{pedido.cliente.nome}"/>
-                                    <b:dataTableColumn width="15rem" value="#{pedido.dataPedido}"/>
+                                    <b:dataTableColumn width="15rem" label="Data do pedido">
+                                        <h:outputText value="#{pedido.dataPedido}" >
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                        </h:outputText>
+                                    </b:dataTableColumn>
                                     <b:dataTableColumn width="10rem" value="#{pedido.prazo}"/>
-                                    <b:dataTableColumn width="10rem" value="#{pedido.valorTotal}"/>
-                                    <b:dataTableColumn width="10rem" value="#{pedido.status}"/>
+                                    <b:dataTableColumn width="10rem" label="Valor total">                                                   
+                                        <h:outputText value="#{pedido.valorTotal}">
+                                            <f:convertNumber locale="pt_BR" type="currency"  />
+                                        </h:outputText>
+                                    </b:dataTableColumn>
+                                    <b:dataTableColumn width="10rem" value="#{PedidoMB.getStatus(pedido.status)}" label="Status" />
                                     <b:dataTableColumn width="15rem">
                                         <f:facet name="header">Ações</f:facet>
                                         <b:commandButton action="#{PedidoMB.setPedido(pedido)}" 

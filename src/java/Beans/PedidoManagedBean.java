@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -194,11 +195,4 @@ public class PedidoManagedBean {
         return retorno;
     }
 
-    public List<Itempedido> getItemPedidoById() {
-        if (pedido.getId() != null) {
-            return facade.getItemPedidoById(pedido.getId());
-        } else {
-            return new ArrayList<Itempedido>();
-        }
-    }
 }

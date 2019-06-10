@@ -74,7 +74,7 @@ public class Pedido implements java.io.Serializable {
         this.prazo = prazo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "ClienteId", nullable = false)
     public Cliente getCliente() {
         return this.cliente;
@@ -112,7 +112,7 @@ public class Pedido implements java.io.Serializable {
         this.valorTotal = valorTotal;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pedido", cascade = CascadeType.ALL)
     public List<Itempedido> getItempedidos() {
         return this.itempedidos;
     }

@@ -60,7 +60,7 @@ public class Itempedido  implements java.io.Serializable {
         this.pedido = pedido;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="RoupaId", nullable=false)
     public Roupa getRoupa() {
         return this.roupa;

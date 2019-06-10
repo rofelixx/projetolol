@@ -4,6 +4,7 @@ package Classe;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -121,7 +122,7 @@ public class Roupa  implements java.io.Serializable {
         this.image = image;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="roupa")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="roupa", cascade = CascadeType.ALL)
     public Set<Itempedido> getItempedidos() {
         return this.itempedidos;
     }
@@ -129,10 +130,6 @@ public class Roupa  implements java.io.Serializable {
     public void setItempedidos(Set<Itempedido> itempedidos) {
         this.itempedidos = itempedidos;
     }
-
-
-
-
 }
 
 
