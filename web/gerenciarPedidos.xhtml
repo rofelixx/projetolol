@@ -40,29 +40,42 @@
                                     <b:dataTableColumn width="10rem" value="#{PedidoMB.getStatus(pedido.status)}" label="Status" />
                                     <b:dataTableColumn width="15rem">
                                         <f:facet name="header">Ações</f:facet>
-                                        <b:commandButton action="#{PedidoMB.setPedido(pedido)}" 
-                                                         style="color: #000"
-                                                         tooltip="Editar"
-                                                         update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
-                                            <b:iconAwesome name="edit fa-1x"></b:iconAwesome>
+                                        <b:commandButton action="#{PedidoMB.showConfirmPayment(pedido)}" 
+                                                         style="color: #24d924"
+                                                         tooltip="Confirmar Pagamento" ajax="true">
+                                            <b:iconAwesome name="far fa-check-circle" size="lg"></b:iconAwesome>
                                         </b:commandButton>
-                                        <b:commandButton id="deletetool" action="#{PedidoMB.setPedido(pedido)}"
-                                                         style="color: #ff0033"
-                                                         tooltip="Excluir">
-                                            <b:iconAwesome name="trash"></b:iconAwesome>
-                                        </b:commandButton>
-                                        <p:confirmDialog message="Voce quer realmente deletar este registro?" 
+                                        <p:confirmDialog message="Voce quer realmente confirmar o pagamento deste pedido?" 
                                                          showEffect="fade"
                                                          hideEffect="explode" 
-                                                         widgetVar="groupDeleteConfirm">
-                                            <p:commandButton class="btn btn-outline-danger" 
-                                                             value="Deletar" 
-                                                             action="#{PedidoMB.setPedido(pedido)}"
+                                                         widgetVar="confirmPayment">
+                                            <p:commandButton class="btn btn-outline-success" 
+                                                             value="Confirmar" 
+                                                             action="#{PedidoMB.ConfirmPayment()}"
                                                              update="templateForm:growl master"
-                                                             oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                             oncomplete="PF('confirmPayment').hide()"/>
                                             <p:commandButton class="btn btn-outline-primary" 
                                                              value="Cancelar" 
-                                                             oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                             oncomplete="PF('confirmPayment').hide()"/>
+                                        </p:confirmDialog>
+
+                                        <b:commandButton action="#{PedidoMB.showConfirmWashing(pedido)}" 
+                                                         style="color: #ff0033"
+                                                         tooltip="Confirmar lavagem" ajax="true">
+                                            <img src="images/local_laundry_service_black_24x24.png" alt=""/>
+                                        </b:commandButton>
+                                        <p:confirmDialog message="Voce quer realmente confirmar lavagem deste pedido?" 
+                                                         showEffect="fade"
+                                                         hideEffect="explode" 
+                                                         widgetVar="confirmWashing">
+                                            <p:commandButton class="btn btn-outline-danger" 
+                                                             value="Confirmar" 
+                                                             action="#{PedidoMB.ConfirmWashing()}"
+                                                             update="templateForm:growl master"
+                                                             oncomplete="PF('confirmWashing').hide()"/>
+                                            <p:commandButton class="btn btn-outline-primary" 
+                                                             value="Cancelar" 
+                                                             oncomplete="PF('confirmWashing').hide()"/>
                                         </p:confirmDialog>
                                     </b:dataTableColumn>
                                 </b:dataTable>

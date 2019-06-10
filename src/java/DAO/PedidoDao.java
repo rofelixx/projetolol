@@ -72,4 +72,26 @@ public class PedidoDao {
         session.close();
         return lista;
     }
+
+    public boolean ConfirmPayment(Pedido pedido) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        pedido.setStatus(EnumStatus.PagamentoConfirmado.getCode());
+        session.saveOrUpdate(pedido);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
+
+    public boolean ConfirmWashing(Pedido pedido) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        pedido.setStatus(EnumStatus.LavagemConcluida.getCode());
+        session.saveOrUpdate(pedido);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
 }

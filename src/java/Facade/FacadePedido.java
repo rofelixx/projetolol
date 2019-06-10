@@ -55,4 +55,12 @@ public class FacadePedido {
     public List<Itempedido> getItemPedidoById(Integer id) {
         return dao.getItemPedidoById(id);
     }
+
+    public boolean ConfirmPayment(Pedido pedido) {
+        return dao.ConfirmPayment(pedido);
+    }
+
+    public boolean ConfirmWashing(Pedido pedido) {
+        return dao.ConfirmWashing(pedido);
+    }
 }

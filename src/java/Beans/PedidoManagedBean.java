@@ -195,4 +195,40 @@ public class PedidoManagedBean {
         return retorno;
     }
 
+    public void showConfirmPayment(Pedido pedido) {
+        setPedido(pedido);
+        PrimeFaces.current().executeScript("PF('confirmPayment').show()");
+    }
+
+    public void ConfirmPayment() {
+        if (pedido.getStatus() == EnumStatus.AguardandoPagamento.getCode()) {
+            boolean success = facade.ConfirmPayment(pedido);
+            if (success) {
+                FacesMessages.info("Pagamento confirmado com sucesso");
+            }
+        } else if (pedido.getStatus() == EnumStatus.PagamentoConfirmado.getCode()) {
+            FacesMessages.info("O Pagamento já foi confirmado");
+        } else {
+            FacesMessages.warning("O pagamento não pode ser confirmado nesse status");
+        }
+    }
+
+    public void showConfirmWashing(Pedido pedido) {
+        setPedido(pedido);
+        PrimeFaces.current().executeScript("PF('confirmWashing').show()");
+    }
+
+    public void ConfirmWashing() {
+        if (pedido.getStatus() == EnumStatus.PagamentoConfirmado.getCode()) {
+            boolean success = facade.ConfirmWashing(pedido);
+            if (success) {
+                FacesMessages.info("Lavagem confirmada com sucesso");
+            }
+        } else if (pedido.getStatus() == EnumStatus.LavagemConcluida.getCode()) {
+            FacesMessages.warning("A lavagem já foi confirmada");
+        } else {
+            FacesMessages.warning("A lavagem não pode ser confirmada nesse status");
+        }
+    }
+
 }
