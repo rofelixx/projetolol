@@ -25,9 +25,12 @@
                                              striped="false"
                                              customLangUrl="#{resource['lang/Portuguese-Brasil.json']}">                                    
                                     <b:dataTableColumn width="15rem" value="#{roupa.descricao}"/>
-                                    <b:dataTableColumn width="15rem" value="#{roupa.tipo}"/>
-                                    <b:dataTableColumn width="10rem" value="#{roupa.preco}"/>
-                                    <b:dataTableColumn width="10rem" value="#{roupa.prazo}"/>
+                                    <b:dataTableColumn width="15rem" value="#{RoupaMB.getRoupaTipoNome(roupa.tipo)}" label="Tipo de Roupa"/>
+                                    <b:dataTableColumn width="10rem" label="Valor">
+                                        <h:outputText value="#{roupa.preco}">
+                                            <f:convertNumber locale="pt_BR" type="currency"  />
+                                        </h:outputText></b:dataTableColumn>
+                                    <b:dataTableColumn width="10rem" value="#{roupa.prazo} dia(s)" label="Prazo"/>
                                     <b:dataTableColumn width="15rem">
                                         <f:facet name="header">Ações</f:facet>
                                         <b:commandButton action="#{RoupaMB.setRoupa(roupa)}" 
@@ -36,9 +39,9 @@
                                                          update=":responsiveModal" oncomplete="$('.roupaModal').modal('show')">
                                             <b:iconAwesome name="edit fa-1x"></b:iconAwesome>
                                         </b:commandButton>
-                                        <b:commandButton id="deletetool" action="#{RoupaMB.showConfirmDelete()}"
+                                        <b:commandButton action="#{RoupaMB.showConfirmDelete(roupa)}"
                                                          style="color: #ff0033"
-                                                         tooltip="Excluir">
+                                                         tooltip="Excluir" ajax="true">
                                             <b:iconAwesome name="trash"></b:iconAwesome>
                                         </b:commandButton>
                                         <p:confirmDialog message="Voce quer realmente deletar este registro?" 
@@ -47,7 +50,7 @@
                                                          widgetVar="groupDeleteConfirm">
                                             <p:commandButton class="btn btn-outline-danger" 
                                                              value="Deletar" 
-                                                             action="#{RoupaMB.deleteRoupa(roupa)}"
+                                                             action="#{RoupaMB.deleteRoupa()}"
                                                              update="templateForm:growl master"
                                                              oncomplete="PF('groupDeleteConfirm').hide()"/>
                                             <p:commandButton class="btn btn-outline-primary" 

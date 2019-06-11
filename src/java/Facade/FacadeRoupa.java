@@ -43,7 +43,7 @@ public class FacadeRoupa {
     }
 
     public String deleteRoupa(Roupa roupa) {
-        boolean deleted = dao.deleteRoupa(roupa);
+        boolean deleted = dao.deleteRoupa(roupa);;
         if (deleted) {
             url = nav.gerenciarRoupas();
             FacesMessages.info("Roupa deletada com sucesso");

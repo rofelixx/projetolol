@@ -32,10 +32,6 @@ public class RoupaManagedBean {
     private int tipoRoupa;
     FacadeRoupa facade = new FacadeRoupa();
 
-    public String deleteRoupa(Roupa roupa) {
-        return facade.deleteRoupa(roupa);
-    }
-
     public List<Roupa> getAllRoupas() throws Exception {
         return facade.getAllRoupas();
     }
@@ -76,7 +72,34 @@ public class RoupaManagedBean {
         this.uploadedFile = uploadedFile;
     }
 
-    public void showConfirmDelete() {
+    public void showConfirmDelete(Roupa roupa) {
+        setRoupa(roupa);
         PrimeFaces.current().executeScript("PF('groupDeleteConfirm').show()");
+    }
+
+    public String deleteRoupa() {
+        return facade.deleteRoupa(roupa);
+    }
+
+    public String getRoupaTipoNome(int tipo) {
+        String retorno = "";
+        switch (tipo) {
+            case 1:
+                retorno = "Camiseta";
+                break;
+            case 2:
+                retorno = "Camisa";
+                break;
+            case 3:
+                retorno = "Jaqueta/Casacos";
+                break;
+            case 4:
+                retorno = "Calça";
+                break;
+            case 5:
+                retorno = "Vestido";
+                break;
+        }
+        return retorno;
     }
 }

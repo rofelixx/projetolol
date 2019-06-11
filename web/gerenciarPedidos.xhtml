@@ -31,7 +31,7 @@
                                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                                         </h:outputText>
                                     </b:dataTableColumn>
-                                    <b:dataTableColumn width="10rem" value="#{pedido.prazo}"/>
+                                    <b:dataTableColumn width="10rem" value="#{pedido.prazo} dia(s)" label="Prazo"/>
                                     <b:dataTableColumn width="10rem" label="Valor total">                                                   
                                         <h:outputText value="#{pedido.valorTotal}">
                                             <f:convertNumber locale="pt_BR" type="currency"  />

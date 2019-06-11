@@ -18,11 +18,11 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="inputNome">Nome completo</label>
-                                            <b:inputText id="Nome" placeholder="Nome" value="#{CadastroMB.cliente.nome}" required='true' required-message="Campo nome é requerido"/>
+                                            <b:inputText id="Nome" placeholder="Nome" value="#{CadastroMB.cliente.nome}" required='true' required-message="O campo Nome é obrigatório"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="cpf">CPF</label>
-                                            <b:inputText id="cpf" placeholder="Nome" value="#{CadastroMB.cliente.cpf}" required='true' required-message="Campo cpf é requerido"/>
+                                            <b:inputText id="cpf" mask="999.999.999-99" value="#{ClienteMB.cliente.cpf}" required='true' required-message="Campo cpf é obrigatório"/>
                                         </div>
                                     </div>  
                                     <div class="form-row">

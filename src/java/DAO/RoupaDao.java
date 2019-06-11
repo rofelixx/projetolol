@@ -13,6 +13,7 @@ import Hibernate.HibernateUtil;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -57,13 +58,17 @@ public class RoupaDao {
     }
 
     public boolean deleteRoupa(Roupa roupa) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(roupa);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.delete(roupa);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            return false;
+        }
     }
 
     public List<Roupa> getAllByTipo(int tipoRoupa) {

@@ -155,7 +155,7 @@ public class Cliente  implements java.io.Serializable {
         this.perfil = perfil;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="cliente")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="cliente", cascade = CascadeType.ALL)
     public Set<Pedido> getPedidos() {
         return this.pedidos;
     }
