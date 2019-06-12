@@ -15,7 +15,13 @@ public enum EnumStatus {
     EmLavagem(3),
     LavagemConcluida(4),
     Concluido(5),
-    Cancelado(6);
+    Cancelado(6),
+    AguardandoColeta(7),
+    EmEntrega(8),
+    Entregue(9),
+    NãoEntregue(10),
+    EntregaCancelada(11);
+    
 
     private final int code;
     

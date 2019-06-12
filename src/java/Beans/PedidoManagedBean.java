@@ -192,6 +192,21 @@ public class PedidoManagedBean {
             case 6:
                 retorno = "Cancelado";
                 break;
+            case 7:
+                retorno = "Aguardando Coleta";
+                break;
+            case 8:
+                retorno = "Em Entrega";
+                break;
+            case 9:
+                retorno = "Entregue";
+                break;
+            case 10:
+                retorno = "Não Entregue";
+                break;
+            case 11:
+                retorno = "Entrega Cancelada";
+                break;
         }
         return retorno;
     }
