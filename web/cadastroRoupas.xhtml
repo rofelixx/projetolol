@@ -13,7 +13,7 @@
                         <div class="row justify-content-center">
                             <div class="card">
                                 <div class="card-header">
-                                    <h2>Gerenciar Roupas</h2>
+                                    <h2>Cadastro de Roupas</h2>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group col-md-12">
@@ -21,7 +21,9 @@
                                     </div>
                                     <div class="form-row col-md-12">
                                         <div class="form-group">
-                                            <p:selectOneRadio id="roupasRadio" value="#{RoupaMB.roupa.tipo}">
+                                            <p:selectOneRadio id="roupasRadio" value="#{RoupaMB.roupa.tipo}" 
+                                                              required='true'
+                                                              requiredMessage="Campo preco é requerido">
                                                 <f:selectItem itemValue="1" itemLabel="Camiseta" />
                                                 <f:selectItem itemValue="2" itemLabel="Camisa" />
                                                 <f:selectItem itemValue="3" itemLabel="Jaqueta" />
@@ -40,7 +42,8 @@
                                     <div class="form-row col-md-12">
                                         <div class="form-group col-md-6">
                                             <label for="inputNome">Descricao</label>
-                                            <b:inputText id="Nome" placeholder="Nome" value="#{RoupaMB.roupa.descricao}" required="true" required-message="Campo nome é requerido"/>
+                                            <b:inputText id="descricao" placeholder="Descricao" value="#{RoupaMB.roupa.descricao}" required="true" 
+                                                         required-message="A descrição é obrigatória"/>
                                         </div>
                                     </div> 
                                     <div class="form-row col-md-12">
@@ -50,33 +53,48 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">R$</span>
                                                 </div>
-                                                <p:inputNumber value="#{RoupaMB.roupa.preco}" symbolPosition="s" 
-                                                               decimalSeparator="," thousandSeparator="." emptyValue="">  
+                                                <p:inputNumber id="preco" value="#{RoupaMB.roupa.preco}" symbolPosition="s"  required='true' 
+                                                               requiredMessage="O preco é obrigatório"
+                                                               decimalSeparator="," thousandSeparator=".">  
                                                 </p:inputNumber>  
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">,00</span>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="prazo">Prazo de Lavagem</label>
-                                            <b:inputText value="#{RoupaMB.roupa.prazo}" id="inputNumero" placeholder="1 dia" required='true'/>
+                                            <b:inputText id="prazo" value="#{RoupaMB.roupa.prazo}" mask="integer"  
+                                                         required='true' required-message="O prazo é obrigatório"/>
                                         </div>
                                     </div>
                                     <div class="form-row col-md-12">
-                                        <p:fileUpload value="#{RoupaMB.uploadedFile}" mode="simple" skinSimple="true" 
+                                        <p:fileUpload id="file" value="#{RoupaMB.uploadedFile}" mode="simple" skinSimple="true" required="true" requiredMessage="A imagem é obrigatória"
                                                       update="myImage" label="Escolher foto da roupa"/>
                                     </div>
                                     <div class="form-row col-md-2" style="margin-top:30px">
-                                        <h:commandButton class="btn btn-outline-success" value="Cadastrar" action="#{RoupaMB.upload()}"/>
+                                        <b:commandButton class="btn btn-outline-success" value="Cadastrar" action="#{RoupaMB.upload()}"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <b:growl for="roupasRadio" auto-update="true" 
+                             allow-dismiss="true"
+                             animation-exit="animated flipOutX"/>
+                    <b:growl for="descricao" auto-update="true" 
+                             allow-dismiss="true"
+                             animation-exit="animated flipOutX"/>
+                    <b:growl for="preco" auto-update="true" 
+                             allow-dismiss="true"
+                             animation-exit="animated flipOutX"/>
+                    <b:growl for="prazo" auto-update="true" 
+                             allow-dismiss="true"
+                             animation-exit="animated flipOutX"/>
+                    <b:growl for="file" auto-update="true" 
+                             allow-dismiss="true"
+                             animation-exit="animated flipOutX"/>
                 </h:form>
             </div>
         </h:body>
     </ui:define>    
 </ui:composition>
+
 

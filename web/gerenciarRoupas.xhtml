@@ -108,7 +108,9 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">R$</span>
                                                         </div>
-                                                        <b:inputText placeholder="3" value="#{RoupaMB.roupa.preco}" required='true' required-message="Campo preco é requerido"/>
+                                                        <p:inputNumber value="#{RoupaMB.roupa.preco}" symbolPosition="s"  required='true' requiredMessage="Campo preco é requerido"
+                                                                       decimalSeparator="," thousandSeparator="." emptyValue="">  
+                                                        </p:inputNumber>  
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2">

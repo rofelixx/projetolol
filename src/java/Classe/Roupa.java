@@ -22,11 +22,11 @@ public class Roupa  implements java.io.Serializable {
 
 
      private Integer id;
-     private int tipo;
+     private Integer tipo;
      private String descricao;
      private String observacao;
      private double preco;
-     private int prazo;
+     private Integer prazo;
      private String image;
      private Set<Itempedido> itempedidos = new HashSet<Itempedido>(0);
 
@@ -34,13 +34,13 @@ public class Roupa  implements java.io.Serializable {
     }
 
 	
-    public Roupa(int tipo, String descricao, double preco, int prazo) {
+    public Roupa(Integer tipo, String descricao, double preco, Integer prazo) {
         this.tipo = tipo;
         this.descricao = descricao;
         this.preco = preco;
         this.prazo = prazo;
     }
-    public Roupa(int tipo, String descricao, String observacao, double preco, int prazo, String image, Set<Itempedido> itempedidos) {
+    public Roupa(Integer tipo, String descricao, String observacao, double preco, Integer prazo, String image, Set<Itempedido> itempedidos) {
        this.tipo = tipo;
        this.descricao = descricao;
        this.observacao = observacao;
@@ -64,11 +64,11 @@ public class Roupa  implements java.io.Serializable {
 
     
     @Column(name="Tipo", nullable=false)
-    public int getTipo() {
+    public Integer getTipo() {
         return this.tipo;
     }
     
-    public void setTipo(int tipo) {
+    public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
 
@@ -104,11 +104,11 @@ public class Roupa  implements java.io.Serializable {
 
     
     @Column(name="Prazo", nullable=false)
-    public int getPrazo() {
+    public Integer getPrazo() {
         return this.prazo;
     }
     
-    public void setPrazo(int prazo) {
+    public void setPrazo(Integer prazo) {
         this.prazo = prazo;
     }
 
