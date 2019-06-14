@@ -22,7 +22,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="cpf">CPF</label>
-                                            <b:inputText id="cpf" mask="999.999.999-99" value="#{ClienteMB.cliente.cpf}" required='true' required-message="Campo cpf é obrigatório"/>
+                                            <b:inputText id="cpf" mask="999.999.999-99" value="#{CadastroMB.cliente.cpf}" required='true' required-message="Campo cpf é obrigatório"/>
                                         </div>
                                     </div>  
                                     <div class="form-row">
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="inputPassword4">Senha</label>
-                                            <p:password class="form-control"  feedback="true" id="pwd1" value="#{CadastroMB.cliente.senha}" match="pwd2" label="Senha" required="true"/>
+                                            <p:password class="form-control" maxlength="12" feedback="true" id="pwd1" value="#{CadastroMB.cliente.senha}" match="pwd2" label="Senha" required="true"/>
                                             <small id="passwordHelpBlock" class="form-text text-muted">
                                                 Sua senha deve ter entre 8-20 letras, contendo maiúsculas e números.
                                             </small>
@@ -76,7 +76,7 @@
                                             </small>
                                         </div>
                                     </div>    
-                                    <h:commandButton class="btn btn-primary" value="Cadastrar" action="#{CadastroMB.cadastrar}"/>
+                                    <b:commandButton class="btn btn-primary" value="Cadastrar" action="#{CadastroMB.cadastrar}" oncomplete="#{CadastroMB.reset()}"/>
                                     <b:growl for="email" auto-update="true" 
                                              allow-dismiss="true"
                                              animation-exit="animated flipOutX"/>

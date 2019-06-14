@@ -73,13 +73,17 @@ public class ClienteDao {
     }
 
     public boolean deleteCliente(Cliente cliente) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(cliente);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.delete(cliente);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean setAdmCliente(Cliente cliente, int perfil) {

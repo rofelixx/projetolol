@@ -14,7 +14,7 @@ public class CadastroManagedBean {
     public Cliente cliente = new Cliente();
     public Endereco endereco = new Endereco();
     public FacadeCadastro facade = new FacadeCadastro();
-    
+
     public String cadastrar() {
         return facade.Cadastrar(cliente, endereco);
     }
@@ -37,5 +37,10 @@ public class CadastroManagedBean {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void reset() {
+        this.cliente = new Cliente();
+        this.endereco = new Endereco();
     }
 }
