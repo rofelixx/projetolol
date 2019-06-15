@@ -45,30 +45,38 @@ public class ClienteDao {
     }
 
     public boolean addNewCliente(Cliente cliente, Endereco endereco) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        cliente.setSenha(Criptografia.md5(cliente.getSenha()));
-        cliente.setPerfil(2);
-        cliente.setEndereco(endereco);
-        session.save(cliente);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            cliente.setSenha(Criptografia.md5(cliente.getSenha()));
+            cliente.setPerfil(2);
+            cliente.setEndereco(endereco);
+            session.save(cliente);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean editCliente(Cliente cliente) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Cliente validation = getClienteByEmail(cliente.getEmail());
-        session.beginTransaction();
-        if (!validation.getSenha().equals(cliente.getSenha())) {
-            cliente.setSenha(Criptografia.md5(cliente.getSenha()));
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            Cliente validation = getClienteByEmail(cliente.getEmail());
+            session.beginTransaction();
+            if (!validation.getSenha().equals(cliente.getSenha())) {
+                cliente.setSenha(Criptografia.md5(cliente.getSenha()));
+            }
+            session.saveOrUpdate(cliente);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        session.saveOrUpdate(cliente);
-        session.getTransaction().commit();
-        session.close();
-        return true;
     }
 
     public boolean deleteCliente(Cliente cliente) {
@@ -86,14 +94,18 @@ public class ClienteDao {
     }
 
     public boolean setAdmCliente(Cliente cliente, int perfil) {
-        Cliente clieteToUpdate = getClienteByEmail(cliente.getEmail());
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        clieteToUpdate.setPerfil(perfil);
-        session.saveOrUpdate(clieteToUpdate);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            Cliente clieteToUpdate = getClienteByEmail(cliente.getEmail());
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            clieteToUpdate.setPerfil(perfil);
+            session.saveOrUpdate(clieteToUpdate);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

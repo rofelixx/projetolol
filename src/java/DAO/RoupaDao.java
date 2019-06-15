@@ -27,13 +27,17 @@ public class RoupaDao {
     public Roupa roupa;
 
     public boolean addNewRoupa(Roupa newRoupa) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.save(newRoupa);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.save(newRoupa);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public List<Roupa> getAll() throws Exception {
@@ -47,13 +51,17 @@ public class RoupaDao {
     }
 
     public boolean editRoupa(Roupa roupa) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.saveOrUpdate(roupa);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(roupa);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean deleteRoupa(Roupa roupa) {

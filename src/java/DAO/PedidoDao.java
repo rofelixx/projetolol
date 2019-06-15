@@ -22,14 +22,18 @@ import org.hibernate.SessionFactory;
 public class PedidoDao {
 
     public boolean addNewPedido(Pedido newPedido) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        newPedido.setStatus(1);
-        session.saveOrUpdate(newPedido);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            newPedido.setStatus(1);
+            session.saveOrUpdate(newPedido);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public List<Pedido> getAllPedidosByUser(Integer id) {
@@ -52,14 +56,18 @@ public class PedidoDao {
     }
 
     public boolean cancelarPedido(Pedido pedido) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        pedido.setStatus(EnumStatus.Cancelado.getCode());
-        session.saveOrUpdate(pedido);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            pedido.setStatus(EnumStatus.Cancelado.getCode());
+            session.saveOrUpdate(pedido);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public List<Itempedido> getItemPedidoById(Integer id) {
@@ -73,36 +81,49 @@ public class PedidoDao {
     }
 
     public boolean ConfirmPayment(Pedido pedido) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        pedido.setStatus(EnumStatus.PagamentoConfirmado.getCode());
-        session.saveOrUpdate(pedido);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            pedido.setStatus(EnumStatus.PagamentoConfirmado.getCode());
+            session.saveOrUpdate(pedido);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean ConfirmWashing(Pedido pedido) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        pedido.setStatus(EnumStatus.EmLavagem.getCode());
-        session.saveOrUpdate(pedido);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            pedido.setStatus(EnumStatus.EmLavagem.getCode());
+            session.saveOrUpdate(pedido);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean ConfirmWashingDone(Pedido pedido) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        pedido.setStatus(EnumStatus.AguardandoColeta.getCode());
-        session.saveOrUpdate(pedido);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            pedido.setStatus(EnumStatus.AguardandoColeta.getCode());
+            session.saveOrUpdate(pedido);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public List<Pedido> getPedidosWashingDone() {
