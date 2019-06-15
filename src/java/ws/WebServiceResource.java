@@ -5,10 +5,10 @@
  */
 package ws;
 
-
 import Classe.Pedido;
 import DAO.PedidoDao;
 import DTO.TesteDTO;
+import Facade.FacadePedido;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -31,6 +31,7 @@ public class WebServiceResource {
 
     @Context
     private UriInfo context;
+    private final FacadePedido facade = new FacadePedido();
 
     /**
      * Creates a new instance of WebServiceResource
@@ -43,17 +44,21 @@ public class WebServiceResource {
     public List<Pedido> getJson() throws Exception {
         PedidoDao dao = new PedidoDao();
         List<Pedido> list = new ArrayList<>();
-//        for (Pedido p : dao.getPedidosWashingDone()) {
-//            list.add(new Pedido(p.getId(), p.getStatus()));
-//        }
+        for (Pedido p : dao.getPedidosWashingDone()) {
+            list.add(new Pedido(p.getId(), p.getStatus()));
+        }
         return list;
     }
 
-    @Path("send")
+    @Path("atualizarStatusPedido")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response criarPedido(List<TesteDTO> pe) {
-        List<TesteDTO> gg = pe;
-        return Response.ok(gg).build();
-    }    
+    public Response atualizarStatusPedido(TesteDTO pedido) {
+        boolean success = facade.atualizarStatusPedido(pedido);
+        if (success) {
+            return Response.ok().build();
+        } else {
+            return Response.serverError().build();
+        }
+    }
 }

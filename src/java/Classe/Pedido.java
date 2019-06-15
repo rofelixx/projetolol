@@ -33,6 +33,7 @@ public class Pedido implements java.io.Serializable {
     private double valorTotal;
     private int prazo;
     private List<Itempedido> itempedidos = new ArrayList<Itempedido>();
+    private String reason;
 
     public Pedido() {
     }
@@ -123,5 +124,14 @@ public class Pedido implements java.io.Serializable {
 
     public void setItempedidos(List<Itempedido> itempedidos) {
         this.itempedidos = itempedidos;
+    }
+
+    @Column(name = "Reason", nullable = true, length = 500)
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

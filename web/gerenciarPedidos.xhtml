@@ -10,114 +10,119 @@
         <link href="css/table.css" rel="stylesheet" type="text/css"/>
         <h:body>
             <h:form id="master">
-                <div class="container">
-                    <div class="card">
-                        <div class="card-header">
-                            <span>Gerenciar Pedidos</span>
-                            <b:commandButton id="newCliente" class="btn btn-outline-success"
-                                             action="#{NavMB.novoPedido()}" style="margin-left: 75%">Adicionar</b:commandButton>
-                        </div>
-                        <div class="card-body">
-                            <h:panelGroup >
-                                <b:dataTable id="myTable" value="#{PedidoMB.getAllPedidos()}" var="pedido"
-                                             paginated='true'
-                                             striped="false"
-                                             responsive="true"
-                                             customLangUrl="#{resource['lang/Portuguese-Brasil.json']}">                                    
-                                    <b:dataTableColumn width="15%" value="#{pedido.id}" label="N. Pedido" searchable="true"/>
-                                    <b:dataTableColumn width="15%" value="#{pedido.cliente.nome}"/>
-                                    <b:dataTableColumn width="15rem" label="Data do pedido">
-                                        <h:outputText value="#{pedido.dataPedido}" >
-                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                                        </h:outputText>
-                                    </b:dataTableColumn>
-                                    <b:dataTableColumn width="10rem" value="#{pedido.prazo} dia(s)" label="Prazo"/>
-                                    <b:dataTableColumn width="10rem" label="Valor total">                                                   
-                                        <h:outputText value="#{pedido.valorTotal}">
-                                            <f:convertNumber locale="pt_BR" type="currency"  />
-                                        </h:outputText>
-                                    </b:dataTableColumn>
-                                    <b:dataTableColumn width="10rem" value="#{PedidoMB.getStatus(pedido.status)}" label="Status" />
-                                    <b:dataTableColumn width="30rem">
-                                        <f:facet name="header">Ações</f:facet>
-                                        <b:commandButton action="#{PedidoMB.showConfirmPayment(pedido)}" 
-                                                         style="color: #24d924"
-                                                         tooltip="Confirmar Pagamento" ajax="true">
-                                            <b:iconAwesome name="far fa-check-circle" size="lg"></b:iconAwesome>
-                                        </b:commandButton>
-                                        <p:confirmDialog message="Voce quer realmente confirmar o pagamento deste pedido?" 
-                                                         showEffect="fade"
-                                                         hideEffect="explode" 
-                                                         widgetVar="confirmPayment">
-                                            <p:commandButton class="btn btn-outline-success" 
-                                                             value="Confirmar" 
-                                                             action="#{PedidoMB.ConfirmPayment()}"
-                                                             update="templateForm:growl master"
-                                                             oncomplete="PF('confirmPayment').hide()"/>
-                                            <p:commandButton class="btn btn-outline-primary" 
-                                                             value="Cancelar" 
-                                                             oncomplete="PF('confirmPayment').hide()"/>
-                                        </p:confirmDialog>
+                <div class="cotainer col-md-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span>Gerenciar Pedidos</span>
+                                    <b:commandButton id="newCliente" class="btn btn-outline-success"
+                                                     action="#{NavMB.novoPedido()}" style="margin-left: 75%">Adicionar</b:commandButton>
+                                </div>
+                                <div class="card-body">
+                                    <h:panelGroup >
+                                        <b:dataTable id="myTable" value="#{PedidoMB.getAllPedidos()}" var="pedido"
+                                                     paginated='true'
+                                                     striped="false"
+                                                     responsive="true"
+                                                     customLangUrl="#{resource['lang/Portuguese-Brasil.json']}">                                    
+                                            <b:dataTableColumn width="10rem" value="#{pedido.id}" label="N. Pedido" searchable="true"/>
+                                            <b:dataTableColumn width="10rem" value="#{pedido.cliente.nome}"/>
+                                            <b:dataTableColumn width="15rem" label="Data do pedido">
+                                                <h:outputText value="#{pedido.dataPedido}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                                </h:outputText>
+                                            </b:dataTableColumn>
+                                            <b:dataTableColumn width="10rem" value="#{pedido.prazo} dia(s)" label="Prazo"/>
+                                            <b:dataTableColumn width="10rem" label="Valor total">                                                   
+                                                <h:outputText value="#{pedido.valorTotal}">
+                                                    <f:convertNumber locale="pt_BR" type="currency"  />
+                                                </h:outputText>
+                                            </b:dataTableColumn>
+                                            <b:dataTableColumn width="10rem" value="#{PedidoMB.getStatus(pedido.status)}" label="Status" />
+                                            <b:dataTableColumn width="20rem" value="#{pedido.reason}" label="Motivo"/>
+                                            <b:dataTableColumn width="21%">
+                                                <f:facet name="header">Ações</f:facet>
+                                                <b:commandButton action="#{PedidoMB.showConfirmPayment(pedido)}" 
+                                                                 style="color: #24d924"
+                                                                 tooltip="Confirmar Pagamento" ajax="true">
+                                                    <b:iconAwesome name="far fa-check-circle" size="lg"></b:iconAwesome>
+                                                </b:commandButton>
+                                                <p:confirmDialog message="Voce quer realmente confirmar o pagamento deste pedido?" 
+                                                                 showEffect="fade"
+                                                                 hideEffect="explode" 
+                                                                 widgetVar="confirmPayment">
+                                                    <p:commandButton class="btn btn-outline-success" 
+                                                                     value="Confirmar" 
+                                                                     action="#{PedidoMB.ConfirmPayment()}"
+                                                                     update="templateForm:growl master"
+                                                                     oncomplete="PF('confirmPayment').hide()"/>
+                                                    <p:commandButton class="btn btn-outline-primary" 
+                                                                     value="Cancelar" 
+                                                                     oncomplete="PF('confirmPayment').hide()"/>
+                                                </p:confirmDialog>
 
-                                        <b:commandButton action="#{PedidoMB.showConfirmWashing(pedido)}" 
-                                                         style="color: #ff0033"
-                                                         tooltip="Em lavagem" ajax="true">
-                                            <img src="images/local_laundry_service_black_24x24.png" alt=""/>
-                                        </b:commandButton>
-                                        <p:confirmDialog message="Voce confirma que este pedido está em lavagem?" 
-                                                         showEffect="fade"
-                                                         hideEffect="explode" 
-                                                         widgetVar="confirmWashing">
-                                            <p:commandButton class="btn btn-outline-danger" 
-                                                             value="Confirmar" 
-                                                             action="#{PedidoMB.ConfirmWashing()}"
-                                                             update="templateForm:growl master"
-                                                             oncomplete="PF('confirmWashing').hide()"/>
-                                            <p:commandButton class="btn btn-outline-primary" 
-                                                             value="Cancelar" 
-                                                             oncomplete="PF('confirmWashing').hide()"/>
-                                        </p:confirmDialog>
+                                                <b:commandButton action="#{PedidoMB.showConfirmWashing(pedido)}" 
+                                                                 style="color: #ff0033"
+                                                                 tooltip="Em lavagem" ajax="true">
+                                                    <img src="images/local_laundry_service_black_24x24.png" alt=""/>
+                                                </b:commandButton>
+                                                <p:confirmDialog message="Voce confirma que este pedido está em lavagem?" 
+                                                                 showEffect="fade"
+                                                                 hideEffect="explode" 
+                                                                 widgetVar="confirmWashing">
+                                                    <p:commandButton class="btn btn-outline-danger" 
+                                                                     value="Confirmar" 
+                                                                     action="#{PedidoMB.ConfirmWashing()}"
+                                                                     update="templateForm:growl master"
+                                                                     oncomplete="PF('confirmWashing').hide()"/>
+                                                    <p:commandButton class="btn btn-outline-primary" 
+                                                                     value="Cancelar" 
+                                                                     oncomplete="PF('confirmWashing').hide()"/>
+                                                </p:confirmDialog>
 
-                                        <b:commandButton action="#{PedidoMB.showConfirmWashingDone(pedido)}" 
-                                                         style="color: #24d924"
-                                                         tooltip="Confirmar lavagem" ajax="true">
-                                            <b:iconAwesome name="fas fa-check-double"></b:iconAwesome>
-                                        </b:commandButton>
-                                        <p:confirmDialog message="Voce confirma que a lavagem está finalizada?" 
-                                                         showEffect="fade"
-                                                         hideEffect="explode" 
-                                                         widgetVar="confirmWashingDone">
-                                            <p:commandButton class="btn btn-outline-danger" 
-                                                             value="Confirmar" 
-                                                             action="#{PedidoMB.ConfirmWashingDone()}"
-                                                             update="templateForm:growl master"
-                                                             oncomplete="PF('confirmWashingDone').hide()"/>
-                                            <p:commandButton class="btn btn-outline-primary" 
-                                                             value="Cancelar" 
-                                                             oncomplete="PF('confirmWashingDone').hide()"/>
-                                        </p:confirmDialog>
+                                                <b:commandButton action="#{PedidoMB.showConfirmWashingDone(pedido)}" 
+                                                                 style="color: #24d924"
+                                                                 tooltip="Confirmar lavagem" ajax="true">
+                                                    <b:iconAwesome name="fas fa-check-double"></b:iconAwesome>
+                                                </b:commandButton>
+                                                <p:confirmDialog message="Voce confirma que a lavagem está finalizada?" 
+                                                                 showEffect="fade"
+                                                                 hideEffect="explode" 
+                                                                 widgetVar="confirmWashingDone">
+                                                    <p:commandButton class="btn btn-outline-danger" 
+                                                                     value="Confirmar" 
+                                                                     action="#{PedidoMB.ConfirmWashingDone()}"
+                                                                     update="templateForm:growl master"
+                                                                     oncomplete="PF('confirmWashingDone').hide()"/>
+                                                    <p:commandButton class="btn btn-outline-primary" 
+                                                                     value="Cancelar" 
+                                                                     oncomplete="PF('confirmWashingDone').hide()"/>
+                                                </p:confirmDialog>
 
-                                        <b:commandButton id="deletetool" action="#{PedidoMB.showConfirmCancel(pedido)}"
-                                                         style="color: #ff0033"
-                                                         tooltip="Cancelar" ajax="true">
-                                            <b:iconAwesome name="fas fa-ban"></b:iconAwesome>
-                                        </b:commandButton>
-                                        <p:confirmDialog message="Voce quer realmente cancelar este pedido?" 
-                                                         showEffect="fade"
-                                                         hideEffect="explode" 
-                                                         widgetVar="groupDeleteConfirm">
-                                            <p:commandButton class="btn btn-outline-danger" 
-                                                             value="Cancelar" 
-                                                             action="#{PedidoMB.CancelPedido()}"
-                                                             update="templateForm:growl master"
-                                                             oncomplete="PF('groupDeleteConfirm').hide()"/>
-                                            <p:commandButton class="btn btn-outline-primary" 
-                                                             value="Fechar" 
-                                                             oncomplete="PF('groupDeleteConfirm').hide()"/>
-                                        </p:confirmDialog>
-                                    </b:dataTableColumn>
-                                </b:dataTable>
-                            </h:panelGroup>
+                                                <b:commandButton id="deletetool" action="#{PedidoMB.showConfirmCancel(pedido)}"
+                                                                 style="color: #ff0033"
+                                                                 tooltip="Cancelar" ajax="true">
+                                                    <b:iconAwesome name="fas fa-ban"></b:iconAwesome>
+                                                </b:commandButton>
+                                                <p:confirmDialog message="Voce quer realmente cancelar este pedido?" 
+                                                                 showEffect="fade"
+                                                                 hideEffect="explode" 
+                                                                 widgetVar="groupDeleteConfirm">
+                                                    <p:commandButton class="btn btn-outline-danger" 
+                                                                     value="Cancelar" 
+                                                                     action="#{PedidoMB.CancelPedido()}"
+                                                                     update="templateForm:growl master"
+                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                    <p:commandButton class="btn btn-outline-primary" 
+                                                                     value="Fechar" 
+                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                </p:confirmDialog>
+                                            </b:dataTableColumn>
+                                        </b:dataTable>
+                                    </h:panelGroup>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

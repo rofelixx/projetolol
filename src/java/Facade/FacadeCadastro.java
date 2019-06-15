@@ -4,6 +4,7 @@ import Beans.NavControllerBean;
 import Classe.Cliente;
 import Classe.Endereco;
 import DAO.ClienteDao;
+import Util.CorreiosWebService;
 import javax.faces.context.FacesContext;
 import net.bootsfaces.utils.FacesMessages;
 
@@ -28,5 +29,28 @@ public class FacadeCadastro {
             }
         }
         return url;
+    }
+
+    public String buscarCep(Endereco endereco) {
+        try {
+            if (endereco.getCep() != null) {
+                CorreiosWebService cws = new CorreiosWebService(endereco.getCep());
+
+                if (cws.getResultado() == 1) {
+                    endereco.setRua(cws.getTipoLogradouro() + " " + cws.getLogradouro());
+                    endereco.setBairro(cws.getBairro());
+                    endereco.setUf(cws.getEstado());
+                    endereco.setCidade(cws.getCidade());
+                    return nav.signUp();
+                } else {
+                    FacesMessages.warning("Cep não encontrado!");
+                }
+            } else {
+                FacesMessages.warning("Cep não é valido!");
+            }
+        } catch (Exception e) {
+            FacesMessages.error("Servidor não está respondendo!");
+        }
+        return "";
     }
 }

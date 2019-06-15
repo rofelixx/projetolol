@@ -5,14 +5,11 @@
  */
 package Facade;
 
-import Beans.NavControllerBean;
 import Classe.Cliente;
 import Classe.Itempedido;
 import Classe.Pedido;
-import Classe.Roupa;
 import DAO.PedidoDao;
 import DTO.TesteDTO;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.context.FacesContext;
@@ -28,19 +25,10 @@ import javax.ws.rs.core.Response;
  */
 public class FacadePedido {
 
-    public Roupa roupa = new Roupa();
-    public NavControllerBean nav = new NavControllerBean();
-    public String url = "";
-    public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    public int ItemsCarrinho = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ItemsCarrinho");
     public PedidoDao dao = new PedidoDao();
-    public List<Itempedido> itens = new ArrayList<Itempedido>();
-    double valorTotal = 0;
-    Pedido pedido = new Pedido();
-    Itempedido itemToDelete = new Itempedido();
-    Integer PrazoTotal;
 
     public List<Pedido> getAllPedidosByUser() {
+        Cliente usuarioLogado = (Cliente)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
         List<Pedido> listPedidos = dao.getAllPedidosByUser(usuarioLogado.getId());
         return listPedidos;
     }
@@ -81,7 +69,8 @@ public class FacadePedido {
 
     public boolean sendPedidosToDelivery(Pedido pedido) {
         Client client = ClientBuilder.newClient();
-        String end = enderecoFormatado(pedido.getCliente().getEndereco().getRua(), pedido.getCliente().getEndereco().getNumero());
+        String end = enderecoFormatado(pedido.getCliente().getEndereco().getRua(), pedido.getCliente().getEndereco().getNumero(),
+                                       pedido.getCliente().getEndereco().getUf(), pedido.getCliente().getEndereco().getCidade());
         TesteDTO entrega = new TesteDTO(pedido.getId(), pedido.getStatus(), new Date(), end, pedido.getCliente().getNome());
         Response resp = client
                 .target("http://localhost:8080/DeliveryTads/webresources/api/send")
@@ -90,7 +79,11 @@ public class FacadePedido {
         return resp.getStatus() == 200;
     }
 
-    public String enderecoFormatado(String rua, String numero) {
-        return rua + ", " + numero;
+    public String enderecoFormatado(String rua, String numero, String uf, String cidade) {
+        return rua + ", " + numero + " - " + cidade + "/" + uf;
+    }
+
+    public boolean atualizarStatusPedido(TesteDTO pedido) {
+        return dao.atualizarStatusPedido(pedido);
     }
 }

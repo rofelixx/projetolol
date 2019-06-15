@@ -12,7 +12,7 @@
             <h:form id="master">
                 <div class="cotainer col-md-12">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="card">
                                 <div class="card-header">
                                     <span>Pedidos</span>
@@ -32,14 +32,15 @@
                                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                                             </h:outputText>
                                         </b:dataTableColumn>
-                                        <b:dataTableColumn width="10rem" value="#{pedido.prazo}"/>
+                                        <b:dataTableColumn width="10rem" value="#{pedido.prazo} dia(s)" label="Prazo"/>
                                         <b:dataTableColumn width="10rem" label="Valor total">                                                   
                                             <h:outputText value="#{pedido.valorTotal}">
                                                 <f:convertNumber locale="pt_BR" type="currency"  />
                                             </h:outputText>
                                         </b:dataTableColumn>
                                         <b:dataTableColumn width="10rem" value="#{PedidoMB.getStatus(pedido.status)}" label="Status" />
-                                        <b:dataTableColumn width="15rem">
+                                        <b:dataTableColumn width="20rem" value="#{pedido.reason}" label="Motivo"/>
+                                        <b:dataTableColumn width="15%">
                                             <f:facet name="header">Ações</f:facet>
                                             <b:commandButton action="#{PedidoMB.setPedido(pedido)}" 
                                                              style="color: #000"
@@ -49,15 +50,16 @@
                                             </b:commandButton>
                                             <b:commandButton id="deletetool" action="#{PedidoMB.showConfirmCancel(pedido)}"
                                                              style="color: #ff0033"
-                                                             tooltip="Cancelar">
+                                                             tooltip="Cancelar" ajax="true">
                                                 <b:iconAwesome name="fas fa-ban"></b:iconAwesome>
                                             </b:commandButton>
                                             <p:confirmDialog message="Voce quer realmente cancelar este pedido?" 
+                                                             class="text-center"
                                                              showEffect="fade"
                                                              hideEffect="explode" 
                                                              widgetVar="groupDeleteConfirm">
                                                 <p:commandButton class="btn btn-outline-danger" 
-                                                                 value="Cancelar" 
+                                                                 value="Confirmar" 
                                                                  action="#{PedidoMB.CancelPedido()}"
                                                                  update="templateForm:growl master"
                                                                  oncomplete="PF('groupDeleteConfirm').hide()"/>

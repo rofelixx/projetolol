@@ -42,7 +42,16 @@ public class TesteDTO implements Serializable {
     private Date date;
     private String endereco;
     private String destinatario;
+    private String reason;
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+    
     public Date getDate() {
         return date;
     }

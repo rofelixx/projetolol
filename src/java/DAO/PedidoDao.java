@@ -7,6 +7,7 @@ package DAO;
 
 import Classe.Itempedido;
 import Classe.Pedido;
+import DTO.TesteDTO;
 import Enum.EnumStatus;
 import Hibernate.HibernateUtil;
 import java.util.List;
@@ -134,5 +135,24 @@ public class PedidoDao {
         List<Pedido> lista = query.list();
         session.close();
         return lista;
+    }
+
+    public boolean atualizarStatusPedido(TesteDTO pedidoUpdated) {
+        try {
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            Session session = sessionFactory.openSession();
+            Query query = session.createQuery("FROM Pedido p WHERE p.id = :Id");
+            query.setInteger("Id", pedidoUpdated.getId());
+            Pedido pedido = (Pedido) query.uniqueResult();
+            pedido.setStatus(pedidoUpdated.getStatus());
+            pedido.setReason(pedidoUpdated.getReason());
+            session.beginTransaction();
+            session.saveOrUpdate(pedido);
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

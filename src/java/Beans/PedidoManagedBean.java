@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -144,6 +143,8 @@ public class PedidoManagedBean {
             if (success) {
                 FacesMessages.info("Pedido cancelado com sucesso");
             }
+        } else if (pedido.getStatus() == EnumStatus.Cancelado.getCode()) {
+            FacesMessages.warning("O pedido já está cancelado.");
         } else {
             FacesMessages.warning("O pedido não pode ser cancelado.");
         }
