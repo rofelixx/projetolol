@@ -5,17 +5,16 @@
  */
 package DAO;
 
-import Classe.Cliente;
-import Classe.Endereco;
-import Enum.EnumStatus;
-import Hibernate.HibernateUtil;
+import Classe.Pedido;
+import DTO.TesteDTO;
+import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -23,28 +22,19 @@ import org.hibernate.SessionFactory;
  */
 public class teste {
 
-    static List<Cliente> lista;
-    static Cliente userObj;
-
-    /**
-     * @param args the command line arguments
-     */
-    /*/*   public static void main(String[] args) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session = sessionFactory.openSession();
-        Query query = session.createQuery("FROM Cliente WHERE Email = :email");
-        query.setString("email", "rofelix@live.com");
-        userObj = (Cliente) query.uniqueResult();
-        userObj.setSenha(Criptografia.md5(userObj.getSenha()));
-        session.beginTransaction();
-        session.save(userObj);
-        session.getTransaction().commit();
-        session.close();
-    }
-**/
     public static void main(String[] args) {
-        System.out.println("Enum is: " + (6 == EnumStatus.Cancelado.getCode()));
-        
+        Client client = ClientBuilder.newClient();
+        PedidoDao dao = new PedidoDao();
+        List<TesteDTO> list = new ArrayList<>();
+        for (Pedido p : dao.getPedidosWashingDone()) {
+            list.add(new TesteDTO(p.getId(), p.getStatus()));
+        }
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        Response resp = client
+                .target("http://localhost:8080/DeliveryTads/webresources/api/send")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(list));
+        System.out.print(resp.getStatus());
     }
 }

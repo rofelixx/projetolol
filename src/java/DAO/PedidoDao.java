@@ -68,7 +68,6 @@ public class PedidoDao {
         Query query = session.createQuery("FROM Itempedido p JOIN FETCH p.roupa roupa WHERE p.pedido.id = :Id");
         query.setInteger("Id", id);
         List<Itempedido> lista = query.list();
-        Hibernate.initialize(lista.get(0).getRoupa().getItempedidos());
         session.close();
         return lista;
     }
@@ -99,10 +98,20 @@ public class PedidoDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        pedido.setStatus(EnumStatus.LavagemConcluida.getCode());
+        pedido.setStatus(EnumStatus.AguardandoColeta.getCode());
         session.saveOrUpdate(pedido);
         session.getTransaction().commit();
         session.close();
         return true;
+    }
+
+    public List<Pedido> getPedidosWashingDone() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Query query = session.createQuery("FROM Pedido p JOIN FETCH p.cliente cliente WHERE p.status = :Status");
+        query.setInteger("Status", EnumStatus.AguardandoColeta.getCode());
+        List<Pedido> lista = query.list();
+        session.close();
+        return lista;
     }
 }

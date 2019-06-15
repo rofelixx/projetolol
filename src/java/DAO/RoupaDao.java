@@ -8,7 +8,6 @@ package DAO;
 import Classe.Cliente;
 import Classe.Endereco;
 import Classe.Roupa;
-import static DAO.teste.lista;
 import Hibernate.HibernateUtil;
 import java.util.List;
 import javax.faces.application.FacesMessage;

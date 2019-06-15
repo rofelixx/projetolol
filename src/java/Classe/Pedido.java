@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "pedido",
-         catalog = "projetolol"
+        catalog = "projetolol"
 )
 public class Pedido implements java.io.Serializable {
 
@@ -32,10 +32,14 @@ public class Pedido implements java.io.Serializable {
     private Date dataPedido;
     private double valorTotal;
     private int prazo;
-
     private List<Itempedido> itempedidos = new ArrayList<Itempedido>();
 
     public Pedido() {
+    }
+
+    public Pedido(int id, int status) {
+        this.id = id;
+        this.status = status;
     }
 
     public Pedido(Cliente cliente, int status, Date dataPedido, double valorTotal) {
@@ -64,7 +68,7 @@ public class Pedido implements java.io.Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     @Column(name = "Prazo", nullable = false)
     public int getPrazo() {
         return prazo;

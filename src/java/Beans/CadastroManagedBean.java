@@ -3,17 +3,18 @@ package Beans;
 import Classe.Cliente;
 import Classe.Endereco;
 import Facade.FacadeCadastro;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 
-@ManagedBean(name = "CadastroMB")
 @SessionScoped
 
-public class CadastroManagedBean {
+@Named("CadastroMB")
+public class CadastroManagedBean implements Serializable {
 
-    public Cliente cliente = new Cliente();
-    public Endereco endereco = new Endereco();
-    public FacadeCadastro facade = new FacadeCadastro();
+    private Cliente cliente = new Cliente();
+    private Endereco endereco = new Endereco();
+    private FacadeCadastro facade = new FacadeCadastro();
 
     public String cadastrar() {
         return facade.Cadastrar(cliente, endereco);

@@ -75,7 +75,7 @@ public class Cliente  implements java.io.Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="EnderecoId", nullable=false)
     public Endereco getEndereco() {
         return this.endereco;

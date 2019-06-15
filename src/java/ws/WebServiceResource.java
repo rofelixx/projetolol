@@ -5,9 +5,10 @@
  */
 package ws;
 
-import Classe.Cliente;
-import Classe.Endereco;
-import DAO.ClienteDao;
+
+import Classe.Pedido;
+import DAO.PedidoDao;
+import DTO.TesteDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -15,9 +16,10 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -36,30 +38,22 @@ public class WebServiceResource {
     public WebServiceResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of ws.WebServiceResource
-     *
-     * @return an instance of java.lang.String
-     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Cliente> getJson() throws Exception {
-        List<Cliente> clientes = new ArrayList<Cliente>();
-        Cliente cliente = new Cliente();
-        ClienteDao dao = new ClienteDao();
-        for (Cliente clienteEntity : dao.getAll()) {
-            clientes.add(new Cliente(clienteEntity.getEndereco(), clienteEntity.getNome(), clienteEntity.getEmail(), clienteEntity.getCpf(), clienteEntity.getSexo(), clienteEntity.getSenha(), clienteEntity.getDtNascimento(), clienteEntity.getPerfil()));
-        }
-        return clientes;
+    public List<Pedido> getJson() throws Exception {
+        PedidoDao dao = new PedidoDao();
+        List<Pedido> list = new ArrayList<>();
+//        for (Pedido p : dao.getPedidosWashingDone()) {
+//            list.add(new Pedido(p.getId(), p.getStatus()));
+//        }
+        return list;
     }
 
-    /**
-     * PUT method for updating or creating an instance of WebServiceResource
-     *
-     * @param content representation for the resource
-     */
-    @PUT
+    @Path("send")
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
+    public Response criarPedido(List<TesteDTO> pe) {
+        List<TesteDTO> gg = pe;
+        return Response.ok(gg).build();
+    }    
 }

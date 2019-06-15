@@ -240,7 +240,7 @@ public class PedidoManagedBean {
             if (success) {
                 FacesMessages.info("O pedido em lavagem foi confirmado com sucesso");
             }
-        } else if (pedido.getStatus() == EnumStatus.LavagemConcluida.getCode()) {
+        } else if (pedido.getStatus() == EnumStatus.EmLavagem.getCode()) {
             FacesMessages.warning("O pedido já está em lavagem");
         } else {
             FacesMessages.warning("A lavagem não pode ser confirmada nesse status");
@@ -258,6 +258,11 @@ public class PedidoManagedBean {
             if (success) {
                 FacesMessages.info("A lavagem foi concluida com sucesso");
             }
+            if (sendPedidoToDelivery()) {
+                FacesMessages.info("O pedido está aguardando coleta");
+            } else {
+                FacesMessages.error("Erro ao salvar pedido no sistema de delivery");
+            }
         } else if (pedido.getStatus() == EnumStatus.LavagemConcluida.getCode()) {
             FacesMessages.warning("A lavagem já foi concluida");
         } else {
@@ -265,4 +270,7 @@ public class PedidoManagedBean {
         }
     }
 
+    public boolean sendPedidoToDelivery() {
+        return facade.sendPedidosToDelivery(pedido);
+    }
 }

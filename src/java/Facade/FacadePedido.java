@@ -11,9 +11,16 @@ import Classe.Itempedido;
 import Classe.Pedido;
 import Classe.Roupa;
 import DAO.PedidoDao;
+import DTO.TesteDTO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.context.FacesContext;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -66,5 +73,24 @@ public class FacadePedido {
 
     public boolean ConfirmWashingDone(Pedido pedido) {
         return dao.ConfirmWashingDone(pedido);
+    }
+
+    public List<Pedido> getPedidosWashingDone() {
+        return dao.getPedidosWashingDone();
+    }
+
+    public boolean sendPedidosToDelivery(Pedido pedido) {
+        Client client = ClientBuilder.newClient();
+        String end = enderecoFormatado(pedido.getCliente().getEndereco().getRua(), pedido.getCliente().getEndereco().getNumero());
+        TesteDTO entrega = new TesteDTO(pedido.getId(), pedido.getStatus(), new Date(), end, pedido.getCliente().getNome());
+        Response resp = client
+                .target("http://localhost:8080/DeliveryTads/webresources/api/send")
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(entrega));
+        return resp.getStatus() == 200;
+    }
+
+    public String enderecoFormatado(String rua, String numero) {
+        return rua + ", " + numero;
     }
 }
