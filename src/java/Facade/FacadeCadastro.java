@@ -41,16 +41,23 @@ public class FacadeCadastro {
                     endereco.setBairro(cws.getBairro());
                     endereco.setUf(cws.getEstado());
                     endereco.setCidade(cws.getCidade());
-                    return nav.signUp();
                 } else {
+                    endereco.setRua("");
+                    endereco.setBairro("");
+                    endereco.setUf("");
+                    endereco.setCidade("");
                     FacesMessages.warning("Cep não encontrado!");
                 }
             } else {
+                endereco.setRua("");
+                endereco.setBairro("");
+                endereco.setUf("");
+                endereco.setCidade("");
                 FacesMessages.warning("Cep não é valido!");
             }
         } catch (Exception e) {
             FacesMessages.error("Servidor não está respondendo!");
         }
-        return "";
+        return nav.signUp();
     }
 }

@@ -3,7 +3,6 @@ package Beans;
 import Classe.Cliente;
 import Classe.Endereco;
 import Facade.FacadeCadastro;
-import Util.CorreiosWebService;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;

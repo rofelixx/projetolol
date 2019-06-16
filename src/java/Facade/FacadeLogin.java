@@ -11,6 +11,7 @@ import Classe.Endereco;
 import DAO.ClienteDao;
 import DAO.Criptografia;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import net.bootsfaces.utils.FacesMessages;
 

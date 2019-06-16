@@ -93,7 +93,10 @@
                                             </small>
                                         </div>
                                     </div>    
-                                    <b:commandButton class="btn btn-primary" value="Cadastrar" action="#{CadastroMB.cadastrar}" oncomplete="#{CadastroMB.reset()}"/>
+                                    <b:commandButton class="btn-outline-primary" value="Limpar" action="#{CadastroMB.reset()}" immediate="true" update="formCadastro">
+                                        <f:ajax render="formCadastro" resetValues="true"/>
+                                    </b:commandButton>
+                                    <b:commandButton class="btn-outline-success" value="Cadastrar" action="#{CadastroMB.cadastrar}"/>
                                     <b:growl for="nome" auto-update="true" 
                                              allow-dismiss="true"
                                              animation-exit="animated flipOutX"/>

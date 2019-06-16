@@ -4,33 +4,29 @@ import Classe.Cliente;
 import Classe.Roupa;
 import DAO.RoupaDao;
 import Facade.FacadeRoupa;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import javax.faces.context.FacesContext;
-import net.bootsfaces.utils.FacesMessages;
+import javax.faces.view.ViewScoped;
 import org.primefaces.PrimeFaces;
-import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
-@ManagedBean(name = "RoupaMB")
-@SessionScoped
+@ViewScoped
+@Named("RoupaMB")
 
-public class RoupaManagedBean {
+public class RoupaManagedBean implements Serializable {
 
-    public Roupa roupa = new Roupa();
-    public RoupaDao dao = new RoupaDao();
-    public NavControllerBean nav = new NavControllerBean();
-    public String url = "";
-    public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    public UploadedFile uploadedFile;
+    private Roupa roupa = new Roupa();
+    private RoupaDao dao = new RoupaDao();
+    private NavControllerBean nav = new NavControllerBean();
+    private String url = "";
+    private Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+    private UploadedFile uploadedFile;
     private int tipoRoupa;
-    FacadeRoupa facade = new FacadeRoupa();
+    private FacadeRoupa facade = new FacadeRoupa();
 
     public List<Roupa> getAllRoupas() throws Exception {
         return facade.getAllRoupas();

@@ -30,7 +30,7 @@ public class FacadeRoupa {
     public String url = "";
     public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
     private int tipoRoupa;
-    private final String fileUploadPath = "C:\\Users\\Guigo\\Documents\\NetBeansProjects\\projetolol\\web\\images\\roupasUpload\\";
+    private final String fileUploadPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("images/roupasUpload");
 
     public List<Roupa> getAllRoupas() throws Exception {
         List<Roupa> retorno = dao.getAll();
