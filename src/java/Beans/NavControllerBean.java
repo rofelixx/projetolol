@@ -1,24 +1,15 @@
 package Beans;
 
-import Classe.Cliente;
-import Classe.Endereco;
-import DAO.ClienteDao;
-import DAO.Criptografia;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
-@ManagedBean(name = "NavMB")
 @SessionScoped
+@Named("NavMB")
+public class NavControllerBean implements Serializable {
 
-public class NavControllerBean {
-
-    public boolean isLogged = false;
+    boolean isLogged = false;
 
     public String home() {
         return "home.xhtml";
@@ -61,7 +52,12 @@ public class NavControllerBean {
     }
 
     public String carrinhoDeCompra() {
-        return "carrinhoDeCompra.xhtml";
+        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        if (viewId.contains("carrinhoDeCompra")) {
+            return "";
+        } else {
+            return "carrinhoDeCompra.xhtml?faces-redirect=true";
+        }
     }
 
     public String finalizarPedido() {

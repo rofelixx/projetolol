@@ -7,29 +7,27 @@ import Classe.Roupa;
 import DAO.PedidoDao;
 import Enum.EnumStatus;
 import Facade.FacadePedido;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import net.bootsfaces.utils.FacesMessages;
 import org.primefaces.PrimeFaces;
 
-@ManagedBean(name = "PedidoMB")
 @SessionScoped
+@Named("PedidoMB")
+public class PedidoManagedBean implements Serializable {
 
-public class PedidoManagedBean {
-
-    public Roupa roupa = new Roupa();
-    public NavControllerBean nav = new NavControllerBean();
-    public String url = "";
-    public Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
-    public int ItemsCarrinho = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ItemsCarrinho");
-    public PedidoDao dao = new PedidoDao();
-    public List<Itempedido> itens = new ArrayList<Itempedido>();
+    Roupa roupa = new Roupa();
+    NavControllerBean nav = new NavControllerBean();
+    String url = "";
+    PedidoDao dao = new PedidoDao();
+    List<Itempedido> itens = new ArrayList<>();
     double valorTotal = 0;
     Pedido pedido = new Pedido();
     Itempedido itemToDelete = new Itempedido();
@@ -71,7 +69,9 @@ public class PedidoManagedBean {
         this.itens = itens;
     }
 
-    public String adicionarCarrinho(Roupa roupa) {
+    public void adicionarCarrinho(Roupa roupa) {
+        Cliente usuarioLogado = (Cliente) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarioLogado");
+        int ItemsCarrinho = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("ItemsCarrinho");
         boolean hasMatch = pedido.getItempedidos().stream().anyMatch(f -> f.getRoupa().getId() == roupa.getId());
         if (hasMatch) {
             Itempedido atualizar = pedido.getItempedidos().stream().filter(f -> f.getRoupa().getId() == roupa.getId()).findFirst().get();
@@ -93,7 +93,6 @@ public class PedidoManagedBean {
         ItemsCarrinho++;
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
         FacesMessages.info("Item adicionado com sucesso");
-        return nav.novoPedido();
     }
 
     public void atualizarQuantidade(Itempedido item) {
@@ -102,8 +101,8 @@ public class PedidoManagedBean {
         } else {
             int index = pedido.getItempedidos().indexOf(item);
             pedido.getItempedidos().get(index).setQuantidade(item.getQuantidade());
-            ItemsCarrinho = pedido.getItempedidos().stream().mapToInt(o -> o.getQuantidade()).sum();
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .getSessionMap().put("ItemsCarrinho", pedido.getItempedidos().stream().mapToInt(o -> o.getQuantidade()).sum());
             calcularValorTotal();
         }
     }
@@ -119,8 +118,7 @@ public class PedidoManagedBean {
     public void excluirItem() {
         pedido.getItempedidos().remove(itemToDelete);
         calcularValorTotal();
-        ItemsCarrinho = pedido.getItempedidos().stream().mapToInt(o -> o.getQuantidade()).sum();
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", ItemsCarrinho);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ItemsCarrinho", pedido.getItempedidos().stream().mapToInt(o -> o.getQuantidade()).sum());
     }
 
     public void showConfirmDelete(Itempedido item) {

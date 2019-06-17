@@ -55,7 +55,8 @@
                                                                      value="Confirmar" 
                                                                      action="#{PedidoMB.ConfirmPayment()}"
                                                                      update="templateForm:growl master"
-                                                                     oncomplete="PF('confirmPayment').hide()"/>
+                                                                     oncomplete="PF('confirmPayment').hide()"
+                                                                     ajax="true"/>
                                                     <p:commandButton class="btn btn-outline-primary" 
                                                                      value="Cancelar" 
                                                                      oncomplete="PF('confirmPayment').hide()"/>
@@ -74,7 +75,8 @@
                                                                      value="Confirmar" 
                                                                      action="#{PedidoMB.ConfirmWashing()}"
                                                                      update="templateForm:growl master"
-                                                                     oncomplete="PF('confirmWashing').hide()"/>
+                                                                     oncomplete="PF('confirmWashing').hide()"
+                                                                     ajax="true"/>
                                                     <p:commandButton class="btn btn-outline-primary" 
                                                                      value="Cancelar" 
                                                                      oncomplete="PF('confirmWashing').hide()"/>
@@ -93,7 +95,8 @@
                                                                      value="Confirmar" 
                                                                      action="#{PedidoMB.ConfirmWashingDone()}"
                                                                      update="templateForm:growl master"
-                                                                     oncomplete="PF('confirmWashingDone').hide()"/>
+                                                                     oncomplete="PF('confirmWashingDone').hide()"
+                                                                     ajax="true"/>
                                                     <p:commandButton class="btn btn-outline-primary" 
                                                                      value="Cancelar" 
                                                                      oncomplete="PF('confirmWashingDone').hide()"/>
@@ -112,7 +115,8 @@
                                                                      value="Cancelar" 
                                                                      action="#{PedidoMB.CancelPedido()}"
                                                                      update="templateForm:growl master"
-                                                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                                                                     oncomplete="PF('groupDeleteConfirm').hide()"
+                                                                     ajax="true"/>
                                                     <p:commandButton class="btn btn-outline-primary" 
                                                                      value="Fechar" 
                                                                      oncomplete="PF('groupDeleteConfirm').hide()"/>

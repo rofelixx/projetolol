@@ -7,11 +7,10 @@ package Facade;
 
 import Beans.NavControllerBean;
 import Classe.Cliente;
-import Classe.Endereco;
 import DAO.ClienteDao;
 import DAO.Criptografia;
+import java.io.IOException;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import net.bootsfaces.utils.FacesMessages;
 
@@ -27,7 +26,7 @@ public class FacadeLogin {
     public boolean isCliente = false;
     public boolean isLogged = false;
     NavControllerBean nav = new NavControllerBean();
-    
+
     public String autenticar(Cliente cliente) throws Exception {
         retorno = dao.getClienteByEmail(cliente.getEmail());
         if (retorno != null && cliente.getEmail().equals(retorno.getEmail()) && comparaSenha(cliente)) {
@@ -60,5 +59,15 @@ public class FacadeLogin {
 
     public boolean isLogged() {
         return isLogged;
+    }
+
+    public void logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().invalidateSession();
+        try {
+            context.getExternalContext().redirect(nav.index());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

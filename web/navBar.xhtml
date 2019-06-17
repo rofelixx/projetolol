@@ -23,16 +23,17 @@
                         <li class="#{view.viewId == '/pedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
                         <li class="#{view.viewId == '/novoPedido.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/novoPedido.xhtml">Novo Pedido</a></li>
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{not LoginMB.isPerfilCliente()}">
+                    <h:panelGroup rendered="#{!LoginMB.isPerfilCliente()}">
                         <li class="#{view.viewId == '/gerenciarPedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarPedidos.xhtml">Gerenciar Pedidos</a></li>
                         <li class="#{view.viewId == '/gerenciarRoupas.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarRoupas.xhtml">Gerenciar Roupas</a></li>
                         <li class="#{view.viewId == '/gerenciarClientes.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/gerenciarClientes.xhtml">Gerenciar Clientes</a></li>
+                        <li class="#{view.viewId == '/pedidos.xhtml' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="/ProjetoLol/faces/pedidos.xhtml">Seus Pedidos</a></li>
                     </h:panelGroup>
                 </h:panelGroup>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <h:form id="navBar">
-                    <h:panelGroup rendered="#{!LoginMB.isLogged()}">
+                    <h:panelGroup rendered="#{not LoginMB.isLogged()}">
                         <b:commandButton class="btn btn-outline-info my-2 my-sm-0" action="#{NavMB.login()}" value="Logar"/>
                         <b:commandButton class="btn btn-outline-secondary my-2 my-sm-0" action="#{NavMB.signUp()}" value="Registro"/>
                         <b:commandButton action="#{NavMB.login()}"

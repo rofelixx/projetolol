@@ -3,19 +3,19 @@ package Beans;
 import Classe.Cliente;
 import Classe.Endereco;
 import Facade.FacadeLogin;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+import java.io.Serializable;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 
-@ManagedBean(name = "LoginMB")
 @SessionScoped
-public class LoginManagedBean {
+@Named("LoginMB")
+public class LoginManagedBean implements Serializable {
 
-    public Cliente cliente = new Cliente();
-    public Endereco endereco = new Endereco();
-    public String confirmarSenha = "";
-    public FacadeLogin facade = new FacadeLogin();
+    Cliente cliente = new Cliente();
+    Endereco endereco = new Endereco();
+    String confirmarSenha = "";
+    private FacadeLogin facade = new FacadeLogin();
+    NavControllerBean nav = new NavControllerBean();
 
     public String autenticar() throws Exception {
         return facade.autenticar(cliente);
@@ -25,14 +25,12 @@ public class LoginManagedBean {
         return facade.isPerfilCliente();
     }
 
-    public String logout() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        sessao.invalidate();
-        return "index";
+    public void logout() {
+        facade.logout();
     }
 
     public String signUp() {
-        return "cadastro";
+        return nav.signUp();
     }
 
     public boolean isLogged() {
