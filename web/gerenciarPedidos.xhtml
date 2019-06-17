@@ -55,7 +55,7 @@
                                                                      value="Confirmar" 
                                                                      action="#{PedidoMB.ConfirmPayment()}"
                                                                      update="templateForm:growl master"
-                                                                     oncomplete="PF('confirmPayment').hide()"
+                                                                     oncomplete="#{PedidoMB.resetPedido()} PF('confirmPayment').hide();"
                                                                      ajax="true"/>
                                                     <p:commandButton class="btn btn-outline-primary" 
                                                                      value="Cancelar" 

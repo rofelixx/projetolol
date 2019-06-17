@@ -73,7 +73,7 @@ public class FacadePedido {
                                        pedido.getCliente().getEndereco().getUf(), pedido.getCliente().getEndereco().getCidade());
         TesteDTO entrega = new TesteDTO(pedido.getId(), pedido.getStatus(), new Date(), end, pedido.getCliente().getNome());
         Response resp = client
-                .target("http://localhost:8080/DeliveryTads/webresources/api/send")
+                .target("http://localhost:8080/deliverytads/webresources/api/send")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(entrega));
         return resp.getStatus() == 200;

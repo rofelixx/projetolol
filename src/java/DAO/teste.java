@@ -7,7 +7,6 @@ package DAO;
 
 import Classe.Pedido;
 import DTO.TesteDTO;
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.client.Client;
@@ -29,8 +28,6 @@ public class teste {
         for (Pedido p : dao.getPedidosWashingDone()) {
             list.add(new TesteDTO(p.getId(), p.getStatus()));
         }
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
         Response resp = client
                 .target("http://localhost:8080/DeliveryTads/webresources/api/send")
                 .request(MediaType.APPLICATION_JSON)

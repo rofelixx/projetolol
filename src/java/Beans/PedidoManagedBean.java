@@ -153,7 +153,7 @@ public class PedidoManagedBean implements Serializable {
         if (success) {
             pedido = new Pedido();
             itemToDelete = new Itempedido();
-            itens = new ArrayList<Itempedido>();
+            itens = new ArrayList<>();
             PrazoTotal = 0;
             url = nav.pedidos();
             FacesMessages.info("Pedido realizado com com sucesso");
@@ -271,5 +271,10 @@ public class PedidoManagedBean implements Serializable {
 
     public boolean sendPedidoToDelivery() {
         return facade.sendPedidosToDelivery(pedido);
+    }
+    
+    public void resetPedido()
+    {
+        setPedido(new Pedido());
     }
 }
