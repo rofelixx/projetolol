@@ -21,6 +21,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.bootsfaces.utils.FacesMessages;
 
 public class LoginFilter implements Filter {
 
@@ -34,9 +35,8 @@ public class LoginFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
         Cliente user = null;
         HttpSession sess = ((HttpServletRequest) request).getSession(false);
-        String contextPath = ((HttpServletRequest) request)
-                .getContextPath();
-        String loginUrl = contextPath + "/faces/index.xhtml";
+        String contextPath = ((HttpServletRequest) request).getContextPath();
+        
         if (sess != null) {
             user = (Cliente) sess.getAttribute("usuarioLogado");
         }

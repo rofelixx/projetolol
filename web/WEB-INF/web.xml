@@ -50,6 +50,11 @@
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/faces/gerenciarPedidos.xhtml</url-pattern>
         <url-pattern>/faces/gerenciarClientes.xhtml</url-pattern>
+        <url-pattern>/faces/carrinhoDeCompra.xhtml</url-pattern>        
+        <url-pattern>/faces/gerenciarRoupas.xhtml</url-pattern>
+        <url-pattern>/faces/novoPedido.xhtml</url-pattern>
+        <url-pattern>/faces/pedidos.xhtml</url-pattern>
+        <url-pattern>/faces/cadastroRoupas.xhtml</url-pattern>        
     </filter-mapping>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
