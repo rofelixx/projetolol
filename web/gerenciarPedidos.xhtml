@@ -24,7 +24,6 @@
                                         <b:dataTable id="myTable" value="#{PedidoMB.getAllPedidos()}" var="pedido"
                                                      paginated='true'
                                                      striped="false"
-                                                     responsive="true"
                                                      customLangUrl="#{resource['lang/Portuguese-Brasil.json']}">                                    
                                             <b:dataTableColumn width="10rem" value="#{pedido.id}" label="N. Pedido" searchable="true"/>
                                             <b:dataTableColumn width="10rem" value="#{pedido.cliente.nome}"/>

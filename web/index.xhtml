@@ -3,7 +3,9 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:b="http://bootsfaces.net/ui"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    >
     <ui:define name="conteudo">         
         <style>
             .bg-img {
@@ -19,9 +21,6 @@
 
                 /* Needed to position the navbar */
                 position: relative;
-            }
-            svg:hover {
-                fill: red;
             }
         </style>
         <h:body>
@@ -40,16 +39,17 @@
 
               <b:container id="scrollable" styleClass="scroll">
                 <div id="section1" class="container-fluid">
-                    <div class="about " id="about">
-                        <h3>Sobre nós</h3>
+                    <div class="about w3_txt text-center" id="about">
+                        <h4>Sobre nós</h4>
                         <div class="tittle_head_w3layouts">
                             <p>Já são mais de 30 anos ajudando a tornar a sua vida muito mais prática.</p>
 
-                            <h4>Nossos valores</h4>
+                            <h4 style="margin-top: 20px;">Nossos valores</h4>
                         </div>
                         <div class="inner_sec_info_agileits_w3">
                             <!-- <div class="border1"> -->
                             <div class="w3_banup">
+
                                 <div class="col-md-4 w3_ret">
                                     <div class="col-md-10 w3_txt">
                                         <h4>Qualidade garantida</h4>
@@ -61,33 +61,35 @@
 
                                     <div class="col-md-10 w3_txt">
                                         <h4>100% Ecológico</h4>
-                                        <p>Trabalhamos com o meio ambiente em mente. Sem produtos químicos.</p>
+                                        <p>Trabalhamos com o meio ambiente em mente. Sem despedícios e produtos químicos.</p>
                                     </div>
                                     <div class="col-md-2 w3ls_ic">
                                         <i class="fa fa-envira" aria-hidden="true"></i>
                                     </div>                                    
                                 </div>
+
                                 <div class="col-md-4 w3l_mid">
                                     <div class="bulb">
                                         <img src="images/pic.jpg" alt=""/>
                                     </div>
                                 </div>
-                                <div class="col-md-4 wthree_r">
-                                    <div class="col-md-2 w3ls_ic">
-                                        <h:graphicImage value="images/icon-rapidez.svg"/>
-                                    </div>     
-                                    <div class="col-md-10 w3_txt">
-                                        <h4>Rapidez e eficiência</h4>
-                                        <pl>Nós lavamos, passamos e entregamos em menos de 24 horas.</pl>
-                                    </div>
-                                    <div class="clearfix"></div>
 
+                                <div class="col-md-4 w3_esq">
                                     <div class="col-md-2 w3ls_ic">
-                                        <h:graphicImage value="images/delivery.svg"/>
+                                        <h:graphicImage value="images/icon-rapidez.svg" style="margin-left:-20px;"/>
                                     </div>     
-                                    <div class="col-md-10 w3_txt">
-                                        <h4>Praticidade</h4>
-                                        <pl>Entregamos na sua casa, para maior comodidade e praticidade.</pl>
+                                    <div class="col-md-10 w3_txt2">
+                                        <h4 style="margin-left:0">Rapidez e eficiência</h4>
+                                        <p>Nós lavamos, passamos e entregamos em menos de 24 horas.</p>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-2 w3ls_ic">
+                                        <h:graphicImage value="images/delivery.svg" style="margin-left:-20px"/>
+                                    </div>     
+                                    <div class="col-md-10 w3_txt2">
+                                        <h4 style="margin-left:0">Praticidade</h4>
+                                        <p>Entregamos na sua casa, para maior comodidade e praticidade.</p>
                                     </div>
                                 </div>
                             </div>
@@ -99,8 +101,9 @@
                 <div id="section2" class="container-fluid">
                     <h1>Section 2</h1>
                     <div class="container pb-xl-5 pb-lg-3">
-                        <h3 class="w3ls-title text-center font-weight-bold text-da mb-5 pb-lg-4"><span class="let mb-1">Como funciona?</span>
-                            Nossos Serviços</h3>
+                        <div class='w3_txt text-center'>
+                            <h4>Como funciona? Nossos Serviços</h4>
+                        </div>
                         <div class="row text-center">
                             <div class="col-md-4">
                                 <div class="wthree_rt">
@@ -120,7 +123,7 @@
                                 <div class="wthree_rt">
                                     <h:graphicImage value="images/icon-delivery.svg" width="45%"/>
                                     <h4 class="mt-lg-5 mt-4 mb-sm-3 mb-2 text-da">Entregamos</h4>
-                                    <p>Quando estiver tudo pronto, nós entregamos o seu pedido, na porta da sua casa, com a comodidade e a rapidez garantida.</p>
+                                    <p>Quando estiver tudo pronto, nós entregamos o seu pedido na porta da sua casa, com a comodidade e a rapidez garantida.</p>
                                 </div>
                             </div>
                         </div>
@@ -131,123 +134,60 @@
                 <div id="section3" class="container-fluid">
                     <h1>Section 3</h1>
                     <div class="container py-md-5 py-3">
-                        <h3 class="w3ls-title text-center text-capitalize pb-md-5 pb-4">pricing plans</h3>
-                        <div class="row pb-5">
-                            <div class="col-lg-3 col-md-6 text-center  pb-0 pt-3 px-3 agile-pricegrid">
-                                <div class="bg-price py-sm-3 rounded-top text-center">
-                                    <h4>Basic</h4>
-                                    <span class="mx-auto my-2"></span>
-                                </div>
-                                <div class="p-3">
-                                    <h5 class="pt-2">
-                                        <sup>$</sup>39</h5>
-                                    <span>per month</span>
-                                </div>
-                                <ul class="list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                </ul>
-                                <div class="py-3 px-2">
-                                    <button type="button" class="btn btn-info btn-lg btn-block text-md-center" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">Get Started</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 text-center pb-0 pt-3 px-3 agile-pricegrid">
-                                <div class="bg-price py-sm-3 rounded-top text-center">
-                                    <h4>Regular</h4>
-                                    <span class="mx-auto my-2"></span>
-                                </div>
-                                <div class="p-3">
-                                    <h5 class="pt-2">
-                                        <sup>$</sup>69</h5>
-                                    <span>per month</span>
-                                </div>
-                                <ul class="list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                </ul>
-                                <div class="py-3 px-2">
-                                    <button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">Get Started</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 text-center p-3  agile-pricegrid">
-                                <div class="bg-price py-sm-3 rounded-top text-center">
-                                    <h4>Mega</h4>
-                                    <span class="mx-auto my-2"></span>
-                                </div>
-                                <div class="p-3">
-                                    <h5 class="pt-2">
-                                        <sup>$</sup>99</h5>
-                                    <span>per month</span>
-                                </div>
-                                <ul class="list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                </ul>
-                                <div class="py-3 px-2">
-                                    <button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">Get Started</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 text-center pb-0 pt-3 px-3 agile-pricegrid">
-                                <div class="bg-price py-sm-3 rounded-top text-center">
-                                    <h4>Combo</h4>
-                                    <span class="mx-auto my-2"></span>
-                                </div>
-                                <div class="p-3">
-                                    <h5 class="pt-2">
-                                        <sup>$</sup>199</h5>
-                                    <span>per month</span>
-                                </div>
-                                <ul class="list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Morbi leo risus</li>
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Porta ac consectetur ac</li>
-                                </ul>
-                                <div class="py-3 px-2">
-                                    <button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" aria-pressed="false" data-target="#exampleModal">Get Started</button>
-                                </div>
-                            </div>
+                        <h3 class="w3ls-title text-center text-capitalize pb-md-5 pb-4">Preços</h3>
+                        <div class="text-center">
+                            <h:graphicImage value="images/maquina.png" width="10%"/>
+                            <i class="fa fa-plus"></i>
+                            <h:graphicImage value="images/ferro.png" width="10%"/>
+                            <i class="fa fa-plus"></i>
+                            <h:graphicImage value="images/delivery.svg" width="10%"/>
+                        </div>
+                        <div class="col-md-6 offset-3">
+                            <table class="pricing-table">
+                                <tbody>
+                                    <ui:repeat var="item" value="#{RoupaMB.allRoupas}">
+                                        <tr>
+                                            <td><span>#{item.descricao}</span></td>
+                                            <td>                                                    
+                                                <h:outputText id="Subtotal" value="#{item.preco}">
+                                                    <f:convertNumber locale="pt_BR" type="currency"  />
+                                                </h:outputText>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
                 </div>
-                
+
                 <div id="section4" class="container-fluid py-5 w3-contact">
                     <div class="container py-md-5">
-                        <h3 class="w3ls-title text-center text-capitalize pb-md-5 pb-4">Contato</h3>
-                        <div class="row contact-form py-3">
-                            <div class="col-lg-6 wthree-form-left">
-                                <div class="address mt-3">
-                                    <h5 class="pb-3 text-capitalize">Contact info</h5>
-                                    <address>
-                                        <p class="c-txt">90 Street, City, State 34789.</p>
-                                        <p>
-                                            +10 234 5678</p>
-                                        <p>
-                                        </p><p>
-                                            <a href="mailto:info@example.com">mail@golaundry.com</a>
-                                        </p>
-                                    </address>
+                        <h3 class="text-center">Contato</h3>
+                        <div class="">
+                            <div class="container">
+                                <div class="w3_pvt-contact-top mt-5">
+                                    <ul class="d-flex list-unstyled header-wthreelayouts pt-0 flex-column">
+                                        <li>
+                                            <span class="fa fa-home mr-2"></span>
+                                            <p class="d-inline">R. Dr. Alcides Vieira Arcoverde, 1225 - Jardim das Américas, Curitiba - PR</p>
+                                        </li>
+                                        <li class="my-3">
+                                            <span class="fa fa-envelope-open mr-2"></span>
+                                            <a href="mailto:example@email.com" class="text-secondary">rofelix@live.com</a>
+                                        </li>
+                                        <li>
+                                            <span class="fa fa-phone mr-2"></span>
+                                            <p class="d-inline">+55 41 3361-4905</p>
+                                        </li>
+                                    </ul>
                                 </div>
+                                <hr></hr>
                             </div>
-                            <!-- contact details -->
-                            <!-- contact map grid -->
-                            <div class="col-lg-6 contact-right">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.4449032225375!2d-49.238305584371815!3d-25.456815440188027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4df926b4ea3%3A0x88b4331e264d4ee4!2sSetor+de+Educa%C3%A7%C3%A3o+Profissional+e+Tecnol%C3%B3gica+-+SEPT+UFPR!5e0!3m2!1spt-BR!2sin!4v1557768551470!5m2!1spt-BR!2sin" allowfullscreen=""></iframe>
+                            <div class="col-md-12">
+                                <iframe width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.4449032225375!2d-49.238305584371815!3d-25.456815440188027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce4df926b4ea3%3A0x88b4331e264d4ee4!2sSetor+de+Educa%C3%A7%C3%A3o+Profissional+e+Tecnol%C3%B3gica+-+SEPT+UFPR!5e0!3m2!1spt-BR!2sin!4v1557768551470!5m2!1spt-BR!2sin"></iframe>
                             </div>
-                            <!--//contact map grid ends here-->
                         </div>
-                        <!-- //contact details container -->
                     </div>
                 </div>
             </b:container>

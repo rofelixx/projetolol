@@ -1,3 +1,45 @@
+.pricing-table {
+    width: 100%;
+    text-align: left;
+    margin-top:50px;
+}
+.pricing-table tr td {
+    vertical-align: bottom;
+}
+.pricing-table tr td:first-child {
+    width: calc(100% - 65px);
+    position: relative;
+}
+#dry-clean .pricing-table tr td:first-child {
+    width: 100%;
+}
+.pricing-table tr td:last-child {
+    width: 65px;
+}
+#other .pricing-table tr td:last-child {
+    width: 103px;
+}
+#shoe .pricing-table tr td:last-child {
+    width: 82px;
+}
+.pricing-table tr td:first-child:after {
+    content: '';
+    width: calc(100% - 5px);
+    height: 2px;
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    background-image: url('../images/pricing-dot.jpg');
+    background-size: contain;
+    background-repeat: repeat-x;
+}
+.pricing-table tr td:first-child span {
+    position: relative;
+    background-color: #fff;
+    z-index: 1;
+    padding-right: 5px;
+}
+
 .w3l_mid {
     float: left;
     width: 100%;
@@ -29,9 +71,21 @@
     margin-bottom: 50px;
 }
 
+.w3_txt2 {
+    margin-bottom: 50px;
+}
+
 .w3_ret {
     text-align: right;
     padding: 0;
+}
+
+.w3_txt h3 {
+    font-size: 16px;
+    color: #000;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .w3_txt h4 {
@@ -57,7 +111,7 @@
     margin:0;
 }
 
-.w3_txt pl {
+.w3_txt2 p {
     font-size: 15px;
     letter-spacing: 2px;
     line-height: 1.8em;
@@ -123,6 +177,11 @@
     padding: 0;
 }
 
+.w3_esq {
+    text-align: left;
+    padding: 0;
+}
+
 .w3l_mid {
     float: left;
     width: 100%;
@@ -134,7 +193,7 @@
 }
 /*//Cor icone*/
 .w3ls_ic i {
-    color: #009688;
+    color: #05b6e6;
 }
 
 .w3ls_icr i {
@@ -154,7 +213,7 @@
 .tittle_head_w3layouts h4 {
     font-size: 30px;
     font-weight: 600;
-    color: #009688;
+    color: #05b6e6;
     letter-spacing: 2px;
     margin:0px 0px 10px 0px;;
 }
