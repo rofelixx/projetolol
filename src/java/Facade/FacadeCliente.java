@@ -27,12 +27,17 @@ public class FacadeCliente {
     }
 
     public String salvarEdicao(Cliente cliente) {
-        boolean saved = dao.editCliente(cliente);
-        if (saved) {
-            url = nav.gerenciarClientes();
-            FacesMessages.info("Cliente editado com sucesso");
+        Cliente retorno = dao.getClienteByEmail(cliente.getEmail());
+        if (retorno != null && cliente.getEmail().equals(retorno.getEmail())) {
+            FacesMessages.error("Erro!", "Email já existente.");
         } else {
-            FacesMessages.error("Erro!", "Problema ao salvar a edição");
+            boolean saved = dao.editCliente(cliente);
+            if (saved) {
+                url = nav.gerenciarClientes();
+                FacesMessages.info("Cliente editado com sucesso");
+            } else {
+                FacesMessages.error("Erro!", "Problema ao salvar a edição");
+            }
         }
         return url;
     }
